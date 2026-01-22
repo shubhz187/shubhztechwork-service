@@ -83,9 +83,7 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled
-          ? 'bg-background/95 backdrop-blur-lg border-b border-border shadow-lg'
-          : 'bg-transparent'
+        'bg-background/90 backdrop-blur-md border-b border-border/50 shadow-sm'
       )}
     >
       <div className="container mx-auto px-4">
