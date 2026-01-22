@@ -77,7 +77,7 @@ export const ContactSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-gradient-card rounded-2xl border border-border p-8"
+            className="bg-card rounded-2xl border border-border p-8 shadow-card"
           >
             <form className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">
@@ -87,7 +87,7 @@ export const ContactSection = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-foreground"
+                    className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground/60"
                     placeholder="John"
                   />
                 </div>
@@ -97,7 +97,7 @@ export const ContactSection = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-foreground"
+                    className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground/60"
                     placeholder="Doe"
                   />
                 </div>
@@ -108,7 +108,7 @@ export const ContactSection = () => {
                 </label>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-foreground"
+                  className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-foreground placeholder:text-muted-foreground/60"
                   placeholder="john@example.com"
                 />
               </div>
@@ -118,7 +118,7 @@ export const ContactSection = () => {
                 </label>
                 <textarea
                   rows={4}
-                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none text-foreground"
+                  className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none text-foreground placeholder:text-muted-foreground/60"
                   placeholder="Tell us about your project..."
                 />
               </div>

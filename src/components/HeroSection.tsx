@@ -58,9 +58,9 @@ export const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-foreground">Simplifying Tech,</span>
+            <span className="text-foreground drop-shadow-lg">Simplifying Tech,</span>
             <br />
-            <span className="text-gradient-primary">Amplifying Growth</span>
+            <span className="text-gradient-primary drop-shadow-lg">Amplifying Growth</span>
           </h1>
         </motion.div>
 
@@ -68,7 +68,7 @@ export const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+          className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto mb-10 drop-shadow-md"
         >
           We provide cutting-edge technology to drive your business forward.
           From full-stack development to cloud infrastructure, we've got you covered.
