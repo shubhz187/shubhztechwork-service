@@ -6,9 +6,10 @@ import { cn } from '@/lib/utils';
 const services = [
   { name: 'Full Stack Development', href: '#fullstack' },
   { name: 'Infrastructure', href: '#infrastructure' },
+  { name: 'DevOps', href: '#devops' },
+  { name: 'Monitoring & Logging', href: '#monitoring' },
+  { name: 'Security', href: '#security' },
   { name: 'Databases', href: '#databases' },
-  { name: 'DevOps & SRE', href: '#devops' },
-  { name: 'Data Analytics', href: '#analytics' },
   { name: 'Gen AI', href: '#genai' },
 ];
 
