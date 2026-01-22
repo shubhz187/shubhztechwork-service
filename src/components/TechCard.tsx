@@ -14,9 +14,9 @@ export const TechCard = ({ name, description, image, delay = 0 }: TechCardProps)
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay }}
-      className="tech-card animated-border group"
+      className="tech-card animated-border group bg-card border border-border"
     >
-      <div className="tech-card-image">
+      <div className="tech-card-image bg-muted dark:bg-[hsl(0,0%,15%)]">
         <img
           src={image}
           alt={name}
@@ -24,10 +24,10 @@ export const TechCard = ({ name, description, image, delay = 0 }: TechCardProps)
         />
       </div>
       <div className="tech-card-content">
-        <h3 className="font-display text-xl font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors">
+        <h3 className="font-display text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
           {name}
         </h3>
-        <p className="text-muted-foreground text-sm leading-relaxed">
+        <p className="text-foreground/80 text-sm leading-relaxed">
           {description}
         </p>
       </div>
