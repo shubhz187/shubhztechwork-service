@@ -36,10 +36,10 @@ export const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4">Services</h4>
             <ul className="space-y-3">
-              <li><Link to="/technologies#fullstack" className="text-muted-foreground hover:text-foreground transition-colors">Full Stack Development</Link></li>
-              <li><Link to="/technologies#infrastructure" className="text-muted-foreground hover:text-foreground transition-colors">Cloud Infrastructure</Link></li>
-              <li><Link to="/technologies#databases" className="text-muted-foreground hover:text-foreground transition-colors">Database Solutions</Link></li>
-              <li><Link to="/technologies#devops" className="text-muted-foreground hover:text-foreground transition-colors">DevOps & SRE</Link></li>
+              <li><Link to="/services#fullstack" className="text-muted-foreground hover:text-foreground transition-colors">Full Stack Development</Link></li>
+              <li><Link to="/services#infrastructure" className="text-muted-foreground hover:text-foreground transition-colors">Cloud Infrastructure</Link></li>
+              <li><Link to="/services#security" className="text-muted-foreground hover:text-foreground transition-colors">Security</Link></li>
+              <li><Link to="/services#devops" className="text-muted-foreground hover:text-foreground transition-colors">DevOps & SRE</Link></li>
             </ul>
           </div>
 
@@ -57,7 +57,7 @@ export const Footer = () => {
 
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">
-            © 2025 ShubhzTechWork. All rights reserved.
+            © 2026 ShubhzTechWork. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm">
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a>
