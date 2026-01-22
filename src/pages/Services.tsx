@@ -143,21 +143,21 @@ const Services = () => {
       <Navbar />
       
       {/* Hero Banner */}
-      <section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-dark" />
+      <section className="pt-32 pb-16 relative overflow-hidden bg-[hsl(0,0%,8%)]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(0,0%,8%)] to-[hsl(0,0%,12%)]" />
         <motion.div
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.1, 0.2, 0.1],
+            opacity: [0.15, 0.25, 0.15],
           }}
           transition={{ duration: 6, repeat: Infinity }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[120px]"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/20 rounded-full blur-[120px]"
         />
         <div className="container mx-auto px-4 relative z-10 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground"
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[hsl(36,24%,95%)]"
           >
             Our <span className="text-gradient-primary">Services</span>
           </motion.h1>
@@ -165,7 +165,7 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            className="text-[hsl(36,15%,75%)] text-lg max-w-2xl mx-auto"
           >
             Comprehensive technology solutions tailored to drive your business forward with expertise across the entire digital landscape.
           </motion.p>
