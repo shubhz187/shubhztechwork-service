@@ -15,7 +15,7 @@ export const HeroSection = () => {
           alt=""
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
       </div>
 
       {/* Animated Grid Overlay */}
@@ -82,7 +82,7 @@ export const HeroSection = () => {
         >
           <a
             href="#contact"
-            className="bg-foreground text-background font-semibold px-8 py-4 rounded-lg hover:bg-foreground/90 transition-all shadow-elevated text-lg"
+            className="bg-primary text-primary-foreground font-semibold px-8 py-4 rounded-lg hover:bg-primary/90 transition-all shadow-elevated text-lg"
           >
             GET STARTED TODAY
           </a>
