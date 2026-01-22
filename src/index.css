@@ -22,7 +22,7 @@
     --secondary-foreground: 0 0% 0%;
 
     --muted: 40 20% 90%;
-    --muted-foreground: 0 0% 35%;
+    --muted-foreground: 0 0% 45%;
 
     --accent: 6 93% 64%;
     --accent-foreground: 0 0% 100%;
@@ -161,7 +161,7 @@
   }
 
   .nav-link {
-    @apply relative text-muted-foreground hover:text-foreground transition-colors duration-200;
+    @apply relative text-foreground hover:text-primary transition-colors duration-200;
   }
 
   .nav-link::after {
