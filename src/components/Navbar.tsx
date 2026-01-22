@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
+import { ThemeToggle } from './ThemeToggle';
 
 const services = [
   { name: 'Full Stack Development', href: '/services#fullstack' },
@@ -143,8 +144,9 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* CTA Button & Theme Toggle */}
+          <div className="hidden lg:flex items-center gap-3">
+            <ThemeToggle />
             <Link
               to="/#contact"
               className="bg-gradient-primary text-primary-foreground font-semibold px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity shadow-glow"
@@ -195,13 +197,16 @@ export const Navbar = () => {
                     )}
                   </div>
                 ))}
-                <Link
-                  to="/#contact"
-                  className="block mx-4 mt-4 bg-gradient-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg text-center"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Subscribe
-                </Link>
+                <div className="flex items-center gap-3 mx-4 mt-4">
+                  <ThemeToggle />
+                  <Link
+                    to="/#contact"
+                    className="flex-1 bg-gradient-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg text-center"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Subscribe
+                  </Link>
+                </div>
               </div>
             </motion.div>
           )}
