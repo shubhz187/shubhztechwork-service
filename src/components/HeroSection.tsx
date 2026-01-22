@@ -15,7 +15,7 @@ export const HeroSection = () => {
           alt=""
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
       </div>
 
       {/* Animated Grid Overlay */}
@@ -36,18 +36,18 @@ export const HeroSection = () => {
       <motion.div
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
+          opacity: [0.2, 0.35, 0.2],
         }}
         transition={{ duration: 4, repeat: Infinity }}
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px]"
+        className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/15 rounded-full blur-[100px]"
       />
       <motion.div
         animate={{
           scale: [1.2, 1, 1.2],
-          opacity: [0.2, 0.4, 0.2],
+          opacity: [0.15, 0.25, 0.15],
         }}
         transition={{ duration: 5, repeat: Infinity }}
-        className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-accent/20 rounded-full blur-[100px]"
+        className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-foreground/10 rounded-full blur-[100px]"
       />
 
       {/* Content */}
