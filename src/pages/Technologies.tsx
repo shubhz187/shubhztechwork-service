@@ -1,6 +1,8 @@
+import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
+import { SectionTitle } from '@/components/SectionTitle';
+import { TechCard } from '@/components/TechCard';
 import { motion } from 'framer-motion';
-import { SectionTitle } from './SectionTitle';
-import { TechCard } from './TechCard';
 
 const fullStackTech = [
   {
@@ -188,112 +190,119 @@ const genAITech = [
   },
 ];
 
-export const ServicesSection = () => {
+const Technologies = () => {
   return (
-    <section id="services" className="py-24 relative">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-dark" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+    <div className="min-h-screen bg-background">
+      <Navbar />
       
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Full Stack Section */}
-        <div id="fullstack" className="mb-24">
-          <SectionTitle title="Full Stack" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {fullStackTech.map((tech, index) => (
-              <TechCard
-                key={tech.name}
-                {...tech}
-                delay={index * 0.1}
-              />
-            ))}
-          </div>
+      {/* Hero Banner */}
+      <section className="pt-32 pb-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-dark" />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{ duration: 6, repeat: Infinity }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[120px]"
+        />
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+          >
+            Our <span className="text-gradient-primary">Technologies</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+          >
+            We leverage cutting-edge technologies across the entire stack to build scalable, secure, and high-performance solutions.
+          </motion.p>
         </div>
+      </section>
 
-        {/* Infrastructure Section */}
-        <div id="infrastructure" className="mb-24">
-          <SectionTitle title="Infrastructure" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {infrastructureTech.map((tech, index) => (
-              <TechCard
-                key={tech.name}
-                {...tech}
-                delay={index * 0.1}
-              />
-            ))}
+      {/* Technologies Sections */}
+      <section className="py-16 relative">
+        <div className="container mx-auto px-4">
+          {/* Full Stack Section */}
+          <div id="fullstack" className="mb-24">
+            <SectionTitle title="Full Stack" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {fullStackTech.map((tech, index) => (
+                <TechCard key={tech.name} {...tech} delay={index * 0.1} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* DevOps Section */}
-        <div id="devops" className="mb-24">
-          <SectionTitle title="DevOps" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {devopsTech.map((tech, index) => (
-              <TechCard
-                key={tech.name}
-                {...tech}
-                delay={index * 0.1}
-              />
-            ))}
+          {/* Infrastructure Section */}
+          <div id="infrastructure" className="mb-24">
+            <SectionTitle title="Infrastructure" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {infrastructureTech.map((tech, index) => (
+                <TechCard key={tech.name} {...tech} delay={index * 0.1} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Monitoring and Logging Section */}
-        <div className="mb-24">
-          <SectionTitle title="Monitoring and Logging" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {monitoringTech.map((tech, index) => (
-              <TechCard
-                key={tech.name}
-                {...tech}
-                delay={index * 0.1}
-              />
-            ))}
+          {/* DevOps Section */}
+          <div id="devops" className="mb-24">
+            <SectionTitle title="DevOps" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {devopsTech.map((tech, index) => (
+                <TechCard key={tech.name} {...tech} delay={index * 0.1} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Security Section */}
-        <div id="security" className="mb-24">
-          <SectionTitle title="Security" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {securityTech.map((tech, index) => (
-              <TechCard
-                key={tech.name}
-                {...tech}
-                delay={index * 0.1}
-              />
-            ))}
+          {/* Monitoring and Logging Section */}
+          <div id="monitoring" className="mb-24">
+            <SectionTitle title="Monitoring and Logging" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {monitoringTech.map((tech, index) => (
+                <TechCard key={tech.name} {...tech} delay={index * 0.1} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Databases Section */}
-        <div id="databases" className="mb-24">
-          <SectionTitle title="Databases" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {databaseTech.map((tech, index) => (
-              <TechCard
-                key={tech.name}
-                {...tech}
-                delay={index * 0.1}
-              />
-            ))}
+          {/* Security Section */}
+          <div id="security" className="mb-24">
+            <SectionTitle title="Security" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {securityTech.map((tech, index) => (
+                <TechCard key={tech.name} {...tech} delay={index * 0.1} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Gen AI Section */}
-        <div id="genai">
-          <SectionTitle title="Gen AI" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {genAITech.map((tech, index) => (
-              <TechCard
-                key={tech.name}
-                {...tech}
-                delay={index * 0.1}
-              />
-            ))}
+          {/* Databases Section */}
+          <div id="databases" className="mb-24">
+            <SectionTitle title="Databases" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {databaseTech.map((tech, index) => (
+                <TechCard key={tech.name} {...tech} delay={index * 0.1} />
+              ))}
+            </div>
+          </div>
+
+          {/* Gen AI Section */}
+          <div id="genai">
+            <SectionTitle title="Gen AI" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {genAITech.map((tech, index) => (
+                <TechCard key={tech.name} {...tech} delay={index * 0.1} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <Footer />
+    </div>
   );
 };
+
+export default Technologies;

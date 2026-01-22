@@ -1,4 +1,5 @@
 import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
@@ -7,14 +8,14 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
+            <Link to="/" className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center">
                 <span className="font-display font-bold text-sm text-primary-foreground">SZ</span>
               </div>
               <span className="font-display font-bold text-lg text-foreground">
                 ShubhzTechWork
               </span>
-            </div>
+            </Link>
             <p className="text-muted-foreground max-w-sm mb-6">
               Simplifying Tech, Amplifying Growth. Your trusted partner for cutting-edge software solutions.
             </p>
@@ -35,10 +36,10 @@ export const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4">Services</h4>
             <ul className="space-y-3">
-              <li><a href="#fullstack" className="text-muted-foreground hover:text-foreground transition-colors">Full Stack Development</a></li>
-              <li><a href="#infrastructure" className="text-muted-foreground hover:text-foreground transition-colors">Cloud Infrastructure</a></li>
-              <li><a href="#databases" className="text-muted-foreground hover:text-foreground transition-colors">Database Solutions</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">DevOps & SRE</a></li>
+              <li><Link to="/technologies#fullstack" className="text-muted-foreground hover:text-foreground transition-colors">Full Stack Development</Link></li>
+              <li><Link to="/technologies#infrastructure" className="text-muted-foreground hover:text-foreground transition-colors">Cloud Infrastructure</Link></li>
+              <li><Link to="/technologies#databases" className="text-muted-foreground hover:text-foreground transition-colors">Database Solutions</Link></li>
+              <li><Link to="/technologies#devops" className="text-muted-foreground hover:text-foreground transition-colors">DevOps & SRE</Link></li>
             </ul>
           </div>
 
@@ -46,8 +47,8 @@ export const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
-              <li><a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">About Us</a></li>
-              <li><a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
+              <li><a href="/#about" className="text-muted-foreground hover:text-foreground transition-colors">About Us</a></li>
+              <li><a href="/#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Careers</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Blog</a></li>
             </ul>
