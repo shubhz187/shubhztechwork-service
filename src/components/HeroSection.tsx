@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import heroBg from '@/assets/hero-bg.jpg';
 
 export const HeroSection = () => {
@@ -80,17 +81,17 @@ export const HeroSection = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="#services"
+            href="#contact"
             className="bg-foreground text-background font-semibold px-8 py-4 rounded-lg hover:bg-foreground/90 transition-all shadow-elevated text-lg"
           >
             GET STARTED TODAY
           </a>
-          <a
-            href="#technologies"
+          <Link
+            to="/technologies"
             className="border border-primary text-primary font-semibold px-8 py-4 rounded-lg hover:bg-primary/10 transition-all text-lg"
           >
             View Technologies
-          </a>
+          </Link>
         </motion.div>
 
         {/* Scroll Indicator */}

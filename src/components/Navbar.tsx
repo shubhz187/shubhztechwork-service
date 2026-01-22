@@ -2,29 +2,31 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link, useLocation } from 'react-router-dom';
 
 const services = [
-  { name: 'Full Stack Development', href: '#fullstack' },
-  { name: 'Infrastructure', href: '#infrastructure' },
-  { name: 'DevOps', href: '#devops' },
-  { name: 'Monitoring & Logging', href: '#monitoring' },
-  { name: 'Security', href: '#security' },
-  { name: 'Databases', href: '#databases' },
-  { name: 'Gen AI', href: '#genai' },
+  { name: 'Full Stack Development', href: '/technologies#fullstack' },
+  { name: 'Infrastructure', href: '/technologies#infrastructure' },
+  { name: 'DevOps', href: '/technologies#devops' },
+  { name: 'Monitoring & Logging', href: '/technologies#monitoring' },
+  { name: 'Security', href: '/technologies#security' },
+  { name: 'Databases', href: '/technologies#databases' },
+  { name: 'Gen AI', href: '/technologies#genai' },
 ];
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'Contact Us', href: '#contact' },
-  { name: 'Services', href: '#services', dropdown: services },
-  { name: 'About Us', href: '#about' },
-  { name: 'Technologies', href: '#technologies' },
+  { name: 'Home', href: '/' },
+  { name: 'Contact Us', href: '/#contact' },
+  { name: 'Services', href: '/technologies', dropdown: services },
+  { name: 'About Us', href: '/#about' },
+  { name: 'Technologies', href: '/technologies' },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +35,46 @@ export const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    
+    // Handle hash navigation
+    if (href.includes('#')) {
+      const [path, hash] = href.split('#');
+      if (location.pathname === path || (path === '/' && location.pathname === '/')) {
+        // Same page, scroll to element
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+  };
+
+  const NavLink = ({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) => {
+    const isExternal = href.startsWith('http');
+    const isHashLink = href.includes('#');
+    
+    if (isExternal) {
+      return <a href={href} className={className} target="_blank" rel="noopener noreferrer">{children}</a>;
+    }
+    
+    if (isHashLink && href.startsWith('/#')) {
+      // Hash link on home page
+      return (
+        <Link to={href} className={className} onClick={() => handleNavClick(href)}>
+          {children}
+        </Link>
+      );
+    }
+    
+    return (
+      <Link to={href} className={className} onClick={() => handleNavClick(href)}>
+        {children}
+      </Link>
+    );
+  };
 
   return (
     <motion.nav
@@ -48,14 +90,14 @@ export const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow">
               <span className="font-display font-bold text-lg text-primary-foreground">SZ</span>
             </div>
             <span className="font-display font-bold text-xl text-foreground hidden sm:block">
               ShubhzTechWork
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
@@ -66,13 +108,13 @@ export const Navbar = () => {
                 onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <a
+                <NavLink
                   href={link.href}
                   className="nav-link flex items-center gap-1 py-2 font-medium"
                 >
                   {link.name}
                   {link.dropdown && <ChevronDown className="w-4 h-4" />}
-                </a>
+                </NavLink>
 
                 {/* Dropdown */}
                 <AnimatePresence>
@@ -85,13 +127,13 @@ export const Navbar = () => {
                     >
                       <div className="bg-popover border border-border rounded-xl shadow-elevated py-2 min-w-[220px]">
                         {link.dropdown.map((item) => (
-                          <a
+                          <NavLink
                             key={item.name}
                             href={item.href}
                             className="block px-4 py-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
                           >
                             {item.name}
-                          </a>
+                          </NavLink>
                         ))}
                       </div>
                     </motion.div>
@@ -103,12 +145,12 @@ export const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <a
-              href="#contact"
+            <Link
+              to="/#contact"
               className="bg-gradient-primary text-primary-foreground font-semibold px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity shadow-glow"
             >
               Subscribe
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -132,36 +174,34 @@ export const Navbar = () => {
               <div className="py-4 space-y-2">
                 {navLinks.map((link) => (
                   <div key={link.name}>
-                    <a
+                    <NavLink
                       href={link.href}
                       className="block py-3 px-4 text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
-                      onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.name}
-                    </a>
+                    </NavLink>
                     {link.dropdown && (
                       <div className="pl-6">
                         {link.dropdown.map((item) => (
-                          <a
+                          <NavLink
                             key={item.name}
                             href={item.href}
                             className="block py-2 px-4 text-muted-foreground hover:text-foreground transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {item.name}
-                          </a>
+                          </NavLink>
                         ))}
                       </div>
                     )}
                   </div>
                 ))}
-                <a
-                  href="#contact"
+                <Link
+                  to="/#contact"
                   className="block mx-4 mt-4 bg-gradient-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg text-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Subscribe
-                </a>
+                </Link>
               </div>
             </motion.div>
           )}
