@@ -24,7 +24,7 @@ export const TechCard = ({ name, description, image, delay = 0 }: TechCardProps)
         />
       </div>
       <div className="tech-card-content">
-        <h3 className="font-display text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+        <h3 className="font-display text-xl font-semibold text-card-foreground mb-2 group-hover:text-primary transition-colors">
           {name}
         </h3>
         <p className="text-muted-foreground text-sm leading-relaxed">

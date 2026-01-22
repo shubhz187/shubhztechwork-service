@@ -70,12 +70,12 @@ export const FeaturesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group p-8 bg-gradient-card rounded-2xl border border-border card-hover"
+              className="group p-8 bg-card rounded-2xl border border-border card-hover shadow-card"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                 <feature.icon className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="font-display text-xl font-semibold text-foreground mb-3">
+              <h3 className="font-display text-xl font-semibold text-card-foreground mb-3">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">

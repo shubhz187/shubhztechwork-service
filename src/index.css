@@ -59,24 +59,24 @@
   }
 
   .dark {
-    --background: 0 0% 5%;
+    --background: 0 0% 8%;
     --foreground: 36 24% 95%;
-    --card: 0 0% 8%;
+    --card: 0 0% 12%;
     --card-foreground: 36 24% 95%;
-    --popover: 0 0% 10%;
+    --popover: 0 0% 12%;
     --popover-foreground: 36 24% 95%;
     --primary: 6 93% 64%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 36 24% 95%;
-    --muted: 0 0% 18%;
-    --muted-foreground: 40 10% 60%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 36 24% 90%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 36 15% 70%;
     --accent: 6 93% 64%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 36 24% 95%;
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
+    --border: 0 0% 22%;
+    --input: 0 0% 18%;
     --ring: 6 93% 64%;
   }
 }
@@ -179,11 +179,15 @@
   }
 
   .tech-card {
-    @apply bg-gradient-card border border-border rounded-xl overflow-hidden card-hover;
+    @apply bg-card border border-border rounded-xl overflow-hidden card-hover shadow-card;
   }
 
   .tech-card-image {
-    @apply w-full aspect-video object-contain bg-white/90 p-4;
+    @apply w-full aspect-video object-contain bg-secondary p-4;
+  }
+
+  .dark .tech-card-image {
+    @apply bg-muted;
   }
 
   .tech-card-content {
