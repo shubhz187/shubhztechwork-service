@@ -5,19 +5,19 @@ import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 
 const services = [
-  { name: 'Full Stack Development', href: '/technologies#fullstack' },
-  { name: 'Infrastructure', href: '/technologies#infrastructure' },
-  { name: 'DevOps', href: '/technologies#devops' },
-  { name: 'Monitoring & Logging', href: '/technologies#monitoring' },
-  { name: 'Security', href: '/technologies#security' },
-  { name: 'Databases', href: '/technologies#databases' },
-  { name: 'Gen AI', href: '/technologies#genai' },
+  { name: 'Full Stack Development', href: '/services#fullstack' },
+  { name: 'Infrastructure', href: '/services#infrastructure' },
+  { name: 'Security', href: '/services#security' },
+  { name: 'DevOps & SRE', href: '/services#devops' },
+  { name: 'Graphics', href: '/services#graphics' },
+  { name: 'IT Solutions', href: '/services#itsolutions' },
+  { name: 'Gen AI', href: '/services#genai' },
 ];
 
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Contact Us', href: '/#contact' },
-  { name: 'Services', href: '/technologies', dropdown: services },
+  { name: 'Services', href: '/services', dropdown: services },
   { name: 'About Us', href: '/#about' },
   { name: 'Technologies', href: '/technologies' },
 ];
