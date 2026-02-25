@@ -152,7 +152,7 @@ export const ServicePillarsComposition: React.FC = () => {
 
       {/* Three pillar columns */}
       {pillars.map((pillar, colIdx) => {
-        const colDelay = 20 + colIdx * 12;
+        const colDelay = 30 + colIdx * 20;
         const colSpring = spring({
           frame: frame - colDelay,
           fps,
@@ -225,7 +225,7 @@ export const ServicePillarsComposition: React.FC = () => {
               {/* Service pills */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {pillar.services.map((svc, svcIdx) => {
-                  const pillDelay = colDelay + 30 + svcIdx * 8;
+                  const pillDelay = colDelay + 40 + svcIdx * 12;
                   const pillSpring = spring({
                     frame: frame - pillDelay,
                     fps,
