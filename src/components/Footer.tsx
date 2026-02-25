@@ -1,4 +1,4 @@
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logoImg from '@/assets/image.png';
 
@@ -19,14 +19,14 @@ export const Footer = () => {
               Simplifying Tech, Amplifying Growth. Your trusted partner for cutting-edge software solutions.
             </p>
             <div className="flex items-center gap-4">
-              <a href="https://twitter.com/ShubhzTechWork" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
-                <Twitter className="w-5 h-5 text-muted-foreground hover:text-primary" />
-              </a>
-              <a href="https://linkedin.com/company/shubhztechwork" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
+              <a href="https://www.linkedin.com/company/106167425" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
                 <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary" />
               </a>
-              <a href="https://github.com/shubhztechwork" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
+              <a href="https://github.com/shubhz187" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
                 <Github className="w-5 h-5 text-muted-foreground hover:text-primary" />
+              </a>
+              <a href="mailto:info@shubhztechwork.com" aria-label="Email" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
+                <Mail className="w-5 h-5 text-muted-foreground hover:text-primary" />
               </a>
             </div>
           </div>
@@ -46,7 +46,7 @@ export const Footer = () => {
             <h4 className="font-display font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
               <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">About Us</Link></li>
-              <li><a href="/#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
+              <li><Link to="/#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
               <li><Link to="/blogs" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link></li>
               <li><Link to="/case-studies" className="text-muted-foreground hover:text-foreground transition-colors">Case Studies</Link></li>
             </ul>
