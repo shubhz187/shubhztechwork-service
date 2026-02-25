@@ -31,7 +31,6 @@ export const ContactSection = () => {
         setErrorMessage(data.message || "Failed to send message.");
       }
     } catch (error) {
-      console.error(error);
       setStatus('error');
       setErrorMessage("Something went wrong. Please try again.");
     }

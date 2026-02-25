@@ -3,6 +3,7 @@ import {
   Img,
   interpolate,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
@@ -342,7 +343,7 @@ export const HeroComposition: React.FC = () => {
 
         {/* The logo */}
         <Img
-          src="/logo.png"
+          src={staticFile('logo.png')}
           style={{
             width: 200,
             height: 200,
