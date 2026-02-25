@@ -13,7 +13,7 @@ export const BlogsHeroPlayer: React.FC = () => {
                 durationInFrames={120}
                 fps={30}
                 compositionWidth={1200}
-                compositionHeight={320}
+                compositionHeight={250}
                 style={{ width: '100%', display: 'block' }}
                 autoPlay={!prefersReducedMotion}
                 loop

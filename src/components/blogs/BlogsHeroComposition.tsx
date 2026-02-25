@@ -4,14 +4,11 @@ import {
     spring,
     useCurrentFrame,
     useVideoConfig,
-    Sequence,
 } from 'remotion';
 
 const CORAL = 'hsl(6, 93%, 64%)';
 const DARK = '#0a0a0a';
 const LIGHT_BG = '#f7f3ee';
-
-const categories = ['Security', 'DevSecOps', 'Privacy'];
 
 export const BlogsHeroComposition: React.FC = () => {
     const frame = useCurrentFrame();
@@ -40,9 +37,6 @@ export const BlogsHeroComposition: React.FC = () => {
         extrapolateLeft: 'clamp',
         extrapolateRight: 'clamp',
     });
-
-    // Category pills
-    const pillStart = 50;
 
     return (
         <AbsoluteFill
@@ -131,34 +125,6 @@ export const BlogsHeroComposition: React.FC = () => {
                     )}
                 </div>
 
-                {/* Category pills */}
-                <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
-                    {categories.map((cat, i) => {
-                        const pillFrame = frame - (pillStart + i * 12);
-                        const pillProgress = spring({ frame: pillFrame, fps, config: { damping: 12, stiffness: 120 } });
-                        const pillX = interpolate(pillProgress, [0, 1], [-40, 0]);
-                        const pillOpacity = interpolate(pillProgress, [0, 1], [0, 1]);
-                        return (
-                            <div
-                                key={cat}
-                                style={{
-                                    opacity: pillOpacity,
-                                    transform: `translateX(${pillX}px)`,
-                                    background: i === 0 ? CORAL : 'transparent',
-                                    border: `2px solid ${CORAL}`,
-                                    color: i === 0 ? '#fff' : CORAL,
-                                    padding: '10px 28px',
-                                    borderRadius: '100px',
-                                    fontSize: '16px',
-                                    fontWeight: 600,
-                                    letterSpacing: '0.5px',
-                                }}
-                            >
-                                {cat}
-                            </div>
-                        );
-                    })}
-                </div>
             </div>
         </AbsoluteFill>
     );

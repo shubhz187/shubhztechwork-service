@@ -1,53 +1,7 @@
-import { motion, animate } from 'framer-motion';
-import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Rocket, Handshake, Star, Linkedin, Mail } from 'lucide-react';
 import { SectionTitle } from './SectionTitle';
 import { AboutHeroPlayer } from './about/AboutHeroPlayer';
-
-interface CounterProps {
-  value: number;
-  suffix?: string;
-  label: string;
-  delay?: number;
-}
-
-const Counter = ({ value, suffix = '', label, delay = 0 }: CounterProps) => {
-  const [displayValue, setDisplayValue] = useState(0);
-  const [hasAnimated, setHasAnimated] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
-      onViewportEnter={() => {
-        if (!hasAnimated) {
-          setHasAnimated(true);
-          const controls = animate(0, value, {
-            duration: 2,
-            ease: 'easeOut',
-            onUpdate: (latest) => setDisplayValue(Math.floor(latest)),
-          });
-          return () => controls.stop();
-        }
-      }}
-      className="text-center"
-    >
-      <div className="font-display text-5xl md:text-6xl font-bold text-primary mb-2">
-        {displayValue}{suffix}
-      </div>
-      <div className="text-muted-foreground font-medium">{label}</div>
-    </motion.div>
-  );
-};
-
-const stats = [
-  { value: 5, suffix: '+', label: 'Years Experience' },
-  { value: 150, suffix: '+', label: 'Projects Completed' },
-  { value: 50, suffix: '+', label: 'Happy Clients' },
-  { value: 99, suffix: '%', label: 'Client Satisfaction' },
-];
 
 const teamMembers = [
   {
@@ -132,19 +86,6 @@ export const AboutSection = () => {
             From a single "yes" to a growing vision, our story is built on action, trust, and the belief that great things can start from one small idea.
           </p>
         </motion.div>
-
-        {/* Statistics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24 py-12 px-8 bg-card rounded-2xl border border-border shadow-card">
-          {stats.map((stat, index) => (
-            <Counter
-              key={stat.label}
-              value={stat.value}
-              suffix={stat.suffix}
-              label={stat.label}
-              delay={index * 0.1}
-            />
-          ))}
-        </div>
 
         {/* Team Section */}
         <motion.div
