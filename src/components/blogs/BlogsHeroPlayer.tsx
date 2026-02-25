@@ -16,7 +16,6 @@ export const BlogsHeroPlayer: React.FC = () => {
                 compositionHeight={250}
                 style={{ width: '100%', display: 'block' }}
                 autoPlay={!prefersReducedMotion}
-                loop
                 controls={false}
                 clickToPlay={false}
             />

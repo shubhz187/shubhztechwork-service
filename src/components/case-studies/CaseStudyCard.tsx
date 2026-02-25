@@ -55,7 +55,7 @@ export const CaseStudyCard = ({ study, index }: CaseStudyCardProps) => (
           </p>
 
           {/* Highlights */}
-          <div className="grid grid-cols-3 gap-3 mb-6 p-4 bg-secondary/40 rounded-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 p-4 bg-secondary/40 rounded-xl">
             {study.highlights.map((h) => (
               <div key={h.label} className="text-center">
                 <p className="font-display font-bold text-lg text-foreground">{h.value}</p>

@@ -32,7 +32,7 @@ const teamMembers = [
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="py-24 relative overflow-hidden">
+    <section id="about" className="py-12 md:py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/50 rounded-full blur-[80px]" />
@@ -65,7 +65,7 @@ export const AboutSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center mb-20"
+          className="max-w-4xl mx-auto text-center mb-10 md:mb-20"
         >
           <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-6">
             Our Story
@@ -161,7 +161,7 @@ export const AboutSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           id="our-values"
-          className="mt-24 grid md:grid-cols-3 gap-8"
+          className="mt-12 md:mt-24 grid md:grid-cols-3 gap-8"
         >
           <div className="text-center p-6">
             <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">

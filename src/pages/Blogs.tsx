@@ -16,7 +16,7 @@ const Blogs = () => {
         </section>
 
         {/* Blog Cards Grid */}
-        <section className="container mx-auto px-4 pb-24">
+        <section className="container mx-auto px-4 pb-12 md:pb-24">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

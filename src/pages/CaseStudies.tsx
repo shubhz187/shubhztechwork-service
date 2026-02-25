@@ -16,7 +16,7 @@ const CaseStudies = () => {
                 </section>
 
                 {/* Case Studies Grid */}
-                <section className="container mx-auto px-4 pb-24">
+                <section className="container mx-auto px-4 pb-12 md:pb-24">
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}

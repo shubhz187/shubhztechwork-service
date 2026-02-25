@@ -121,7 +121,7 @@ const CaseStudyDetailPage = () => {
                 </div>
 
                 {/* Highlights bar */}
-                <div className="grid grid-cols-3 gap-4 p-5 bg-secondary/40 rounded-xl mt-8 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 bg-secondary/40 rounded-xl mt-8 mb-4">
                   {study.highlights.map((h) => (
                     <div key={h.label} className="text-center">
                       <p className="font-display font-bold text-xl text-foreground">{h.value}</p>
@@ -174,7 +174,7 @@ const CaseStudyDetailPage = () => {
                 transition={{ duration: 0.4, delay: 0.25 }}
                 className="max-w-3xl mx-auto mb-4"
               >
-                <div className="grid grid-cols-3 gap-4 p-5 bg-secondary/40 rounded-xl mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 bg-secondary/40 rounded-xl mb-4">
                   {study.highlights.map((h) => (
                     <div key={h.label} className="text-center">
                       <p className="font-display font-bold text-xl text-foreground">{h.value}</p>

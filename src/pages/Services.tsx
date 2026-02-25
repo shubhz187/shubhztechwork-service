@@ -208,7 +208,7 @@ const Services = () => {
         <div className="container mx-auto px-4">
 
           {/* Full Stack Development 
-          <div id="fullstack" className="mb-24">
+          <div id="fullstack" className="mb-12 md:mb-24">
             <SectionTitle title="Full Stack Development" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {fullStackServices.map((service, index) => (
@@ -219,7 +219,7 @@ const Services = () => {
           */}
 
           {/* Infrastructure */}
-          <div id="infrastructure" className="mb-24">
+          <div id="infrastructure" className="mb-12 md:mb-24">
             <SectionTitle title="Infrastructure" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {infrastructureServices.map((service, index) => (
@@ -229,7 +229,7 @@ const Services = () => {
           </div>
 
           {/* Security */}
-          <div id="security" className="mb-24">
+          <div id="security" className="mb-12 md:mb-24">
             <SectionTitle title="Security" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {securityServices.map((service, index) => (
@@ -239,7 +239,7 @@ const Services = () => {
           </div>
 
           {/* DevOps & SRE */}
-          <div id="devops" className="mb-24">
+          <div id="devops" className="mb-12 md:mb-24">
             <SectionTitle title="DevOps & SRE" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {devopsServices.map((service, index) => (
@@ -249,7 +249,7 @@ const Services = () => {
           </div>
 
           {/* Graphics */}
-          <div id="graphics" className="mb-24">
+          <div id="graphics" className="mb-12 md:mb-24">
             <SectionTitle title="Graphics" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {graphicsServices.map((service, index) => (
@@ -259,7 +259,7 @@ const Services = () => {
           </div>
 
           {/* IT Solutions */}
-          <div id="itsolutions" className="mb-24">
+          <div id="itsolutions" className="mb-12 md:mb-24">
             <SectionTitle title="ShubhzTechwork IT Solutions" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {itSolutionsServices.map((service, index) => (

@@ -16,7 +16,6 @@ export const CaseStudiesHeroPlayer: React.FC = () => {
                 compositionHeight={360}
                 style={{ width: '100%', display: 'block' }}
                 autoPlay={!prefersReducedMotion}
-                loop
                 controls={false}
                 clickToPlay={false}
             />
