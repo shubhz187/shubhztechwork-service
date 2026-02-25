@@ -1,6 +1,8 @@
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion, animate } from 'framer-motion';
+import { useState } from 'react';
+import { Rocket, Handshake, Star, Linkedin, Mail } from 'lucide-react';
 import { SectionTitle } from './SectionTitle';
+import { AboutHeroPlayer } from './about/AboutHeroPlayer';
 
 interface CounterProps {
   value: number;
@@ -41,7 +43,7 @@ const Counter = ({ value, suffix = '', label, delay = 0 }: CounterProps) => {
 };
 
 const stats = [
-  { value: 8, suffix: '+', label: 'Years Experience' },
+  { value: 5, suffix: '+', label: 'Years Experience' },
   { value: 150, suffix: '+', label: 'Projects Completed' },
   { value: 50, suffix: '+', label: 'Happy Clients' },
   { value: 99, suffix: '%', label: 'Client Satisfaction' },
@@ -49,28 +51,28 @@ const stats = [
 
 const teamMembers = [
   {
-    name: 'Shubham Kumar',
+    name: 'Nirmit Dagli',
     role: 'Founder & CEO',
-    bio: 'Visionary tech leader with 10+ years in enterprise solutions and cloud architecture.',
+    bio: 'Visionary leader driving the strategic vision and operations of the company.',
+    initials: 'ND',
+    linkedin: 'https://www.linkedin.com/in/nirmit-dagli-62857916a',
+    email: 'nirmit.dagli@shubhztechwork.com',
+  },
+  {
+    name: 'Shubham Kadam',
+    role: 'Founder & CFO',
+    bio: 'Financial expert ensuring sustainable growth and strong financial foundations.',
     initials: 'SK',
+    linkedin: 'https://www.linkedin.com/in/nirmit-dagli-62857916a',
+    email: 'shubham.kadam@shubhztechwork.com',
   },
   {
-    name: 'Priya Sharma',
-    role: 'CTO',
-    bio: 'Full-stack expert specializing in scalable systems and AI integration.',
-    initials: 'PS',
-  },
-  {
-    name: 'Rahul Verma',
-    role: 'Lead DevOps Engineer',
-    bio: 'Infrastructure wizard who automates everything and keeps systems running 24/7.',
-    initials: 'RV',
-  },
-  {
-    name: 'Ananya Patel',
-    role: 'Head of Design',
-    bio: 'Creative director transforming complex ideas into beautiful, intuitive experiences.',
-    initials: 'AP',
+    name: 'Kunal Shinde',
+    role: 'Founder & CTO',
+    bio: 'Technical mastermind building scalable architectures and leading engineering.',
+    initials: 'KS',
+    linkedin: 'https://www.linkedin.com/in/kunal-shinde-5a91211b5',
+    email: 'kunal.shinde@shubhztechwork.com',
   },
 ];
 
@@ -80,10 +82,29 @@ export const AboutSection = () => {
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/50 rounded-full blur-[80px]" />
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <SectionTitle title="About Us" />
-        
+
+        {/* Remotion Hero */}
+        <div className="mb-16">
+          <AboutHeroPlayer />
+          <div className="flex flex-wrap justify-center gap-4 mt-6">
+            {['Innovation', 'Partnership', 'Excellence'].map((value, i) => (
+              <motion.button
+                key={value}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.12 }}
+                onClick={() => document.getElementById('our-values')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-6 py-2.5 rounded-full text-sm font-semibold border transition-all hover:scale-105 active:scale-95 cursor-pointer border-primary/20 text-primary hover:bg-primary hover:text-white bg-primary/5"
+              >
+                {value}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
         {/* Company Story */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -96,15 +117,19 @@ export const AboutSection = () => {
             Our Story
           </h3>
           <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            Founded in 2018, ShubhzTechWork began with a simple mission: to make cutting-edge technology 
-            accessible to businesses of all sizes. What started as a small team of passionate developers 
-            has grown into a full-service technology partner trusted by companies worldwide.
+            ShubhzTechWork started in the most honest way possible — with one friend casually saying, "Let's start a business," and the other saying, "Yes."
+          </p>
+          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+            What began as a simple conversation between friends turned into a serious journey of building, learning, and solving real problems through technology. We started small, took on real work, kept improving, and grew through consistency, trust, and results.
+          </p>
+          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+            Today, ShubhzTechWork has evolved into a technology partner focused on building practical, scalable solutions across development, cloud, DevOps, security, and AI. But our foundation remains the same: stay curious, build with purpose, and keep technology simple enough to be useful.
+          </p>
+          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+            We believe the best solutions are not the most complicated ones — they're the ones that actually work, scale well, and make life easier for businesses.
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            We believe that great technology should simplify, not complicate. That's why we focus on 
-            delivering solutions that are not only powerful but also intuitive and maintainable. 
-            From startups to enterprises, we've helped hundreds of businesses transform their digital 
-            presence and streamline their operations.
+            From a single "yes" to a growing vision, our story is built on action, trust, and the belief that great things can start from one small idea.
           </p>
         </motion.div>
 
@@ -137,7 +162,7 @@ export const AboutSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}
@@ -145,24 +170,45 @@ export const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card border border-border rounded-xl p-6 text-center card-hover group"
+              className="bg-card border border-border rounded-xl p-6 text-center card-hover group flex flex-col items-center justify-between"
             >
-              {/* Avatar */}
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform duration-300">
-                <span className="font-display font-bold text-xl text-primary-foreground">
-                  {member.initials}
-                </span>
+              <div className="w-full h-full flex flex-col items-center">
+                {/* Avatar */}
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform duration-300">
+                  <span className="font-display font-bold text-xl text-primary-foreground">
+                    {member.initials}
+                  </span>
+                </div>
+
+                <h4 className="font-display font-semibold text-lg text-foreground mb-1">
+                  {member.name}
+                </h4>
+                <p className="text-primary font-medium text-sm mb-3">
+                  {member.role}
+                </p>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                  {member.bio}
+                </p>
               </div>
-              
-              <h4 className="font-display font-semibold text-lg text-foreground mb-1">
-                {member.name}
-              </h4>
-              <p className="text-primary font-medium text-sm mb-3">
-                {member.role}
-              </p>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {member.bio}
-              </p>
+
+              <div className="flex items-center gap-3">
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-secondary/50 text-foreground hover:bg-primary hover:text-primary-foreground transition-all hover:scale-105 active:scale-95"
+                  aria-label={`LinkedIn profile for ${member.name}`}
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a
+                  href={`mailto:${member.email}`}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-secondary/50 text-foreground hover:bg-primary hover:text-primary-foreground transition-all hover:scale-105 active:scale-95"
+                  aria-label={`Email ${member.name}`}
+                >
+                  <Mail className="w-5 h-5" />
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -173,11 +219,12 @@ export const AboutSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          id="our-values"
           className="mt-24 grid md:grid-cols-3 gap-8"
         >
           <div className="text-center p-6">
             <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-              <span className="text-3xl">🚀</span>
+              <Rocket className="w-8 h-8 text-primary" />
             </div>
             <h4 className="font-display font-semibold text-lg text-foreground mb-2">Innovation</h4>
             <p className="text-muted-foreground text-sm">
@@ -186,7 +233,7 @@ export const AboutSection = () => {
           </div>
           <div className="text-center p-6">
             <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-              <span className="text-3xl">🤝</span>
+              <Handshake className="w-8 h-8 text-primary" />
             </div>
             <h4 className="font-display font-semibold text-lg text-foreground mb-2">Partnership</h4>
             <p className="text-muted-foreground text-sm">
@@ -195,7 +242,7 @@ export const AboutSection = () => {
           </div>
           <div className="text-center p-6">
             <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-              <span className="text-3xl">✨</span>
+              <Star className="w-8 h-8 text-primary" />
             </div>
             <h4 className="font-display font-semibold text-lg text-foreground mb-2">Excellence</h4>
             <p className="text-muted-foreground text-sm">

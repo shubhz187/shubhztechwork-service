@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.marketermilk.com)",
+      "WebFetch(domain:hermitcrabs.io)",
+      "WebFetch(domain:blog.cloudflare.com)",
+      "WebFetch(domain:stripe.com)",
+      "WebFetch(domain:www.waseembashir.com)",
+      "WebFetch(domain:www.phdata.io)",
+      "Bash(npm run:*)",
+      "Bash(tail:*)",
+      "Bash(python3:*)",
+      "Bash(node:*)"
+    ]
+  }
+}

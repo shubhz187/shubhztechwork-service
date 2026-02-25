@@ -4,9 +4,10 @@ import { ChevronDown, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
+import logoImg from '@/assets/image.png';
 
 const services = [
-  { name: 'Full Stack Development', href: '/services#fullstack' },
+  // { name: 'Full Stack Development', href: '/services#fullstack' },
   { name: 'Infrastructure', href: '/services#infrastructure' },
   { name: 'Security', href: '/services#security' },
   { name: 'DevOps & SRE', href: '/services#devops' },
@@ -21,6 +22,8 @@ const navLinks = [
   { name: 'Services', href: '/services', dropdown: services },
   { name: 'About Us', href: '/about' },
   { name: 'Technologies', href: '/technologies' },
+  { name: 'Blog', href: '/blogs' },
+  { name: 'Case Studies', href: '/case-studies' },
 ];
 
 export const Navbar = () => {
@@ -39,7 +42,7 @@ export const Navbar = () => {
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-    
+
     // Handle hash navigation
     if (href.includes('#')) {
       const [path, hash] = href.split('#');
@@ -56,11 +59,11 @@ export const Navbar = () => {
   const NavLink = ({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) => {
     const isExternal = href.startsWith('http');
     const isHashLink = href.includes('#');
-    
+
     if (isExternal) {
       return <a href={href} className={className} target="_blank" rel="noopener noreferrer">{children}</a>;
     }
-    
+
     if (isHashLink && href.startsWith('/#')) {
       // Hash link on home page
       return (
@@ -69,7 +72,7 @@ export const Navbar = () => {
         </Link>
       );
     }
-    
+
     return (
       <Link to={href} className={className} onClick={() => handleNavClick(href)}>
         {children}
@@ -90,9 +93,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow">
-              <span className="font-display font-bold text-lg text-primary-foreground">SZ</span>
-            </div>
+            <img src={logoImg} alt="ShubhzTechWork" width={44} height={44} className="shrink-0" />
             <span className="font-display font-bold text-xl text-foreground hidden sm:block">
               ShubhzTechWork
             </span>
