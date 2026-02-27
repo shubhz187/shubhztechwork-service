@@ -58,7 +58,7 @@ export const ContactSection = () => {
         </div>
 
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-5xl mx-auto">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -104,7 +104,7 @@ export const ContactSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-card rounded-2xl border border-border p-8 shadow-card"
+            className="bg-card rounded-2xl border border-border p-5 md:p-8 shadow-card"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">

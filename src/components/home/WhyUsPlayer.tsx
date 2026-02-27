@@ -9,7 +9,7 @@ export const WhyUsPlayer: React.FC = () => (
   <div className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
     <Player
       component={WhyUsComposition}
-      durationInFrames={180}
+      durationInFrames={600}
       fps={30}
       compositionWidth={1200}
       compositionHeight={480}

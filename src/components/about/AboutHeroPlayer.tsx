@@ -10,7 +10,7 @@ export const AboutHeroPlayer: React.FC = () => {
         <div className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
             <Player
                 component={AboutHeroComposition}
-                durationInFrames={150}
+                durationInFrames={200}
                 fps={30}
                 compositionWidth={1200}
                 compositionHeight={300}

@@ -9,7 +9,7 @@ export const HowWeWorkPlayer: React.FC = () => (
   <div className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
     <Player
       component={HowWeWorkComposition}
-      durationInFrames={210}
+      durationInFrames={300}
       fps={30}
       compositionWidth={1200}
       compositionHeight={480}
@@ -20,4 +20,4 @@ export const HowWeWorkPlayer: React.FC = () => (
       clickToPlay={false}
     />
   </div>
-);
+)

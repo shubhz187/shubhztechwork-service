@@ -1,18 +1,18 @@
 import { Player } from '@remotion/player';
-import { WhoWeServeComposition } from './WhoWeServeComposition';
+import { TermsHeroComposition } from './TermsHeroComposition';
 
 const prefersReducedMotion =
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-export const WhoWeServePlayer: React.FC = () => (
+export const TermsHeroPlayer: React.FC = () => (
   <div className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
     <Player
-      component={WhoWeServeComposition}
-      durationInFrames={600}
+      component={TermsHeroComposition}
+      durationInFrames={150}
       fps={30}
       compositionWidth={1200}
-      compositionHeight={440}
+      compositionHeight={250}
       style={{ width: '100%', display: 'block' }}
       autoPlay={!prefersReducedMotion}
       loop

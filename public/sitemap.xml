@@ -6,6 +6,8 @@
   <url><loc>https://services.shubhztechwork.com/about</loc><priority>0.8</priority></url>
   <url><loc>https://services.shubhztechwork.com/blogs</loc><priority>0.8</priority></url>
   <url><loc>https://services.shubhztechwork.com/case-studies</loc><priority>0.8</priority></url>
+  <url><loc>https://services.shubhztechwork.com/privacy-policy</loc><priority>0.3</priority></url>
+  <url><loc>https://services.shubhztechwork.com/terms-of-service</loc><priority>0.3</priority></url>
 
   <!-- Blog posts -->
   <url><loc>https://services.shubhztechwork.com/blogs/securing-your-saas-practical-guide</loc><priority>0.7</priority></url>

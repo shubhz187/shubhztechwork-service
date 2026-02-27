@@ -58,8 +58,8 @@ export const Footer = () => {
             &copy; 2026 ShubhzTechWork. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm">
-            <span className="text-muted-foreground">Privacy Policy</span>
-            <span className="text-muted-foreground">Terms of Service</span>
+            <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
