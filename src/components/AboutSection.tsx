@@ -14,7 +14,7 @@ const teamMembers = [
   },
   {
     name: 'Shubham Kadam',
-    role: 'Founder & CFO',
+    role: 'Co-Founder & CFO',
     bio: 'Financial expert ensuring sustainable growth and strong financial foundations.',
     initials: 'SK',
     linkedin: 'https://www.linkedin.com/in/nirmit-dagli-62857916a',
@@ -22,7 +22,7 @@ const teamMembers = [
   },
   {
     name: 'Kunal Shinde',
-    role: 'Founder & CTO',
+    role: 'CoFounder & CTO',
     bio: 'Technical mastermind building scalable architectures and leading engineering.',
     initials: 'KS',
     linkedin: 'https://www.linkedin.com/in/kunal-shinde-5a91211b5',

@@ -17,6 +17,10 @@ const animations: Record<string, React.FC> = {
   comingSoon: ComingSoonComposition,
 };
 
+const heights: Record<string, number> = {
+  socraticTutor: 520,
+};
+
 interface CaseStudyAnimationProps {
   type: string;
 }
@@ -32,7 +36,7 @@ export const CaseStudyAnimation = ({ type }: CaseStudyAnimationProps) => {
         durationInFrames={150}
         fps={30}
         compositionWidth={800}
-        compositionHeight={320}
+        compositionHeight={heights[type] || 400}
         style={{ width: '100%', display: 'block' }}
         autoPlay={!prefersReducedMotion}
         loop

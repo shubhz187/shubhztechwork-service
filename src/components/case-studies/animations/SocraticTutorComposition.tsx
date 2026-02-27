@@ -30,7 +30,7 @@ export const SocraticTutorComposition: React.FC = () => {
     >
       <div style={{ position: 'absolute', inset: 0, backgroundImage: `radial-gradient(circle, ${VIOLET}12 1px, transparent 1px)`, backgroundSize: '40px 40px', opacity: gridOpacity }} />
 
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', gap: 40, alignItems: 'flex-start', padding: '0 40px' }}>
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', gap: 40, alignItems: 'flex-start', padding: '20px 40px' }}>
         {/* Left: Flow diagram */}
         <div style={{
           display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, minWidth: 120,

@@ -23,20 +23,20 @@ const authors: Record<string, BlogAuthor> = {
   nirmit: {
     name: 'Nirmit Dagli',
     initials: 'ND',
-    role: 'Security Architect',
-    bio: 'Nirmit leads security architecture at ShubhzTechWork, specializing in application security, threat modeling, and secure SDLC practices. He has helped dozens of teams build security into their products from day one rather than bolting it on after launch.',
+    role: 'Founder & CEO',
+    bio: 'Visionary leader driving the strategic vision and operations of the company.',
   },
   shubham: {
     name: 'Shubham Kadam',
     initials: 'SK',
-    role: 'Co-Founder & CTO',
-    bio: 'Shubham leads engineering at ShubhzTechWork, specializing in cloud infrastructure, security architecture, and scalable system design. With deep experience across AWS, Azure, and DevOps ecosystems, he helps teams build systems that are fast, observable, and production-ready.',
+    role: 'Co-Founder & CFO',
+    bio: 'Financial expert ensuring sustainable growth and strong financial foundations.',
   },
   kunal: {
     name: 'Kunal Shinde',
     initials: 'KS',
-    role: 'Co-Founder & Head of Operations',
-    bio: 'Kunal drives strategy and operations at ShubhzTechWork with a focus on compliance, data privacy, and building security-conscious engineering cultures. He bridges the gap between regulatory requirements and practical engineering execution.',
+    role: 'CoFounder & CTO',
+    bio: 'Technical mastermind building scalable architectures and leading engineering.',
   },
 };
 
