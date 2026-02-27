@@ -11,7 +11,8 @@ const CORAL = 'hsl(6, 93%, 64%)';
 
 export const ServicesHeroComposition: React.FC = () => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
+    const { fps, width } = useVideoConfig();
+    const isMobile = width < 768;
 
     // Title
     const titleProgress = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
@@ -74,25 +75,25 @@ export const ServicesHeroComposition: React.FC = () => {
                 }}
             />
 
-            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 80px', maxWidth: '1000px' }}>
+            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: isMobile ? '0 24px' : '0 80px', maxWidth: '1000px' }}>
                 {/* Title */}
                 <div
                     style={{
                         opacity: titleOpacity,
                         transform: `translateY(${titleY}px)`,
-                        fontSize: '68px',
+                        fontSize: isMobile ? '32px' : '68px',
                         fontWeight: 700,
                         color: '#fff',
                         lineHeight: 1.1,
-                        marginBottom: '20px',
-                        letterSpacing: '-2px',
+                        marginBottom: isMobile ? '14px' : '20px',
+                        letterSpacing: isMobile ? '-1px' : '-2px',
                     }}
                 >
                     Our <span style={{ color: CORAL }}>Services</span>
                 </div>
 
                 {/* Accent line */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '22px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: isMobile ? '14px' : '22px' }}>
                     <div
                         style={{
                             height: '3px',
@@ -108,7 +109,7 @@ export const ServicesHeroComposition: React.FC = () => {
                 <div
                     style={{
                         opacity: subtitleOpacity,
-                        fontSize: '20px',
+                        fontSize: isMobile ? '14px' : '20px',
                         color: 'rgba(255,255,255,0.6)',
                         fontFamily: "'Inter', system-ui, sans-serif",
                     }}

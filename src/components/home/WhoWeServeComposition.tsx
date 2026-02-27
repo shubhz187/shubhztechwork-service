@@ -29,14 +29,19 @@ const segments = [
   },
 ];
 
-const CARD_W = 310;
-const CARD_GAP = 50;
-const CARDS_START = (1200 - CARD_W * 3 - CARD_GAP * 2) / 2;
 const ICON_PATH_LEN = 400;
 
 export const WhoWeServeComposition: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width } = useVideoConfig();
+  const isMobile = width < 768;
+
+  // Responsive card dimensions
+  const CARD_W = isMobile ? width - 48 : 310;
+  const CARD_GAP = isMobile ? 24 : 50;
+  const CARDS_START = isMobile
+    ? 24
+    : (width - CARD_W * 3 - CARD_GAP * 2) / 2;
 
   // Grid
   const gridOpacity = interpolate(frame, [0, 40], [0, 0.12], {
@@ -62,10 +67,13 @@ export const WhoWeServeComposition: React.FC = () => {
     [0.15, 0.35, 0.15]
   );
 
+  // Card content height varies on mobile (stacked so icon+name+bullets)
+  const cardContentHeight = isMobile ? 190 : 0; // used for vertical spacing
+
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #f7f3ee 0%, #fff 50%, #f7f3ee 100%)',
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #0e0e16 50%, #0a0a0a 100%)',
         fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
         overflow: 'hidden',
       }}
@@ -94,7 +102,7 @@ export const WhoWeServeComposition: React.FC = () => {
       >
         <div
           style={{
-            fontSize: 13,
+            fontSize: isMobile ? 11 : 13,
             fontWeight: 600,
             letterSpacing: 3,
             color: CORAL,
@@ -106,9 +114,9 @@ export const WhoWeServeComposition: React.FC = () => {
         </div>
         <div
           style={{
-            fontSize: 34,
+            fontSize: isMobile ? 24 : 34,
             fontWeight: 700,
-            color: '#0a0a0a',
+            color: '#fff',
             letterSpacing: '-1px',
           }}
         >
@@ -143,7 +151,12 @@ export const WhoWeServeComposition: React.FC = () => {
           extrapolateRight: 'clamp',
         });
 
-        const cardX = CARDS_START + idx * (CARD_W + CARD_GAP);
+        const cardX = isMobile
+          ? CARDS_START
+          : CARDS_START + idx * (CARD_W + CARD_GAP);
+        const cardTop = isMobile
+          ? 120 + idx * (cardContentHeight + CARD_GAP)
+          : 120;
         const isCenter = idx === 1;
 
         return (
@@ -151,7 +164,7 @@ export const WhoWeServeComposition: React.FC = () => {
             key={seg.name}
             style={{
               position: 'absolute',
-              top: 120,
+              top: cardTop,
               left: cardX,
               width: CARD_W,
               opacity: cardOpacity,
@@ -176,20 +189,21 @@ export const WhoWeServeComposition: React.FC = () => {
 
             <div
               style={{
-                background: '#fff',
+                background: 'rgba(255,255,255,0.03)',
+                backdropFilter: 'blur(8px)',
                 borderRadius: 16,
-                padding: '24px 20px',
-                border: `1.5px solid ${isCenter ? CORAL : 'rgba(0,0,0,0.08)'}`,
+                padding: isMobile ? '20px 16px' : '24px 20px',
+                border: `1.5px solid ${isCenter ? CORAL : 'rgba(255,255,255,0.08)'}`,
                 boxShadow: isCenter
-                  ? `0 8px 32px ${CORAL}15`
-                  : '0 4px 16px rgba(0,0,0,0.05)',
+                  ? `0 8px 32px ${CORAL}22`
+                  : '0 4px 16px rgba(0,0,0,0.2)',
                 position: 'relative',
               }}
             >
               {/* Icon */}
               <svg
-                width="50"
-                height="50"
+                width={isMobile ? 40 : 50}
+                height={isMobile ? 40 : 50}
                 viewBox="0 0 64 64"
                 style={{ marginBottom: 12 }}
               >
@@ -208,9 +222,9 @@ export const WhoWeServeComposition: React.FC = () => {
               {/* Name */}
               <div
                 style={{
-                  fontSize: 20,
+                  fontSize: isMobile ? 17 : 20,
                   fontWeight: 700,
-                  color: '#0a0a0a',
+                  color: '#fff',
                   marginBottom: 14,
                 }}
               >
@@ -237,9 +251,9 @@ export const WhoWeServeComposition: React.FC = () => {
                         display: 'flex',
                         alignItems: 'center',
                         gap: 8,
-                        fontSize: 13,
+                        fontSize: isMobile ? 12 : 13,
                         fontWeight: 500,
-                        color: '#555',
+                        color: 'rgba(255,255,255,0.55)',
                         fontFamily: "'Inter', system-ui, sans-serif",
                       }}
                     >

@@ -12,7 +12,8 @@ const LIGHT_BG = '#f7f3ee';
 
 export const BlogsHeroComposition: React.FC = () => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
+    const { fps, width } = useVideoConfig();
+    const isMobile = width < 768;
 
     // Title spring
     const titleProgress = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
@@ -76,18 +77,18 @@ export const BlogsHeroComposition: React.FC = () => {
             />
 
             {/* Content */}
-            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 80px', maxWidth: '900px' }}>
+            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: isMobile ? '0 24px' : '0 80px', maxWidth: '900px' }}>
                 {/* Title */}
                 <div
                     style={{
                         opacity: titleOpacity,
                         transform: `translateY(${titleY}px)`,
-                        fontSize: '72px',
+                        fontSize: isMobile ? '36px' : '72px',
                         fontWeight: 700,
                         color: DARK,
                         lineHeight: 1.1,
-                        marginBottom: '24px',
-                        letterSpacing: '-2px',
+                        marginBottom: isMobile ? '14px' : '24px',
+                        letterSpacing: isMobile ? '-1px' : '-2px',
                     }}
                 >
                     Our{' '}
@@ -95,10 +96,10 @@ export const BlogsHeroComposition: React.FC = () => {
                 </div>
 
                 {/* Accent line */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: isMobile ? '16px' : '28px' }}>
                     <div
                         style={{
-                            height: '4px',
+                            height: isMobile ? '3px' : '4px',
                             width: `${lineWidth}%`,
                             maxWidth: '120px',
                             background: CORAL,
@@ -111,11 +112,11 @@ export const BlogsHeroComposition: React.FC = () => {
                 {/* Subtitle typewriter */}
                 <div
                     style={{
-                        fontSize: '22px',
+                        fontSize: isMobile ? '14px' : '22px',
                         color: '#555',
                         fontWeight: 400,
-                        minHeight: '32px',
-                        marginBottom: '40px',
+                        minHeight: isMobile ? '20px' : '32px',
+                        marginBottom: isMobile ? '20px' : '40px',
                         fontFamily: "'Inter', system-ui, sans-serif",
                     }}
                 >

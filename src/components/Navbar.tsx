@@ -4,7 +4,7 @@ import { ChevronDown, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
-import logoImg from '@/assets/image.png';
+import logoImg from '@/assets/logo.svg';
 
 const services = [
   // { name: 'Full Stack Development', href: '/services#fullstack' },

@@ -14,6 +14,7 @@ const services = ['Full Stack Dev', 'Cloud & DevOps', 'Cybersecurity', 'Gen AI',
 export const HomeServicesComposition: React.FC = () => {
     const frame = useCurrentFrame();
     const { fps, width } = useVideoConfig();
+    const isMobile = width < 768;
 
     // Title
     const titleProgress = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
@@ -81,18 +82,18 @@ export const HomeServicesComposition: React.FC = () => {
                 }}
             />
 
-            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 80px', maxWidth: '1000px' }}>
+            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: isMobile ? '0 20px' : '0 80px', maxWidth: '1000px' }}>
                 {/* Title */}
                 <div
                     style={{
                         opacity: titleOpacity,
                         transform: `translateY(${titleY}px)`,
-                        fontSize: '60px',
+                        fontSize: isMobile ? '26px' : '60px',
                         fontWeight: 700,
                         color: '#fff',
                         lineHeight: 1.1,
-                        marginBottom: '20px',
-                        letterSpacing: '-2px',
+                        marginBottom: isMobile ? '12px' : '20px',
+                        letterSpacing: isMobile ? '-1px' : '-2px',
                     }}
                 >
                     Simplifying Tech,{' '}
@@ -100,7 +101,7 @@ export const HomeServicesComposition: React.FC = () => {
                 </div>
 
                 {/* Accent line */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: isMobile ? '12px' : '20px' }}>
                     <div
                         style={{
                             height: '3px',
@@ -116,9 +117,9 @@ export const HomeServicesComposition: React.FC = () => {
                 <div
                     style={{
                         opacity: subtitleOpacity,
-                        fontSize: '20px',
+                        fontSize: isMobile ? '13px' : '20px',
                         color: 'rgba(255,255,255,0.65)',
-                        marginBottom: '48px',
+                        marginBottom: isMobile ? '20px' : '48px',
                         fontFamily: "'Inter', system-ui, sans-serif",
                     }}
                 >
@@ -126,7 +127,7 @@ export const HomeServicesComposition: React.FC = () => {
                 </div>
 
                 {/* Service pills — staggered */}
-                <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: isMobile ? '8px' : '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
                     {services.map((svc, i) => {
                         const pillStart = 45 + i * 10;
                         const pillProgress = spring({ frame: frame - pillStart, fps, config: { damping: 12, stiffness: 120 } });
@@ -141,9 +142,9 @@ export const HomeServicesComposition: React.FC = () => {
                                     background: i === 0 ? CORAL : 'rgba(255,255,255,0.07)',
                                     border: `1.5px solid ${i === 0 ? CORAL : 'rgba(255,255,255,0.15)'}`,
                                     color: i === 0 ? '#fff' : 'rgba(255,255,255,0.8)',
-                                    padding: '10px 22px',
+                                    padding: isMobile ? '6px 14px' : '10px 22px',
                                     borderRadius: '100px',
-                                    fontSize: '14px',
+                                    fontSize: isMobile ? '11px' : '14px',
                                     fontWeight: 600,
                                     letterSpacing: '0.3px',
                                     backdropFilter: 'blur(8px)',

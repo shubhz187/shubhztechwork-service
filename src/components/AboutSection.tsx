@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Rocket, Handshake, Star, Linkedin, Mail } from 'lucide-react';
+import { Linkedin, Mail } from 'lucide-react';
 import { SectionTitle } from './SectionTitle';
 import { AboutHeroPlayer } from './about/AboutHeroPlayer';
 
@@ -43,20 +43,6 @@ export const AboutSection = () => {
         {/* Remotion Hero */}
         <div className="mb-16">
           <AboutHeroPlayer />
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
-            {['Innovation', 'Partnership', 'Excellence'].map((value, i) => (
-              <motion.button
-                key={value}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 + i * 0.12 }}
-                onClick={() => document.getElementById('our-values')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-6 py-2.5 rounded-full text-sm font-semibold border transition-all hover:scale-105 active:scale-95 cursor-pointer border-primary/20 text-primary hover:bg-primary hover:text-white bg-primary/5"
-              >
-                {value}
-              </motion.button>
-            ))}
-          </div>
         </div>
 
         {/* Company Story */}
@@ -71,7 +57,7 @@ export const AboutSection = () => {
             Our Story
           </h3>
           <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            ShubhzTechWork started in the most honest way possible — with one friend casually saying, "Let's start a business," and the other saying, "Yes."
+            ShubhzTechWork started in the most honest way possible with one friend casually saying, "Let's start a business," and the other saying, "Yes."
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed mb-6">
             What began as a simple conversation between friends turned into a serious journey of building, learning, and solving real problems through technology. We started small, took on real work, kept improving, and grew through consistency, trust, and results.
@@ -80,10 +66,10 @@ export const AboutSection = () => {
             Today, ShubhzTechWork has evolved into a technology partner focused on building practical, scalable solutions across development, cloud, DevOps, security, and AI. But our foundation remains the same: stay curious, build with purpose, and keep technology simple enough to be useful.
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            We believe the best solutions are not the most complicated ones — they're the ones that actually work, scale well, and make life easier for businesses.
+            We believe the best solutions are not the most complicated ones they're the ones that actually work, scale well, and make life easier for businesses.
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            From a single "yes" to a growing vision, our story is built on action, trust, and the belief that great things can start from one small idea.
+            From a single "yes" to a growing vision, x is built on action, trust, and the belief that great things can start from one small idea.
           </p>
         </motion.div>
 
@@ -154,43 +140,6 @@ export const AboutSection = () => {
           ))}
         </div>
 
-        {/* Values */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          id="our-values"
-          className="mt-12 md:mt-24 grid md:grid-cols-3 gap-8"
-        >
-          <div className="text-center p-6">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Rocket className="w-8 h-8 text-primary" />
-            </div>
-            <h4 className="font-display font-semibold text-lg text-foreground mb-2">Innovation</h4>
-            <p className="text-muted-foreground text-sm">
-              We stay ahead of the curve, embracing new technologies to deliver cutting-edge solutions.
-            </p>
-          </div>
-          <div className="text-center p-6">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Handshake className="w-8 h-8 text-primary" />
-            </div>
-            <h4 className="font-display font-semibold text-lg text-foreground mb-2">Partnership</h4>
-            <p className="text-muted-foreground text-sm">
-              We work alongside our clients, treating their success as our own responsibility.
-            </p>
-          </div>
-          <div className="text-center p-6">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Star className="w-8 h-8 text-primary" />
-            </div>
-            <h4 className="font-display font-semibold text-lg text-foreground mb-2">Excellence</h4>
-            <p className="text-muted-foreground text-sm">
-              We never settle for "good enough" – every project receives our full dedication and expertise.
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

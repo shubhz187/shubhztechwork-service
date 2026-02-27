@@ -37,14 +37,18 @@ const pillars = [
 ];
 
 const ICON_PATH_LEN = 300;
-const COL_WIDTH = 270; // Reduced width to fit 4 columns
-const COL_GAP = 30; // Reduced gap to fit 4 columns
-const TOTAL_WIDTH = COL_WIDTH * 4 + COL_GAP * 3;
-const START_X = (1200 - TOTAL_WIDTH) / 2;
 
 export const ServicePillarsComposition: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width } = useVideoConfig();
+  const isMobile = width < 768;
+
+  // Responsive grid layout
+  const cols = isMobile ? 2 : 4;
+  const COL_WIDTH = isMobile ? (width - 48 - 16) / 2 : 270; // 24px padding each side + 16px gap on mobile
+  const COL_GAP = isMobile ? 16 : 30;
+  const TOTAL_WIDTH = COL_WIDTH * cols + COL_GAP * (cols - 1);
+  const START_X = (width - TOTAL_WIDTH) / 2;
 
   // Grid background
   const gridOpacity = interpolate(frame, [0, 40], [0, 0.1], {
@@ -95,8 +99,8 @@ export const ServicePillarsComposition: React.FC = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: 700,
-          height: 400,
+          width: isMobile ? 400 : 700,
+          height: isMobile ? 300 : 400,
           borderRadius: '50%',
           background: `radial-gradient(ellipse, ${CORAL}12, transparent 70%)`,
           opacity: glowOpacity,
@@ -107,7 +111,7 @@ export const ServicePillarsComposition: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: 30,
+          top: isMobile ? 20 : 30,
           width: '100%',
           textAlign: 'center',
           opacity: titleOpacity,
@@ -116,7 +120,7 @@ export const ServicePillarsComposition: React.FC = () => {
       >
         <div
           style={{
-            fontSize: 13,
+            fontSize: isMobile ? 10 : 13,
             fontWeight: 600,
             letterSpacing: 3,
             color: CORAL,
@@ -128,7 +132,7 @@ export const ServicePillarsComposition: React.FC = () => {
         </div>
         <div
           style={{
-            fontSize: 36,
+            fontSize: isMobile ? 22 : 36,
             fontWeight: 700,
             color: '#fff',
             letterSpacing: '-1px',
@@ -150,8 +154,10 @@ export const ServicePillarsComposition: React.FC = () => {
         </div>
       </div>
 
-      {/* Three pillar columns */}
+      {/* Pillar columns */}
       {pillars.map((pillar, colIdx) => {
+        const col = colIdx % cols;
+        const row = Math.floor(colIdx / cols);
         const colDelay = 30 + colIdx * 20;
         const colSpring = spring({
           frame: frame - colDelay,
@@ -167,14 +173,17 @@ export const ServicePillarsComposition: React.FC = () => {
           extrapolateRight: 'clamp',
         });
 
-        const cardX = START_X + colIdx * (COL_WIDTH + COL_GAP);
+        const cardX = START_X + col * (COL_WIDTH + COL_GAP);
+        // On mobile 2-col: row 0 at 120, row 1 below
+        const ROW_HEIGHT = isMobile ? 260 : 0;
+        const cardTop = isMobile ? 110 + row * ROW_HEIGHT : 135;
 
         return (
           <div
             key={pillar.name}
             style={{
               position: 'absolute',
-              top: 135,
+              top: cardTop,
               left: cardX,
               width: COL_WIDTH,
               opacity: colOpacity,
@@ -186,17 +195,17 @@ export const ServicePillarsComposition: React.FC = () => {
               style={{
                 background: 'rgba(255,255,255,0.03)',
                 border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 16,
-                padding: '28px 24px',
+                borderRadius: isMobile ? 12 : 16,
+                padding: isMobile ? '18px 14px' : '28px 24px',
                 backdropFilter: 'blur(8px)',
               }}
             >
               {/* Icon */}
               <svg
-                width="60"
-                height="60"
+                width={isMobile ? 44 : 60}
+                height={isMobile ? 44 : 60}
                 viewBox="0 0 64 64"
-                style={{ marginBottom: 16 }}
+                style={{ marginBottom: isMobile ? 10 : 16 }}
               >
                 <path
                   d={pillar.icon}
@@ -213,17 +222,17 @@ export const ServicePillarsComposition: React.FC = () => {
               {/* Pillar name */}
               <div
                 style={{
-                  fontSize: 20,
+                  fontSize: isMobile ? 15 : 20,
                   fontWeight: 700,
                   color: '#fff',
-                  marginBottom: 16,
+                  marginBottom: isMobile ? 10 : 16,
                 }}
               >
                 {pillar.name}
               </div>
 
               {/* Service pills */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 6 : 8 }}>
                 {pillar.services.map((svc, svcIdx) => {
                   const pillDelay = colDelay + 40 + svcIdx * 12;
                   const pillSpring = spring({
@@ -242,9 +251,9 @@ export const ServicePillarsComposition: React.FC = () => {
                         transform: `translateX(${pillX}px)`,
                         background: 'rgba(255,255,255,0.05)',
                         border: '1px solid rgba(255,255,255,0.1)',
-                        borderRadius: 8,
-                        padding: '8px 14px',
-                        fontSize: 13,
+                        borderRadius: isMobile ? 6 : 8,
+                        padding: isMobile ? '6px 10px' : '8px 14px',
+                        fontSize: isMobile ? 11 : 13,
                         fontWeight: 500,
                         color: 'rgba(255,255,255,0.75)',
                         fontFamily: "'Inter', system-ui, sans-serif",
@@ -262,12 +271,12 @@ export const ServicePillarsComposition: React.FC = () => {
 
       {/* Connecting flow-line between pillars */}
       <svg
-        width="1200"
+        width={width}
         height="500"
-        viewBox="0 0 1200 500"
+        viewBox={`0 0 ${width} 500`}
         style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
       >
-        {[0, 1, 2].map((i) => {
+        {!isMobile && [0, 1, 2].map((i) => {
           const fromX = START_X + COL_WIDTH + i * (COL_WIDTH + COL_GAP);
           const toX = fromX + COL_GAP;
           const y = 220;
@@ -279,6 +288,31 @@ export const ServicePillarsComposition: React.FC = () => {
           return (
             <line
               key={i}
+              x1={fromX}
+              y1={y}
+              x2={toX}
+              y2={y}
+              stroke={CORAL}
+              strokeWidth="1.5"
+              strokeDasharray={COL_GAP}
+              strokeDashoffset={lineDraw}
+              opacity={0.4}
+            />
+          );
+        })}
+        {/* Mobile: horizontal connector between each pair in a row */}
+        {isMobile && [0].map((rowIdx) => {
+          const fromX = START_X + COL_WIDTH;
+          const toX = fromX + COL_GAP;
+          const y = 220;
+          const lineDelay = 55;
+          const lineDraw = interpolate(frame - lineDelay, [0, 20], [COL_GAP, 0], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          });
+          return (
+            <line
+              key={`m-${rowIdx}`}
               x1={fromX}
               y1={y}
               x2={toX}

@@ -18,18 +18,27 @@ const ROW_TOTAL = (PILL_W + PILL_GAP) * ROW_1.length;
 
 export const TechMarqueeComposition: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width } = useVideoConfig();
+  const isMobile = width < 768;
 
   // Title
   const titleSpring = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
   const titleY = interpolate(titleSpring, [0, 1], [20, 0]);
 
+  // Responsive pill dimensions
+  const centerX = width / 2;
+  const pillW = isMobile ? 100 : PILL_W;
+  const fadeWidth = Math.round(width * 0.1);
+
+  // Row total for current pill size
+  const currentRowTotal = (pillW + PILL_GAP) * ROW_1.length;
+
   // Row offsets — opposite directions
-  const row1Offset = interpolate(frame, [0, 600], [0, -ROW_TOTAL], {
+  const row1Offset = interpolate(frame, [0, 600], [0, -currentRowTotal], {
     extrapolateRight: 'wrap',
   });
-  const row2Offset = interpolate(frame, [0, 600], [-ROW_TOTAL, 0], {
+  const row2Offset = interpolate(frame, [0, 600], [-currentRowTotal, 0], {
     extrapolateRight: 'wrap',
   });
 
@@ -39,16 +48,14 @@ export const TechMarqueeComposition: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  // Center spotlight x position
-  const centerX = 600;
-
   const renderPill = (tech: string, idx: number, offset: number) => {
-    const baseX = idx * (PILL_W + PILL_GAP) + offset;
+    const rowTotal = (pillW + PILL_GAP) * ROW_1.length;
+    const baseX = idx * (pillW + PILL_GAP) + offset;
     // Wrap the position so it loops
-    const x = ((baseX % ROW_TOTAL) + ROW_TOTAL) % ROW_TOTAL;
+    const x = ((baseX % rowTotal) + rowTotal) % rowTotal;
 
     // Center spotlight: pills near center get brighter border
-    const distFromCenter = Math.abs(x + PILL_W / 2 - centerX);
+    const distFromCenter = Math.abs(x + pillW / 2 - centerX);
     const spotlightGlow = interpolate(distFromCenter, [0, 200], [1, 0], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
@@ -60,7 +67,7 @@ export const TechMarqueeComposition: React.FC = () => {
         style={{
           position: 'absolute',
           left: x,
-          width: PILL_W,
+          width: pillW,
           height: PILL_H,
           display: 'flex',
           alignItems: 'center',
@@ -147,7 +154,7 @@ export const TechMarqueeComposition: React.FC = () => {
           position: 'absolute',
           top: 60,
           left: 0,
-          width: ROW_TOTAL,
+          width: currentRowTotal,
           height: PILL_H,
         }}
       >
@@ -161,7 +168,7 @@ export const TechMarqueeComposition: React.FC = () => {
           position: 'absolute',
           top: 60 + PILL_H + 16,
           left: 0,
-          width: ROW_TOTAL,
+          width: currentRowTotal,
           height: PILL_H,
         }}
       >
@@ -174,7 +181,7 @@ export const TechMarqueeComposition: React.FC = () => {
           position: 'absolute',
           top: 50,
           left: 0,
-          width: 120,
+          width: fadeWidth,
           height: 120,
           background: 'linear-gradient(90deg, #0a0a0a, transparent)',
           zIndex: 2,
@@ -185,7 +192,7 @@ export const TechMarqueeComposition: React.FC = () => {
           position: 'absolute',
           top: 50,
           right: 0,
-          width: 120,
+          width: fadeWidth,
           height: 120,
           background: 'linear-gradient(-90deg, #0a0a0a, transparent)',
           zIndex: 2,

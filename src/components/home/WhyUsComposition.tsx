@@ -31,17 +31,20 @@ const differentiators = [
   },
 ];
 
-const CARD_W = 480;
-const CARD_H = 120;
-const CARD_GAP_X = 60;
-const CARD_GAP_Y = 28;
-const GRID_START_X = (1200 - CARD_W * 2 - CARD_GAP_X) / 2;
-const GRID_START_Y = 130;
-const BORDER_PERIMETER = (CARD_W + CARD_H) * 2;
-
 export const WhyUsComposition: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width } = useVideoConfig();
+  const isMobile = width < 768;
+
+  // Responsive card dimensions
+  const CARD_W = isMobile ? width - 40 : 480;
+  const CARD_H = isMobile ? 110 : 120;
+  const CARD_GAP_X = 60;
+  const CARD_GAP_Y = isMobile ? 16 : 28;
+  const cols = isMobile ? 1 : 2;
+  const GRID_START_X = isMobile ? 20 : (width - CARD_W * 2 - CARD_GAP_X) / 2;
+  const GRID_START_Y = 130;
+  const BORDER_PERIMETER = (CARD_W + CARD_H) * 2;
 
   // Grid
   const gridOpacity = interpolate(frame, [0, 50], [0, 0.08], {
@@ -97,8 +100,8 @@ export const WhyUsComposition: React.FC = () => {
           top: '55%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: 500,
-          height: 300,
+          width: isMobile ? 300 : 500,
+          height: isMobile ? 200 : 300,
           borderRadius: '50%',
           background: `radial-gradient(ellipse, ${CORAL}14, transparent 70%)`,
           opacity: frame > 40 ? glowPulse : glowOpacity,
@@ -118,7 +121,7 @@ export const WhyUsComposition: React.FC = () => {
       >
         <div
           style={{
-            fontSize: 13,
+            fontSize: isMobile ? 11 : 13,
             fontWeight: 600,
             letterSpacing: 3,
             color: CORAL,
@@ -130,7 +133,7 @@ export const WhyUsComposition: React.FC = () => {
         </div>
         <div
           style={{
-            fontSize: 34,
+            fontSize: isMobile ? 24 : 34,
             fontWeight: 700,
             color: '#fff',
             letterSpacing: '-1px',
@@ -151,10 +154,10 @@ export const WhyUsComposition: React.FC = () => {
         </div>
       </div>
 
-      {/* 2x2 Grid of cards */}
+      {/* 2x2 Grid of cards (or 1-col stack on mobile) */}
       {differentiators.map((item, idx) => {
-        const col = idx % 2;
-        const row = Math.floor(idx / 2);
+        const col = idx % cols;
+        const row = Math.floor(idx / cols);
 
         // Diagonal stagger: top-left first, bottom-right last
         const delays = [14, 24, 28, 38];
@@ -182,7 +185,9 @@ export const WhyUsComposition: React.FC = () => {
           extrapolateRight: 'clamp',
         });
 
-        const cardX = GRID_START_X + col * (CARD_W + CARD_GAP_X);
+        const cardX = isMobile
+          ? GRID_START_X
+          : GRID_START_X + col * (CARD_W + CARD_GAP_X);
         const cardYPos = GRID_START_Y + row * (CARD_H + CARD_GAP_Y);
 
         return (
@@ -242,14 +247,14 @@ export const WhyUsComposition: React.FC = () => {
                 position: 'relative',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 20,
-                padding: '0 24px',
+                gap: isMobile ? 14 : 20,
+                padding: isMobile ? '0 16px' : '0 24px',
                 height: '100%',
                 opacity: contentOpacity,
               }}
             >
               {/* Icon */}
-              <svg width="44" height="44" viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
+              <svg width={isMobile ? 36 : 44} height={isMobile ? 36 : 44} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
                 <path
                   d={item.icon}
                   fill="none"
@@ -263,7 +268,7 @@ export const WhyUsComposition: React.FC = () => {
               <div>
                 <div
                   style={{
-                    fontSize: 18,
+                    fontSize: isMobile ? 15 : 18,
                     fontWeight: 700,
                     color: '#fff',
                     marginBottom: 4,
@@ -273,7 +278,7 @@ export const WhyUsComposition: React.FC = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: 13,
+                    fontSize: isMobile ? 12 : 13,
                     fontWeight: 400,
                     color: 'rgba(255,255,255,0.55)',
                     fontFamily: "'Inter', system-ui, sans-serif",

@@ -12,7 +12,8 @@ const LIGHT_BG = '#f7f3ee';
 
 export const ContactHeroComposition: React.FC = () => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
+    const { fps, width } = useVideoConfig();
+    const isMobile = width < 768;
 
     // Title spring
     const titleProgress = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
@@ -103,28 +104,28 @@ export const ContactHeroComposition: React.FC = () => {
                 }}
             />
 
-            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 80px', maxWidth: '900px' }}>
+            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: isMobile ? '0 24px' : '0 80px', maxWidth: '900px' }}>
                 {/* Title */}
                 <div
                     style={{
                         opacity: titleOpacity,
                         transform: `translateY(${titleY}px)`,
-                        fontSize: '66px',
+                        fontSize: isMobile ? '32px' : '66px',
                         fontWeight: 700,
                         color: '#0a0a0a',
                         lineHeight: 1.1,
-                        marginBottom: '20px',
-                        letterSpacing: '-2px',
+                        marginBottom: isMobile ? '14px' : '20px',
+                        letterSpacing: isMobile ? '-1px' : '-2px',
                     }}
                 >
                     Get In <span style={{ color: CORAL }}>Touch</span>
                 </div>
 
                 {/* Accent line */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '22px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: isMobile ? '14px' : '22px' }}>
                     <div
                         style={{
-                            height: '4px',
+                            height: isMobile ? '3px' : '4px',
                             width: `${lineWidth}%`,
                             maxWidth: '120px',
                             background: CORAL,
@@ -137,7 +138,7 @@ export const ContactHeroComposition: React.FC = () => {
                 <div
                     style={{
                         opacity: subtitleOpacity,
-                        fontSize: '20px',
+                        fontSize: isMobile ? '14px' : '20px',
                         color: '#555',
                         fontFamily: "'Inter', system-ui, sans-serif",
                     }}

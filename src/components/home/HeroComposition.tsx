@@ -47,7 +47,8 @@ const PATH_LEN = 200;
 
 export const HeroComposition: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width } = useVideoConfig();
+  const isMobile = width < 768;
 
   /* ── Layer 1: Background + Dot Grid ── */
   const gridOpacity = interpolate(frame, [0, 40], [0, 0.12], {
@@ -141,14 +142,14 @@ export const HeroComposition: React.FC = () => {
   const logoGlow =
     frame > 55
       ? interpolate(
-          (frame - 55) % 90,
-          [0, 45, 90],
-          [0.3, 0.55, 0.3],
-        )
+        (frame - 55) % 90,
+        [0, 45, 90],
+        [0.3, 0.55, 0.3],
+      )
       : interpolate(frame, [40, 55], [0, 0.3], {
-          extrapolateLeft: 'clamp',
-          extrapolateRight: 'clamp',
-        });
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+      });
 
   /* ── Layer 5: Text Reveals ── */
   const line1Spring = spring({
@@ -308,7 +309,7 @@ export const HeroComposition: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: '28%',
+          top: isMobile ? '22%' : '28%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           display: 'flex',
@@ -345,8 +346,8 @@ export const HeroComposition: React.FC = () => {
         <Img
           src={staticFile('logo.png')}
           style={{
-            width: 200,
-            height: 200,
+            width: isMobile ? 140 : 200,
+            height: isMobile ? 140 : 200,
             objectFit: 'contain',
             transform: `scale(${logoScale})`,
             opacity: logoOpacity,
@@ -361,12 +362,13 @@ export const HeroComposition: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: '53%',
+          top: isMobile ? '44%' : '53%',
           width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: 4,
+          padding: isMobile ? '0 16px' : 0,
         }}
       >
         {/* "Simplifying Tech," */}
@@ -374,7 +376,7 @@ export const HeroComposition: React.FC = () => {
           style={{
             opacity: line1Opacity,
             transform: `translateY(${line1Y}px)`,
-            fontSize: 44,
+            fontSize: isMobile ? 26 : 44,
             fontWeight: 700,
             color: '#ffffff',
             fontFamily: "'Space Grotesk', system-ui, sans-serif",
@@ -391,7 +393,7 @@ export const HeroComposition: React.FC = () => {
           style={{
             opacity: line2Opacity,
             transform: `translateY(${line2Y}px)`,
-            fontSize: 44,
+            fontSize: isMobile ? 26 : 44,
             fontWeight: 700,
             fontFamily: "'Space Grotesk', system-ui, sans-serif",
             letterSpacing: '-0.5px',
@@ -410,17 +412,17 @@ export const HeroComposition: React.FC = () => {
         <div
           style={{
             opacity: subOpacity,
-            fontSize: 16,
+            fontSize: isMobile ? 13 : 16,
             fontWeight: 400,
             color: 'rgba(255,255,255,0.5)',
             fontFamily: "'Inter', system-ui, sans-serif",
             textAlign: 'center',
-            marginTop: 16,
-            maxWidth: 540,
+            marginTop: isMobile ? 10 : 16,
+            maxWidth: isMobile ? 320 : 540,
             lineHeight: 1.5,
           }}
         >
-          End-to-end technology solutions — from architecture to production.
+          End-to-end technology solutions from architecture to production.
           We build, secure, and scale the infrastructure your business runs on.
         </div>
       </div>

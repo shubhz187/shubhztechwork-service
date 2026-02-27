@@ -19,7 +19,8 @@ const DOC_CHECK = 'M 20 50 L 24 54 L 32 46';
 
 export const TermsHeroComposition: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width } = useVideoConfig();
+  const isMobile = width < 768;
 
   // Grid bg
   const gridOpacity = interpolate(frame, [0, 60], [0, 0.08], {
@@ -106,7 +107,7 @@ export const TermsHeroComposition: React.FC = () => {
         }}
       />
 
-      {/* Layout: icon left, text right */}
+      {/* Layout: icon left, text right (stacked on mobile) */}
       <div
         style={{
           position: 'absolute',
@@ -114,14 +115,16 @@ export const TermsHeroComposition: React.FC = () => {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
           alignItems: 'center',
-          gap: 40,
+          gap: isMobile ? 16 : 40,
+          textAlign: isMobile ? 'center' : 'left',
         }}
       >
         {/* Document icon */}
         <svg
-          width="100"
-          height="100"
+          width={isMobile ? 60 : 100}
+          height={isMobile ? 60 : 100}
           viewBox="0 0 64 64"
           style={{ opacity: iconOpacity, flexShrink: 0 }}
         >
@@ -177,7 +180,7 @@ export const TermsHeroComposition: React.FC = () => {
         <div style={{ opacity: titleOpacity, transform: `translateY(${titleY}px)` }}>
           <div
             style={{
-              fontSize: 64,
+              fontSize: isMobile ? 30 : 64,
               fontWeight: 700,
               color: '#fff',
               letterSpacing: '-1px',
@@ -188,7 +191,7 @@ export const TermsHeroComposition: React.FC = () => {
           </div>
           <div
             style={{
-              fontSize: 22,
+              fontSize: isMobile ? 14 : 22,
               fontWeight: 400,
               color: 'rgba(255,255,255,0.5)',
               marginTop: 8,
@@ -207,6 +210,7 @@ export const TermsHeroComposition: React.FC = () => {
               marginTop: 12,
               background: `linear-gradient(90deg, ${CORAL}, transparent)`,
               borderRadius: 2,
+              ...(isMobile ? { marginLeft: 'auto', marginRight: 'auto' } : {}),
             }}
           />
         </div>

@@ -13,7 +13,8 @@ const LIGHT_BG = '#f7f3ee';
 
 export const AboutHeroComposition: React.FC = () => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
+    const { fps, width } = useVideoConfig();
+    const isMobile = width < 768;
 
     // Company name spring
     const nameProgress = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
@@ -78,28 +79,28 @@ export const AboutHeroComposition: React.FC = () => {
                 }}
             />
 
-            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 80px', maxWidth: '900px' }}>
+            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: isMobile ? '0 24px' : '0 80px', maxWidth: '900px' }}>
                 {/* Company name */}
                 <div
                     style={{
                         opacity: nameOpacity,
                         transform: `translateY(${nameY}px)`,
-                        fontSize: '64px',
+                        fontSize: isMobile ? '28px' : '64px',
                         fontWeight: 700,
                         color: DARK,
                         lineHeight: 1.1,
-                        marginBottom: '20px',
-                        letterSpacing: '-2px',
+                        marginBottom: isMobile ? '14px' : '20px',
+                        letterSpacing: isMobile ? '-1px' : '-2px',
                     }}
                 >
                     About <span style={{ color: CORAL }}>ShubhzTechWork</span>
                 </div>
 
                 {/* Accent line */}
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: isMobile ? '14px' : '24px' }}>
                     <div
                         style={{
-                            height: '4px',
+                            height: isMobile ? '3px' : '4px',
                             width: `${lineWidth}%`,
                             maxWidth: '140px',
                             background: CORAL,
@@ -112,7 +113,7 @@ export const AboutHeroComposition: React.FC = () => {
                 <div
                     style={{
                         opacity: taglineOpacity,
-                        fontSize: '22px',
+                        fontSize: isMobile ? '14px' : '22px',
                         color: '#555',
                         fontWeight: 400,
                         fontFamily: "'Inter', system-ui, sans-serif",

@@ -11,8 +11,8 @@ const DARK = '#0a0a0a';
 const LIGHT_BG = '#f7f3ee';
 
 const metrics = [
-    { value: 3, suffix: '', label: 'Industries' },
-    { value: 3, suffix: '', label: 'Case Studies' },
+    { value: 5, suffix: '', label: 'Industries' },
+    { value: 5, suffix: '', label: 'Case Studies' },
     { value: 100, suffix: '%', label: 'End-to-End' },
 ];
 
@@ -27,7 +27,8 @@ function AnimatedCounter({ target, suffix, frame, startFrame, fps }: {
 
 export const CaseStudiesHeroComposition: React.FC = () => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
+    const { fps, width } = useVideoConfig();
+    const isMobile = width < 768;
 
     // Title
     const titleProgress = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
@@ -77,18 +78,18 @@ export const CaseStudiesHeroComposition: React.FC = () => {
                 }}
             />
 
-            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 80px', maxWidth: '1000px' }}>
+            <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: isMobile ? '0 24px' : '0 80px', maxWidth: '1000px' }}>
                 {/* Title */}
                 <div
                     style={{
                         opacity: titleOpacity,
                         transform: `translateY(${titleY}px)`,
-                        fontSize: '68px',
+                        fontSize: isMobile ? '32px' : '68px',
                         fontWeight: 700,
                         color: DARK,
                         lineHeight: 1.1,
-                        marginBottom: '16px',
-                        letterSpacing: '-2px',
+                        marginBottom: isMobile ? '10px' : '16px',
+                        letterSpacing: isMobile ? '-1px' : '-2px',
                     }}
                 >
                     Case <span style={{ color: CORAL }}>Studies</span>
@@ -98,9 +99,9 @@ export const CaseStudiesHeroComposition: React.FC = () => {
                 <div
                     style={{
                         opacity: subtitleOpacity,
-                        fontSize: '20px',
+                        fontSize: isMobile ? '14px' : '20px',
                         color: '#666',
-                        marginBottom: '48px',
+                        marginBottom: isMobile ? '24px' : '48px',
                         fontFamily: "'Inter', system-ui, sans-serif",
                     }}
                 >
@@ -108,7 +109,7 @@ export const CaseStudiesHeroComposition: React.FC = () => {
                 </div>
 
                 {/* Metrics */}
-                <div style={{ display: 'flex', gap: '48px', justifyContent: 'center', marginBottom: '48px' }}>
+                <div style={{ display: 'flex', gap: isMobile ? '24px' : '48px', justifyContent: 'center', marginBottom: isMobile ? '24px' : '48px' }}>
                     {metrics.map((m, i) => {
                         const metricStart = 40 + i * 10;
                         const metricProgress = spring({ frame: frame - metricStart, fps, config: { damping: 12, stiffness: 80 } });
@@ -123,10 +124,10 @@ export const CaseStudiesHeroComposition: React.FC = () => {
                                     textAlign: 'center',
                                 }}
                             >
-                                <div style={{ fontSize: '52px', fontWeight: 700, color: CORAL, lineHeight: 1 }}>
+                                <div style={{ fontSize: isMobile ? '28px' : '52px', fontWeight: 700, color: CORAL, lineHeight: 1 }}>
                                     <AnimatedCounter target={m.value} suffix={m.suffix} frame={frame} startFrame={metricStart} fps={fps} />
                                 </div>
-                                <div style={{ fontSize: '16px', color: '#888', marginTop: '8px', fontWeight: 500 }}>{m.label}</div>
+                                <div style={{ fontSize: isMobile ? '12px' : '16px', color: '#888', marginTop: '8px', fontWeight: 500 }}>{m.label}</div>
                             </div>
                         );
                     })}
