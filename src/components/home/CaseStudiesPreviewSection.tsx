@@ -5,14 +5,14 @@ import { caseStudies } from '@/data/case-studies';
 import { CaseStudyCard } from '@/components/case-studies/CaseStudyCard';
 
 export const CaseStudiesPreviewSection = () => (
-  <section className="py-10 relative overflow-hidden">
+  <section className="py-4 md:py-10 relative overflow-hidden">
     <div className="container mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-14"
+        className="text-center mb-8 md:mb-14"
       >
         <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">
           Our Work
@@ -36,7 +36,7 @@ export const CaseStudiesPreviewSection = () => (
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="mt-4 text-center"
+        className="mt-2 md:mt-4 text-center"
       >
         <Link
           to="/case-studies"

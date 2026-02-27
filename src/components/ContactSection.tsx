@@ -37,7 +37,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-12 md:py-24 relative overflow-hidden">
+    <section id="contact" className="py-6 md:py-24 relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/30 to-background" />
 
@@ -53,7 +53,7 @@ export const ContactSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Remotion Hero */}
-        <div className="mb-14">
+        <div className="mb-8 md:mb-14">
           <ContactHeroPlayer />
         </div>
 

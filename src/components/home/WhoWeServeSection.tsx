@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { WhoWeServePlayer } from './WhoWeServePlayer';
 
 export const WhoWeServeSection = () => (
-  <section className="py-10 relative overflow-hidden">
+  <section className="py-4 md:py-10 relative overflow-hidden">
     <div className="container mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

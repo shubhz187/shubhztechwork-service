@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { ServicePillarsPlayer } from './ServicePillarsPlayer';
 
 export const ServicePillarsSection = () => (
-  <section className="py-10 relative overflow-hidden">
+  <section className="py-4 md:py-10 relative overflow-hidden">
     <div className="container mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,7 @@ export const ServicePillarsSection = () => (
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="mt-4 text-center"
+        className="mt-2 md:mt-4 text-center"
       >
         <Link
           to="/services"

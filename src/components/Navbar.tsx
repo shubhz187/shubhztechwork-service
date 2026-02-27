@@ -90,11 +90,18 @@ export const Navbar = () => {
       )}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-20 relative">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img src={logoImg} alt="ShubhzTechWork" width={44} height={44} className="shrink-0" />
-            <span className="font-display font-bold text-xl text-foreground hidden sm:block">
+            <span className="font-display font-bold text-xl text-foreground hidden lg:block">
+              ShubhzTechWork
+            </span>
+          </Link>
+
+          {/* Mobile centered brand name */}
+          <Link to="/" className="absolute left-1/2 -translate-x-1/2 lg:hidden">
+            <span className="font-display font-bold text-lg text-foreground">
               ShubhzTechWork
             </span>
           </Link>
