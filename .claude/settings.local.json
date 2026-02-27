@@ -14,7 +14,9 @@
       "Bash(node:*)",
       "Bash(pkill:*)",
       "Bash(npx tsc:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Bash(gh run:*)",
+      "WebFetch(domain:www.remotion.dev)"
     ]
   }
 }
