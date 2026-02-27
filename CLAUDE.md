@@ -34,7 +34,7 @@ Tests live in `src/**/*.{test,spec}.{ts,tsx}` and use jsdom environment with glo
 
 **Provider hierarchy** (`src/App.tsx`): `QueryClientProvider` → `ThemeProvider` → `TooltipProvider` → toasters → `BrowserRouter` → Routes.
 
-**Routing** (`src/App.tsx`): Eight routes — `/` (Index), `/services`, `/technologies`, `/about`, `/blogs`, `/blogs/:slug` (BlogPost), `/case-studies`, `/case-studies/:slug` (CaseStudyDetail), plus a catch-all 404. Supports hash navigation for in-page sections (e.g., `/services#fullstack`, `/#contact`).
+**Routing** (`src/App.tsx`): Ten routes — `/` (Index), `/services`, `/technologies`, `/about`, `/blogs`, `/blogs/:slug` (BlogPost), `/case-studies`, `/case-studies/:slug` (CaseStudyDetail), `/privacy-policy`, `/terms-of-service`, plus a catch-all 404. Supports hash navigation for in-page sections (e.g., `/services#fullstack`, `/#contact`).
 
 **Page composition pattern**: Every page follows: `Navbar` → page-specific sections → `Footer`. The homepage (`src/pages/Index.tsx`) composes 8 animated sections: HeroSection → ServicePillarsSection → HowWeWorkSection → CaseStudiesPreviewSection → TechStackSection → WhoWeServeSection → WhyUsSection → ContactSection.
 
@@ -64,10 +64,23 @@ The project uses Remotion extensively — not just for hero banners but for sect
 - `blogs/` — Hero banner + 5 topic-specific animations in `animations/` subdirectory
 - `case-studies/` — Hero banner + 5 case-study-specific animations in `animations/` subdirectory, mapped via `CaseStudyAnimation.tsx`
 - `about/`, `contact/` — Hero banners only
+- `legal/` — Privacy and Terms hero banners
+- `technologies/` — Hero banner, TechIconComposition (61 custom SVG icons), TechCarousel grid
 
-**Remotion conventions**: Dark bg `#0a0a0a`, coral accent `hsl(6, 93%, 64%)`, purple `#a855f7`, pink `#ec4899`. Spring physics typically `damping: 12-14, stiffness: 80-130`. Dot grid backgrounds, glow blobs, and vignette overlays. Standard dimensions: 800x320 for inline animations, 1200x400-700 for section/hero animations, all at 30fps.
+**Remotion conventions**: Dark bg `#0a0a0a`, coral accent `hsl(6, 93%, 64%)`, purple `#a855f7`, pink `#ec4899`. Spring physics typically `damping: 12-14, stiffness: 80-130`. Dot grid backgrounds, glow blobs, and vignette overlays. Standard dimensions: 800x400 for inline animations (with per-type height overrides in `CaseStudyAnimation.tsx`), 1200x400-700 for section/hero animations, all at 30fps.
 
 **Critical: composition height must accommodate card content.** When Remotion compositions contain cards/grids with absolute positioning, the `compositionHeight` in the Player must be tall enough to avoid clipping. Always verify by calculating: card `top` + card content height + animation `translateY` offset < compositionHeight.
+
+## Technologies Page Architecture
+
+The Technologies page (`src/pages/Technologies.tsx`) showcases 61 technologies across 7 categories using a custom Remotion-animated icon system:
+
+- `src/components/technologies/TechIconComposition.tsx` — 61 custom SVG icons with stroke-dashoffset draw-on animation, pulse glow ring. `TechIconType` union type defines all icon identifiers.
+- `src/components/technologies/TechIconPlayer.tsx` — 100×100 Remotion Player wrapper for individual tech icons.
+- `src/components/technologies/techData.ts` — Central data file with `Technology` and `TechCategory` interfaces. 7 categories: Cloud & Infra (11), DevOps & SRE (14), Monitoring (6), Security (10), Databases (5), AI & LLM (11), Contact Center (4).
+- `src/components/technologies/TechCarousel.tsx` — Flex-wrap grid with staggered Framer Motion entrance animations. Hover shows scale-up + description tooltip.
+
+Each category renders as a separate bordered section with its own heading and TechCarousel instance.
 
 ## Key Patterns
 
@@ -77,7 +90,23 @@ The project uses Remotion extensively — not just for hero banners but for sect
 - Service data uses `iconType` string identifiers mapped to Remotion-rendered icon compositions in `ServiceCard`
 - Responsive layouts use Tailwind's grid system (1/2/3 column breakpoints: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`)
 - Case studies support a `comingSoon: true` flag that shows a "Coming Soon" badge on cards and a poster treatment on the detail page instead of full content
+- Contact form (`src/components/ContactSection.tsx`) submits via Web3Forms API with a hardcoded access key
+- Elements inside Remotion `<Player>` are NOT interactive (rendered as visual-only) — never put clickable buttons/links inside compositions
+- Use `staticFile()` from Remotion for public assets inside compositions (not hardcoded `/` paths)
+- `.npmrc` has `legacy-peer-deps=true` to resolve peer dependency conflicts during CI builds
 - This project was scaffolded with Lovable (lovable.dev); the `lovable-tagger` dev plugin runs in development mode only
+
+## Deployment
+
+**Hosting:** GitHub Pages with custom subdomain `services.shubhztechwork.com`
+
+**CI/CD:** `.github/workflows/deploy.yml` — GitHub Actions workflow triggers on push to `main`. Builds with Node 20, deploys `dist/` to GitHub Pages via `actions/deploy-pages`.
+
+**SPA routing on GitHub Pages:** `public/404.html` redirects unknown paths back to `index.html` with the path encoded as a query parameter. A script in `index.html` `<head>` restores the original URL via `history.replaceState` before React mounts.
+
+**Custom domain:** `public/CNAME` contains `services.shubhztechwork.com`. DNS is a CNAME record pointing `services` to `shubhz187.github.io`.
+
+**Static assets:** `public/` contains `logo.png`, `robots.txt`, `sitemap.xml`, `404.html`, `CNAME`.
 
 ## Domain Context
 
