@@ -55,8 +55,8 @@ Tests live in `src/**/*.{test,spec}.{ts,tsx}` and use jsdom environment with glo
 The project uses Remotion extensively — not just for hero banners but for section-level visuals throughout the site.
 
 **Composition + Player pattern**: Every animation follows a two-file convention:
-- `*Composition.tsx` — Remotion composition using `useCurrentFrame`/`spring`/`interpolate` from `remotion`, plus `AbsoluteFill` and optionally `Img`
-- `*Player.tsx` — Wraps the composition in a `@remotion/player` `<Player>` with auto-play, loop, no controls, and `prefers-reduced-motion` respect
+- `*Composition.tsx` — Remotion composition using `useCurrentFrame`/`spring`/`interpolate` from `remotion`, plus `AbsoluteFill` and optionally `Img`. Compositions receive `width`/`height` via `useCurrentFrame` context and should adapt layout for mobile widths (< 768px).
+- `*Player.tsx` — Wraps the composition in a `@remotion/player` `<Player>` with auto-play, loop, no controls, and `prefers-reduced-motion` respect. All Players use the `useResponsivePlayer` hook (`src/hooks/use-responsive-player.ts`) which measures the container via `ResizeObserver` and returns `compositionWidth`, `compositionHeight`, and `isMobile`. This ensures Remotion compositions resize fluidly on mobile instead of using fixed desktop dimensions. Config shape: `{ desktopWidth, desktopHeight, mobileHeight? }`.
 
 **Component domain directories** under `src/components/`:
 - `home/` — Hero (full-viewport unified composition with circuit graph + logo + tagline), plus 6 section animations (ServicePillars, HowWeWork, TechMarquee, WhoWeServe, WhyUs, HomeServices)
