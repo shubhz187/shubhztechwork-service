@@ -16,7 +16,16 @@
       "Bash(npx tsc:*)",
       "Bash(git:*)",
       "Bash(gh run:*)",
-      "WebFetch(domain:www.remotion.dev)"
+      "WebFetch(domain:www.remotion.dev)",
+      "Bash(npm uninstall:*)",
+      "WebFetch(domain:simpleicons.org)",
+      "WebFetch(domain:react-icons.github.io)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:unpkg.com)",
+      "WebFetch(domain:cdn.jsdelivr.net)",
+      "WebFetch(domain:cdn.simpleicons.org)",
+      "Bash(npm install:*)"
     ]
   }
 }

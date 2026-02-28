@@ -1,4 +1,4 @@
-import { TechIconType } from './TechIconComposition';
+import { TechIconType } from './techIcons';
 
 export interface Technology {
   name: string;

@@ -34,7 +34,7 @@ export const HeroPlayer: React.FC = () => {
     <RemotionErrorBoundary>
       <Player
         component={HeroComposition}
-        durationInFrames={210}
+        durationInFrames={600}
         fps={30}
         compositionWidth={compWidth}
         compositionHeight={700}
