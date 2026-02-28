@@ -1,6 +1,6 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logoImg from '@/assets/image.png';
+import logoImg from '@/assets/logo.svg';
 
 export const Footer = () => {
   return (
@@ -32,7 +32,7 @@ export const Footer = () => {
           </div>
 
           {/* Company */}
-          <div className="hidden md:block md:text-right">
+          <div className="md:text-right">
             <h4 className="font-display font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
               <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">About Us</Link></li>

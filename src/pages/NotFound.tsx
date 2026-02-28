@@ -1,17 +1,15 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { motion } from "framer-motion";
 import { Home } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
-
-  useEffect(() => {
-    // Route not found — handled by UI below
-  }, [location.pathname]);
+  useDocumentTitle('Page Not Found | ShubhzTechWork');
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
+    <main id="main-content" className="flex min-h-screen items-center justify-center bg-background">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -27,7 +25,7 @@ const NotFound = () => {
           Return to Home
         </a>
       </motion.div>
-    </div>
+    </main>
   );
 };
 

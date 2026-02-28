@@ -69,7 +69,7 @@ export const AboutSection = () => {
             We believe the best solutions are not the most complicated ones they're the ones that actually work, scale well, and make life easier for businesses.
           </p>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            From a single "yes" to a growing vision, x is built on action, trust, and the belief that great things can start from one small idea.
+            From a single "yes" to a growing vision, ShubhzTechWork is built on action, trust, and the belief that great things can start from one small idea.
           </p>
         </motion.div>
 

@@ -89,6 +89,12 @@ export const Navbar = () => {
         'bg-background/90 backdrop-blur-md border-b border-border/50 shadow-sm'
       )}
     >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none"
+      >
+        Skip to main content
+      </a>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20 relative">
           {/* Logo */}
@@ -157,13 +163,13 @@ export const Navbar = () => {
               to="/#contact"
               className="bg-gradient-primary text-primary-foreground font-semibold px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity shadow-glow"
             >
-              Subscribe
+              Contact Us
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-foreground"
+            className="lg:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -211,7 +217,7 @@ export const Navbar = () => {
                     className="flex-1 bg-gradient-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg text-center"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Subscribe
+                    Contact Us
                   </Link>
                 </div>
               </div>

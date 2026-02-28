@@ -2,8 +2,11 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PrivacyHeroPlayer } from '@/components/legal/PrivacyHeroPlayer';
 import { useEffect } from 'react';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 
 const PrivacyPolicy = () => {
+  useDocumentTitle('Privacy Policy | ShubhzTechWork');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -14,7 +17,7 @@ const PrivacyPolicy = () => {
       <div className="container mx-auto px-4 pt-8 md:pt-12">
         <PrivacyHeroPlayer />
       </div>
-      <main className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
+      <main id="main-content" className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
         <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
           Privacy Policy
         </h1>

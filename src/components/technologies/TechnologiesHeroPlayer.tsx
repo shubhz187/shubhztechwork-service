@@ -1,6 +1,7 @@
 import { Player } from '@remotion/player';
 import { TechnologiesHeroComposition } from './TechnologiesHeroComposition';
 import { useResponsivePlayer } from '@/hooks/use-responsive-player';
+import { RemotionErrorBoundary } from '@/components/RemotionErrorBoundary';
 
 const prefersReducedMotion =
     typeof window !== 'undefined' &&
@@ -13,18 +14,20 @@ export const TechnologiesHeroPlayer: React.FC = () => {
     });
 
     return (
-        <div ref={containerRef} className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
-            <Player
-                component={TechnologiesHeroComposition}
-                durationInFrames={150}
-                fps={30}
-                compositionWidth={compositionWidth}
-                compositionHeight={compositionHeight}
-                style={{ width: '100%', display: 'block' }}
-                autoPlay={!prefersReducedMotion}
-                controls={false}
-                clickToPlay={false}
-            />
-        </div>
+        <RemotionErrorBoundary>
+            <div ref={containerRef} className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
+                <Player
+                    component={TechnologiesHeroComposition}
+                    durationInFrames={150}
+                    fps={30}
+                    compositionWidth={compositionWidth}
+                    compositionHeight={compositionHeight}
+                    style={{ width: '100%', display: 'block' }}
+                    autoPlay={!prefersReducedMotion}
+                    controls={false}
+                    clickToPlay={false}
+                />
+            </div>
+        </RemotionErrorBoundary>
     );
 };

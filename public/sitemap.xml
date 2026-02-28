@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://services.shubhztechwork.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://services.shubhztechwork.com/services</loc><priority>0.9</priority></url>
-  <url><loc>https://services.shubhztechwork.com/technologies</loc><priority>0.8</priority></url>
-  <url><loc>https://services.shubhztechwork.com/about</loc><priority>0.8</priority></url>
-  <url><loc>https://services.shubhztechwork.com/blogs</loc><priority>0.8</priority></url>
-  <url><loc>https://services.shubhztechwork.com/case-studies</loc><priority>0.8</priority></url>
-  <url><loc>https://services.shubhztechwork.com/privacy-policy</loc><priority>0.3</priority></url>
-  <url><loc>https://services.shubhztechwork.com/terms-of-service</loc><priority>0.3</priority></url>
+  <url><loc>https://services.shubhztechwork.com/</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://services.shubhztechwork.com/services</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://services.shubhztechwork.com/technologies</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://services.shubhztechwork.com/about</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://services.shubhztechwork.com/blogs</loc><lastmod>2026-02-28</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://services.shubhztechwork.com/case-studies</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://services.shubhztechwork.com/privacy-policy</loc><lastmod>2026-02-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://services.shubhztechwork.com/terms-of-service</loc><lastmod>2026-02-28</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 
   <!-- Blog posts -->
-  <url><loc>https://services.shubhztechwork.com/blogs/securing-your-saas-practical-guide</loc><priority>0.7</priority></url>
-  <url><loc>https://services.shubhztechwork.com/blogs/cloud-infrastructure-security-guide</loc><priority>0.7</priority></url>
-  <url><loc>https://services.shubhztechwork.com/blogs/devsecops-integrating-security-into-cicd</loc><priority>0.7</priority></url>
-  <url><loc>https://services.shubhztechwork.com/blogs/data-privacy-compliance-practical-guide</loc><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/blogs/securing-your-saas-practical-guide</loc><lastmod>2026-02-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/blogs/cloud-infrastructure-security-guide</loc><lastmod>2026-02-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/blogs/devsecops-integrating-security-into-cicd</loc><lastmod>2026-02-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/blogs/data-privacy-compliance-practical-guide</loc><lastmod>2026-02-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- Case studies -->
-  <url><loc>https://services.shubhztechwork.com/case-studies/spark-ai-tutor</loc><priority>0.7</priority></url>
-  <url><loc>https://services.shubhztechwork.com/case-studies/earthen-lifestyles-ecosystem</loc><priority>0.7</priority></url>
-  <url><loc>https://services.shubhztechwork.com/case-studies/aws-connect-devops-platform</loc><priority>0.7</priority></url>
-  <url><loc>https://services.shubhztechwork.com/case-studies/dr-mitesh-shah-website</loc><priority>0.7</priority></url>
-  <url><loc>https://services.shubhztechwork.com/case-studies/vulnerability-management-platform</loc><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/case-studies/spark-ai-tutor</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/case-studies/earthen-lifestyles-ecosystem</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/case-studies/aws-connect-devops-platform</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/case-studies/dr-mitesh-shah-website</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://services.shubhztechwork.com/case-studies/vulnerability-management-platform</loc><lastmod>2026-02-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

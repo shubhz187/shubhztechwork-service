@@ -1,3 +1,4 @@
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -6,10 +7,11 @@ import { CaseStudyCard } from '@/components/case-studies/CaseStudyCard';
 import { caseStudies } from '@/data/case-studies';
 
 const CaseStudies = () => {
+    useDocumentTitle('Case Studies | ShubhzTechWork', 'Real projects, real outcomes. See how we help clients build, scale, and secure their technology.');
     return (
         <div className="min-h-screen bg-background">
             <Navbar />
-            <div className="pt-20">
+            <main id="main-content" className="pt-20">
                 {/* Remotion Hero */}
                 <section className="container mx-auto px-4 py-10">
                     <CaseStudiesHeroPlayer />
@@ -28,7 +30,7 @@ const CaseStudies = () => {
                         ))}
                     </motion.div>
                 </section>
-            </div>
+            </main>
             <Footer />
         </div>
     );

@@ -1,3 +1,4 @@
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { SectionTitle } from '@/components/SectionTitle';
@@ -176,9 +177,11 @@ const genAIServices = [
 ];
 
 const Services = () => {
+  useDocumentTitle('Services | ShubhzTechWork', 'Explore our technology services: cloud infrastructure, security, DevOps & SRE, graphics, IT solutions, and Gen AI.');
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <main id="main-content">
 
       {/* Remotion Hero */}
       <section className="pt-28 pb-4 container mx-auto px-4">
@@ -260,7 +263,7 @@ const Services = () => {
 
           {/* IT Solutions */}
           <div id="itsolutions" className="mb-12 md:mb-24">
-            <SectionTitle title="ShubhzTechwork IT Solutions" />
+            <SectionTitle title="ShubhzTechWork IT Solutions" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {itSolutionsServices.map((service, index) => (
                 <ServiceCard key={service.title} {...service} delay={index * 0.1} />
@@ -280,6 +283,7 @@ const Services = () => {
 
         </div>
       </section>
+      </main>
 
       <Footer />
     </div>

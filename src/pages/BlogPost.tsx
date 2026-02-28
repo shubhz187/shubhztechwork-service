@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Badge } from '@/components/ui/badge';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AuthorBioCard } from '@/components/blogs/AuthorBioCard';
@@ -26,9 +28,51 @@ const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = getBlogBySlug(slug || '');
 
+  useDocumentTitle(
+    post ? post.metaTitle : 'Blog | ShubhzTechWork',
+    post ? post.metaDescription : undefined
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
+
+  // Inject BlogPosting JSON-LD
+  useEffect(() => {
+    if (!post) return;
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: post.metaDescription,
+      author: { '@type': 'Person', name: post.author.name },
+      datePublished: post.date,
+      publisher: { '@type': 'Organization', name: 'ShubhzTechWork', logo: { '@type': 'ImageObject', url: 'https://services.shubhztechwork.com/logo.png' } },
+      url: `https://services.shubhztechwork.com/blogs/${post.slug}`,
+    });
+    document.head.appendChild(script);
+    return () => { document.head.removeChild(script); };
+  }, [post]);
+
+  // Inject BreadcrumbList JSON-LD
+  useEffect(() => {
+    if (!post) return;
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://services.shubhztechwork.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://services.shubhztechwork.com/blogs' },
+        { '@type': 'ListItem', position: 3, name: post.title },
+      ],
+    });
+    document.head.appendChild(script);
+    return () => { document.head.removeChild(script); };
+  }, [post]);
 
   if (!post) {
     return <Navigate to="/blogs" replace />;
@@ -39,22 +83,30 @@ const BlogPostPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="pt-20">
+      <main id="main-content" className="pt-20">
         <article className="container mx-auto px-4 py-12">
-          {/* Back navigation */}
+          {/* Breadcrumb navigation */}
           <motion.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
             className="max-w-3xl mx-auto mb-8"
           >
-            <Link
-              to="/blogs"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-medium"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to all articles
-            </Link>
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild><Link to="/blogs">Blog</Link></BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{post.title}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </motion.div>
 
           {/* Article header */}
@@ -142,7 +194,7 @@ const BlogPostPage = () => {
             <RelatedPosts posts={relatedPosts} />
           </div>
         </article>
-      </div>
+      </main>
       <Footer />
     </div>
   );

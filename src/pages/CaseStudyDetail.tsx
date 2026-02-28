@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Clock, ArrowRight } from 'lucide-react';
+import { Clock, ArrowRight } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Badge } from '@/components/ui/badge';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { RelatedCaseStudies } from '@/components/case-studies/RelatedCaseStudies';
 import { CaseStudyAnimation } from '@/components/case-studies/CaseStudyAnimation';
@@ -24,9 +26,32 @@ const CaseStudyDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const study = getCaseStudyBySlug(slug || '');
 
+  useDocumentTitle(
+    study ? study.metaTitle : 'Case Studies | ShubhzTechWork',
+    study ? study.metaDescription : undefined
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
+
+  // Inject BreadcrumbList JSON-LD
+  useEffect(() => {
+    if (!study) return;
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://services.shubhztechwork.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Case Studies', item: 'https://services.shubhztechwork.com/case-studies' },
+        { '@type': 'ListItem', position: 3, name: study.client },
+      ],
+    });
+    document.head.appendChild(script);
+    return () => { document.head.removeChild(script); };
+  }, [study]);
 
   if (!study) {
     return <Navigate to="/case-studies" replace />;
@@ -37,22 +62,30 @@ const CaseStudyDetailPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="pt-20">
+      <main id="main-content" className="pt-20">
         <article className="container mx-auto px-4 py-12">
-          {/* Back navigation */}
+          {/* Breadcrumb navigation */}
           <motion.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
             className="max-w-3xl mx-auto mb-8"
           >
-            <Link
-              to="/case-studies"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-medium"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to case studies
-            </Link>
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild><Link to="/case-studies">Case Studies</Link></BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{study.client}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </motion.div>
 
           {/* Header */}
@@ -214,7 +247,7 @@ const CaseStudyDetailPage = () => {
             </>
           )}
         </article>
-      </div>
+      </main>
       <Footer />
     </div>
   );

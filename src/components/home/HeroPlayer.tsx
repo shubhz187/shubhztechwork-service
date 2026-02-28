@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Player } from '@remotion/player';
 import { HeroComposition } from './HeroComposition';
+import { RemotionErrorBoundary } from '@/components/RemotionErrorBoundary';
 
 const prefersReducedMotion =
   typeof window !== 'undefined' &&
@@ -30,23 +31,25 @@ export const HeroPlayer: React.FC = () => {
   }, []);
 
   return (
-    <Player
-      component={HeroComposition}
-      durationInFrames={210}
-      fps={30}
-      compositionWidth={compWidth}
-      compositionHeight={700}
-      style={{
-        position: 'absolute',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-      }}
-      autoPlay={!prefersReducedMotion}
-      loop
-      controls={false}
-      clickToPlay={false}
-    />
+    <RemotionErrorBoundary>
+      <Player
+        component={HeroComposition}
+        durationInFrames={210}
+        fps={30}
+        compositionWidth={compWidth}
+        compositionHeight={700}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+        }}
+        autoPlay={!prefersReducedMotion}
+        loop
+        controls={false}
+        clickToPlay={false}
+      />
+    </RemotionErrorBoundary>
   );
 };

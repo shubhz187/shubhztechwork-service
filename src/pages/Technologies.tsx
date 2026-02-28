@@ -1,3 +1,4 @@
+import { useDocumentTitle } from '@/hooks/use-document-title';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { motion } from 'framer-motion';
@@ -6,6 +7,7 @@ import { TechCarousel } from '@/components/technologies/TechCarousel';
 import { techCategories } from '@/components/technologies/techData';
 
 const Technologies = () => {
+  useDocumentTitle('Technologies | ShubhzTechWork', '61 technologies across cloud, DevOps, monitoring, security, databases, AI, and contact center.');
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -14,6 +16,7 @@ const Technologies = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <main id="main-content">
 
       {/* Remotion Hero */}
       <section className="pt-28 pb-4 container mx-auto px-4">
@@ -62,6 +65,7 @@ const Technologies = () => {
           </motion.div>
         ))}
       </div>
+      </main>
 
       <Footer />
     </div>
