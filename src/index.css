@@ -77,6 +77,26 @@
     --input: 0 0% 18%;
     --ring: 6 93% 64%;
   }
+
+  /* ─── Homepage immersive dark override ─── */
+  .homepage-dark {
+    --background: 230 70% 2%;
+    --foreground: 0 0% 95%;
+    --card: 230 25% 6%;
+    --card-foreground: 0 0% 93%;
+    --popover: 230 25% 8%;
+    --popover-foreground: 0 0% 93%;
+    --secondary: 230 15% 10%;
+    --secondary-foreground: 0 0% 88%;
+    --muted: 230 12% 12%;
+    --muted-foreground: 220 10% 65%;
+    --border: 230 10% 14%;
+    --input: 230 15% 10%;
+    --ring: 6 93% 64%;
+    --gradient-card: linear-gradient(145deg, hsl(230 25% 7%), hsl(230 25% 5%));
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4);
+    --shadow-elevated: 0 8px 32px hsl(0 0% 0% / 0.5);
+  }
 }
 
 @layer base {
@@ -131,6 +151,36 @@
 
   .shadow-elevated {
     box-shadow: var(--shadow-elevated);
+  }
+
+  /* ─── Glassmorphic card for dark homepage ─── */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  /* ─── Section gradient divider ─── */
+  .section-divider-gradient {
+    position: relative;
+  }
+
+  .section-divider-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    max-width: 600px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), rgba(255,255,255,0.1), rgba(255,255,255,0.06), transparent);
   }
 
   .glow-effect {
@@ -246,6 +296,7 @@
   }
 }
 
+
 /* Tech icon tiles */
 @keyframes tech-fade-in {
   from { opacity: 0; transform: scale(0.85); }
@@ -275,5 +326,9 @@
   .tech-icon-bg {
     animation: none;
     opacity: 1;
+  }
+
+  .animate-section-glow {
+    animation: none;
   }
 }

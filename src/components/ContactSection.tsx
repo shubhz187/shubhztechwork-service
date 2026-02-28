@@ -54,9 +54,9 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-6 md:py-24 relative overflow-hidden">
+    <section id="contact" className="py-12 md:py-24 relative overflow-hidden section-divider-gradient">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/30 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent" />
 
       {/* Glowing orb */}
       <motion.div
@@ -120,7 +120,7 @@ export const ContactSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-card rounded-2xl border border-border p-5 md:p-8 shadow-card"
+            className="glass-card rounded-2xl p-5 md:p-8"
           >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
               {/* Honeypot for bot protection */}

@@ -15,7 +15,7 @@ export const ContactHeroPlayer: React.FC = () => {
 
     return (
         <RemotionErrorBoundary>
-            <div ref={containerRef} className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
+            <div ref={containerRef} className="w-full overflow-hidden">
                 <Player
                     component={ContactHeroComposition}
                     durationInFrames={150}

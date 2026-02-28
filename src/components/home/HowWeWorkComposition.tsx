@@ -177,7 +177,7 @@ export const HowWeWorkComposition: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #111118 50%, #0a0a0a 100%)',
+        background: 'linear-gradient(135deg, #010108 0%, #0a0a18 50%, #010108 100%)',
         fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
         overflow: 'hidden',
       }}

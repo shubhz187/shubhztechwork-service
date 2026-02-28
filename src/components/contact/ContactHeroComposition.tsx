@@ -7,7 +7,7 @@ import {
 } from 'remotion';
 
 const CORAL = 'hsl(6, 93%, 64%)';
-const LIGHT_BG = '#f7f3ee';
+const DARK_BG = '#010108';
 
 
 export const ContactHeroComposition: React.FC = () => {
@@ -45,7 +45,7 @@ export const ContactHeroComposition: React.FC = () => {
     return (
         <AbsoluteFill
             style={{
-                background: `linear-gradient(135deg, ${LIGHT_BG} 0%, #fff 100%)`,
+                background: `linear-gradient(135deg, ${DARK_BG} 0%, #080814 50%, ${DARK_BG} 100%)`,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -112,7 +112,7 @@ export const ContactHeroComposition: React.FC = () => {
                         transform: `translateY(${titleY}px)`,
                         fontSize: isMobile ? '32px' : '66px',
                         fontWeight: 700,
-                        color: '#0a0a0a',
+                        color: '#f0f0f0',
                         lineHeight: 1.1,
                         marginBottom: isMobile ? '14px' : '20px',
                         letterSpacing: isMobile ? '-1px' : '-2px',
@@ -139,7 +139,7 @@ export const ContactHeroComposition: React.FC = () => {
                     style={{
                         opacity: subtitleOpacity,
                         fontSize: isMobile ? '14px' : '20px',
-                        color: '#555',
+                        color: 'rgba(255, 255, 255, 0.55)',
                         fontFamily: "'Inter', system-ui, sans-serif",
                     }}
                 >

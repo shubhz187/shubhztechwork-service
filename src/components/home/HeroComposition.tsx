@@ -1,431 +1,182 @@
 import {
   AbsoluteFill,
-  Img,
-  interpolate,
-  spring,
-  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
 
-const CORAL = 'hsl(6, 93%, 64%)';
-const PURPLE = '#a855f7';
-const PINK = '#ec4899';
-
-/* ── Circuit-node positions (1200x700 canvas, center cleared for logo) ── */
-const NODES = [
-  { x: 100, y: 80 },
-  { x: 280, y: 50 },
-  { x: 480, y: 120 },
-  { x: 720, y: 60 },
-  { x: 920, y: 110 },
-  { x: 1100, y: 55 },
-  { x: 160, y: 310 },
-  { x: 340, y: 410 },
-  { x: 760, y: 230 },
-  { x: 880, y: 380 },
-  { x: 1060, y: 310 },
-  { x: 120, y: 560 },
-  { x: 350, y: 590 },
-  { x: 580, y: 540 },
-  { x: 820, y: 600 },
-  { x: 1020, y: 550 },
-];
-
-/* ── Edges (index pairs into NODES) ── */
-const EDGES: [number, number][] = [
-  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5],
-  [0, 6], [6, 7], [7, 8], [8, 9], [9, 10],
-  [2, 8], [4, 10], [1, 7], [3, 9],
-  [6, 11], [11, 12], [12, 13], [13, 14], [14, 15],
-  [7, 12], [8, 13], [9, 14], [10, 15],
-];
-
-/* ── Pulse path ── */
-const PULSE_PATH = [0, 1, 2, 3, 4, 5, 4, 9, 10, 15, 14, 13, 12, 11, 6, 0];
-const PATH_LEN = 200;
+const BLUE_BRIGHT = '#4488ff';
+const BLUE_MID = '#2255cc';
+const BLUE_DARK = '#0a1a3a';
+const CORAL = '#ff6644';
+const TEAL = '#22ccaa';
 
 export const HeroComposition: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps, width } = useVideoConfig();
+  const { width, height } = useVideoConfig();
   const isMobile = width < 768;
 
-  /* ── Layer 1: Background + Dot Grid ── */
-  const gridOpacity = interpolate(frame, [0, 40], [0, 0.12], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  // Slow flowing cycle — 600 frames = 20s at 30fps
+  const cycle = 600;
+  const t = (frame % cycle) / cycle;
+  const tau = Math.PI * 2;
 
-  /* ── Layer 2: Glow Blobs ── */
-  const glow1Opacity = interpolate(frame, [10, 50], [0, 0.4], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const glow1Scale = interpolate(
-    (frame + 10) % 120,
-    [0, 60, 120],
-    [1, 1.12, 1],
-  );
+  // Wave offsets for organic motion
+  const w1 = Math.sin(t * tau);
+  const w2 = Math.cos(t * tau);
+  const w3 = Math.sin((t + 0.33) * tau);
+  const w4 = Math.cos((t + 0.25) * tau);
 
-  const glow2Opacity = interpolate(frame, [20, 60], [0, 0.25], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const glow2Scale = interpolate(
-    (frame + 40) % 100,
-    [0, 50, 100],
-    [1, 1.1, 1],
-  );
-
-  /* ── Layer 3: Circuit Graph ── */
-  const nodeAppear = (i: number) => {
-    const delay = 8 + i * 3;
-    return spring({
-      frame: frame - delay,
-      fps,
-      config: { damping: 14, stiffness: 120 },
-    });
+  /* ═══════ Ribbon 1 — Upper-right flowing shape ═══════ */
+  const r1 = {
+    sx: width * 0.42,  sy: height * (-0.10 + w1 * 0.04),
+    c1x: width * 0.80, c1y: height * (0.02 + w2 * 0.06),
+    c2x: width * 0.98, c2y: height * (0.28 + w3 * 0.05),
+    ex: width * 0.52,  ey: height * (0.52 + w4 * 0.04),
+  };
+  const r1b = {
+    sx: width * 0.48,  sy: height * (-0.14 + w1 * 0.04),
+    c1x: width * 0.86, c1y: height * (-0.01 + w2 * 0.06),
+    c2x: width * 1.03, c2y: height * (0.26 + w3 * 0.05),
+    ex: width * 0.58,  ey: height * (0.50 + w4 * 0.04),
   };
 
-  const edgeDraw = (i: number) => {
-    const delay = 20 + i * 2;
-    return interpolate(frame - delay, [0, 30], [PATH_LEN, 0], {
-      extrapolateLeft: 'clamp',
-      extrapolateRight: 'clamp',
-    });
+  const r1Edge = `M ${r1.sx} ${r1.sy} C ${r1.c1x} ${r1.c1y}, ${r1.c2x} ${r1.c2y}, ${r1.ex} ${r1.ey}`;
+  const r1Edge2 = `M ${r1b.sx} ${r1b.sy} C ${r1b.c1x} ${r1b.c1y}, ${r1b.c2x} ${r1b.c2y}, ${r1b.ex} ${r1b.ey}`;
+  const r1Fill = `${r1Edge} L ${r1b.ex} ${r1b.ey} C ${r1b.c2x} ${r1b.c2y}, ${r1b.c1x} ${r1b.c1y}, ${r1b.sx} ${r1b.sy} Z`;
+
+  /* ═══════ Ribbon 2 — Lower-left flowing shape ═══════ */
+  const r2 = {
+    sx: width * -0.05, sy: height * (0.52 + w3 * 0.05),
+    c1x: width * 0.18, c1y: height * (0.68 + w1 * 0.04),
+    c2x: width * 0.50, c2y: height * (0.82 + w4 * 0.05),
+    ex: width * 0.88,  ey: height * (0.96 + w2 * 0.04),
+  };
+  const r2b = {
+    sx: width * -0.05, sy: height * (0.58 + w3 * 0.05),
+    c1x: width * 0.16, c1y: height * (0.74 + w1 * 0.04),
+    c2x: width * 0.48, c2y: height * (0.88 + w4 * 0.05),
+    ex: width * 0.86,  ey: height * (1.02 + w2 * 0.04),
   };
 
-  // Traveling pulse (starts after text reveals)
-  const pulseSpeed = 0.04;
-  const pulsePos =
-    frame > 90 ? ((frame - 90) * pulseSpeed) % PULSE_PATH.length : -1;
-  const pulseIdx = Math.floor(pulsePos);
-  const pulseFrac = pulsePos - pulseIdx;
+  const r2Edge = `M ${r2.sx} ${r2.sy} C ${r2.c1x} ${r2.c1y}, ${r2.c2x} ${r2.c2y}, ${r2.ex} ${r2.ey}`;
+  const r2Edge2 = `M ${r2b.sx} ${r2b.sy} C ${r2b.c1x} ${r2b.c1y}, ${r2b.c2x} ${r2b.c2y}, ${r2b.ex} ${r2b.ey}`;
+  const r2Fill = `${r2Edge} L ${r2b.ex} ${r2b.ey} C ${r2b.c2x} ${r2b.c2y}, ${r2b.c1x} ${r2b.c1y}, ${r2b.sx} ${r2b.sy} Z`;
 
-  let pulseX = -100;
-  let pulseY = -100;
-  if (pulsePos >= 0 && pulseIdx < PULSE_PATH.length - 1) {
-    const fromNode = NODES[PULSE_PATH[pulseIdx]];
-    const toNode = NODES[PULSE_PATH[pulseIdx + 1]];
-    pulseX = fromNode.x + (toNode.x - fromNode.x) * pulseFrac;
-    pulseY = fromNode.y + (toNode.y - fromNode.y) * pulseFrac;
-  }
+  /* ═══════ Ribbon 3 — Thin accent through middle ═══════ */
+  const r3Edge = `M ${width * 0.25} ${height * (0.22 + w4 * 0.03)} C ${width * 0.52} ${height * (0.38 + w2 * 0.05)}, ${width * 0.78} ${height * (0.52 + w1 * 0.04)}, ${width * 1.08} ${height * (0.42 + w3 * 0.03)}`;
 
-  const nodeGlow = (nx: number, ny: number) => {
-    const dist = Math.sqrt((nx - pulseX) ** 2 + (ny - pulseY) ** 2);
-    return interpolate(dist, [0, 120], [0.9, 0], {
-      extrapolateLeft: 'clamp',
-      extrapolateRight: 'clamp',
-    });
-  };
+  /* ═══════ Ribbon 4 — Small upper-left accent ═══════ */
+  const r4Edge = `M ${width * -0.02} ${height * (0.18 + w2 * 0.03)} C ${width * 0.12} ${height * (0.28 + w4 * 0.04)}, ${width * 0.25} ${height * (0.22 + w1 * 0.03)}, ${width * 0.38} ${height * (0.32 + w3 * 0.04)}`;
 
-  /* ── Layer 4: Logo — Center Stage ── */
-  const logoSpring = spring({
-    frame: frame - 25,
-    fps,
-    config: { damping: 14, stiffness: 80 },
-  });
-  const logoScale = interpolate(logoSpring, [0, 1], [0.6, 1.0]);
-  const logoOpacity = interpolate(logoSpring, [0, 1], [0, 1]);
+  /* ═══════ Glow spot positions ═══════ */
+  const spot1X = width * (0.75 + w1 * 0.02);
+  const spot1Y = height * (0.15 + w2 * 0.03);
+  const spot2X = width * (0.12 + w3 * 0.02);
+  const spot2Y = height * (0.65 + w4 * 0.03);
+  const spot3X = width * (0.55 + w4 * 0.015);
+  const spot3Y = height * (0.42 + w1 * 0.02);
 
-  // Energy burst behind logo
-  const burstScale = interpolate(frame, [30, 55], [0.3, 1.5], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const burstOpacity = interpolate(frame, [30, 45, 55], [0, 0.7, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
-  // Logo glow breathing
-  const logoGlow =
-    frame > 55
-      ? interpolate(
-        (frame - 55) % 90,
-        [0, 45, 90],
-        [0.3, 0.55, 0.3],
-      )
-      : interpolate(frame, [40, 55], [0, 0.3], {
-        extrapolateLeft: 'clamp',
-        extrapolateRight: 'clamp',
-      });
-
-  /* ── Layer 5: Text Reveals ── */
-  const line1Spring = spring({
-    frame: frame - 55,
-    fps,
-    config: { damping: 14, stiffness: 100 },
-  });
-  const line1Y = interpolate(line1Spring, [0, 1], [30, 0]);
-  const line1Opacity = interpolate(line1Spring, [0, 1], [0, 1]);
-
-  const line2Spring = spring({
-    frame: frame - 65,
-    fps,
-    config: { damping: 14, stiffness: 100 },
-  });
-  const line2Y = interpolate(line2Spring, [0, 1], [30, 0]);
-  const line2Opacity = interpolate(line2Spring, [0, 1], [0, 1]);
-
-  const subOpacity = interpolate(frame, [80, 105], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  const glowR = isMobile ? 60 : 100;
 
   return (
     <AbsoluteFill
       style={{
-        background:
-          'linear-gradient(160deg, #050508 0%, #0a0a10 40%, #0d0a12 100%)',
+        background: 'linear-gradient(160deg, #010108 0%, #030315 40%, #060620 100%)',
         overflow: 'hidden',
       }}
     >
-      {/* Dot grid */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `radial-gradient(circle, ${CORAL}0d 1px, transparent 1px)`,
-          backgroundSize: '48px 48px',
-          opacity: gridOpacity,
-        }}
-      />
-
-      {/* Coral glow blob (behind logo) */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '25%',
-          left: '35%',
-          width: 700,
-          height: 700,
-          borderRadius: '50%',
-          background: `radial-gradient(ellipse, ${CORAL}20, transparent 70%)`,
-          opacity: glow1Opacity,
-          transform: `scale(${glow1Scale})`,
-        }}
-      />
-
-      {/* Purple glow blob (offset left) */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '30%',
-          left: '15%',
-          width: 600,
-          height: 600,
-          borderRadius: '50%',
-          background: `radial-gradient(ellipse, ${PURPLE}18, transparent 70%)`,
-          opacity: glow2Opacity,
-          transform: `scale(${glow2Scale})`,
-        }}
-      />
-
-      {/* Circuit graph SVG (background layer, reduced opacity) */}
       <svg
-        width="1200"
-        height="700"
-        viewBox="0 0 1200 700"
-        style={{ position: 'absolute', top: 0, left: 0, opacity: 0.55 }}
+        viewBox={`0 0 ${width} ${height}`}
+        width={width}
+        height={height}
+        style={{ position: 'absolute', inset: 0 }}
       >
         <defs>
-          <linearGradient id="hEdgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={CORAL} stopOpacity="0.4" />
-            <stop offset="100%" stopColor={PURPLE} stopOpacity="0.2" />
+          {/* ── Ribbon 1 gradients ── */}
+          <linearGradient id="r1Fill" x1="0.3" y1="0" x2="0.7" y2="1">
+            <stop offset="0%" stopColor={BLUE_DARK} stopOpacity="0.35" />
+            <stop offset="50%" stopColor="#050510" stopOpacity="0.6" />
+            <stop offset="100%" stopColor={BLUE_DARK} stopOpacity="0.25" />
           </linearGradient>
-          <radialGradient id="hPulseGlow">
-            <stop offset="0%" stopColor={CORAL} stopOpacity="1" />
-            <stop offset="50%" stopColor={CORAL} stopOpacity="0.4" />
-            <stop offset="100%" stopColor={CORAL} stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="hNodeGlow">
-            <stop offset="0%" stopColor={CORAL} stopOpacity="0.8" />
-            <stop offset="100%" stopColor={CORAL} stopOpacity="0" />
-          </radialGradient>
+          <linearGradient id="r1Stroke" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={BLUE_BRIGHT} stopOpacity="0.8" />
+            <stop offset="35%" stopColor={BLUE_MID} stopOpacity="0.5" />
+            <stop offset="65%" stopColor={CORAL} stopOpacity="0.55" />
+            <stop offset="100%" stopColor={BLUE_BRIGHT} stopOpacity="0.25" />
+          </linearGradient>
+          <linearGradient id="r1Inner" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={BLUE_MID} stopOpacity="0.25" />
+            <stop offset="50%" stopColor="#1a2a5a" stopOpacity="0.15" />
+            <stop offset="100%" stopColor={BLUE_MID} stopOpacity="0.08" />
+          </linearGradient>
+
+          {/* ── Ribbon 2 gradients ── */}
+          <linearGradient id="r2Fill" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#1a0a2a" stopOpacity="0.25" />
+            <stop offset="50%" stopColor="#060610" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#0a1a2a" stopOpacity="0.25" />
+          </linearGradient>
+          <linearGradient id="r2Stroke" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={BLUE_MID} stopOpacity="0.4" />
+            <stop offset="25%" stopColor={CORAL} stopOpacity="0.65" />
+            <stop offset="55%" stopColor="#cc3355" stopOpacity="0.35" />
+            <stop offset="100%" stopColor={BLUE_BRIGHT} stopOpacity="0.3" />
+          </linearGradient>
+
+          {/* ── Accent ribbon gradients ── */}
+          <linearGradient id="r3Stroke" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={TEAL} stopOpacity="0.15" />
+            <stop offset="50%" stopColor={BLUE_MID} stopOpacity="0.12" />
+            <stop offset="100%" stopColor={BLUE_BRIGHT} stopOpacity="0.08" />
+          </linearGradient>
+          <linearGradient id="r4Stroke" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={BLUE_BRIGHT} stopOpacity="0.12" />
+            <stop offset="100%" stopColor={CORAL} stopOpacity="0.08" />
+          </linearGradient>
+
+          {/* ── Glow filters ── */}
+          <filter id="glowStrong" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="10" result="b" />
+            <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <filter id="glowSoft" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5" result="b" />
+            <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <filter id="glowWide" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="28" />
+          </filter>
         </defs>
 
-        {/* Edges */}
-        {EDGES.map(([a, b], i) => {
-          const from = NODES[a];
-          const to = NODES[b];
-          return (
-            <line
-              key={`edge-${i}`}
-              x1={from.x}
-              y1={from.y}
-              x2={to.x}
-              y2={to.y}
-              stroke="url(#hEdgeGrad)"
-              strokeWidth="1.2"
-              strokeDasharray={PATH_LEN}
-              strokeDashoffset={edgeDraw(i)}
-            />
-          );
-        })}
+        {/* ══════ Ambient glow spots ══════ */}
+        <circle cx={spot1X} cy={spot1Y} r={glowR} fill={BLUE_BRIGHT} opacity="0.045" filter="url(#glowWide)" />
+        <circle cx={spot2X} cy={spot2Y} r={glowR * 0.8} fill={CORAL} opacity="0.035" filter="url(#glowWide)" />
+        <circle cx={spot3X} cy={spot3Y} r={glowR * 0.6} fill={TEAL} opacity="0.025" filter="url(#glowWide)" />
 
-        {/* Nodes */}
-        {NODES.map((node, i) => {
-          const appear = nodeAppear(i);
-          const glow = nodeGlow(node.x, node.y);
-          const baseRadius = 4;
-          const radius = baseRadius + glow * 3;
-          return (
-            <g key={`node-${i}`}>
-              {glow > 0.1 && (
-                <circle
-                  cx={node.x}
-                  cy={node.y}
-                  r={radius * 4}
-                  fill="url(#hNodeGlow)"
-                  opacity={glow * 0.5}
-                />
-              )}
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r={radius}
-                fill={CORAL}
-                opacity={interpolate(appear, [0, 1], [0, 0.6 + glow * 0.4])}
-                transform={`translate(${node.x * (1 - appear)} ${node.y * (1 - appear)}) scale(${appear})`}
-                style={{ transformOrigin: `${node.x}px ${node.y}px` }}
-              />
-            </g>
-          );
-        })}
+        {/* ══════ Ribbon 1: Upper-right ══════ */}
+        {/* Wide ambient glow */}
+        <path d={r1Edge} fill="none" stroke={BLUE_BRIGHT} strokeWidth="22" opacity="0.07" filter="url(#glowWide)" />
+        {/* Dark fill surface */}
+        <path d={r1Fill} fill="url(#r1Fill)" />
+        {/* Primary bright edge */}
+        <path d={r1Edge} fill="none" stroke="url(#r1Stroke)" strokeWidth="2.5" filter="url(#glowStrong)" />
+        {/* Secondary inner edge */}
+        <path d={r1Edge2} fill="none" stroke="url(#r1Inner)" strokeWidth="1.5" filter="url(#glowSoft)" />
 
-        {/* Traveling pulse */}
-        {pulsePos >= 0 && (
-          <circle
-            cx={pulseX}
-            cy={pulseY}
-            r="18"
-            fill="url(#hPulseGlow)"
-          />
+        {/* ══════ Ribbon 2: Lower-left ══════ */}
+        <path d={r2Edge} fill="none" stroke={CORAL} strokeWidth="18" opacity="0.05" filter="url(#glowWide)" />
+        <path d={r2Fill} fill="url(#r2Fill)" />
+        <path d={r2Edge} fill="none" stroke="url(#r2Stroke)" strokeWidth="2.5" filter="url(#glowStrong)" />
+        <path d={r2Edge2} fill="none" stroke="url(#r1Inner)" strokeWidth="1" filter="url(#glowSoft)" />
+
+        {/* ══════ Ribbon 3: Middle accent ══════ */}
+        <path d={r3Edge} fill="none" stroke="url(#r3Stroke)" strokeWidth="1" filter="url(#glowSoft)" />
+
+        {/* ══════ Ribbon 4: Upper-left accent ══════ */}
+        {!isMobile && (
+          <path d={r4Edge} fill="none" stroke="url(#r4Stroke)" strokeWidth="0.8" filter="url(#glowSoft)" />
         )}
       </svg>
-
-      {/* ── Logo — Center Stage ── */}
-      <div
-        style={{
-          position: 'absolute',
-          top: isMobile ? '22%' : '28%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        {/* Energy burst behind logo */}
-        <div
-          style={{
-            position: 'absolute',
-            width: 400,
-            height: 400,
-            borderRadius: '50%',
-            background: `radial-gradient(circle, ${PURPLE}40, ${PINK}20, transparent 70%)`,
-            transform: `scale(${burstScale})`,
-            opacity: burstOpacity,
-          }}
-        />
-
-        {/* Logo glow ring */}
-        <div
-          style={{
-            position: 'absolute',
-            width: 320,
-            height: 320,
-            borderRadius: '50%',
-            background: `radial-gradient(circle, ${PURPLE}30 0%, transparent 60%)`,
-            opacity: logoGlow,
-          }}
-        />
-
-        {/* The logo */}
-        <Img
-          src={staticFile('logo.png')}
-          style={{
-            width: isMobile ? 140 : 200,
-            height: isMobile ? 140 : 200,
-            objectFit: 'contain',
-            transform: `scale(${logoScale})`,
-            opacity: logoOpacity,
-            filter: `drop-shadow(0px 0px ${20 * logoGlow}px ${PURPLE}80)`,
-            position: 'relative',
-            zIndex: 1,
-          }}
-        />
-      </div>
-
-      {/* ── Text Reveals ── */}
-      <div
-        style={{
-          position: 'absolute',
-          top: isMobile ? '44%' : '53%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 4,
-          padding: isMobile ? '0 16px' : 0,
-        }}
-      >
-        {/* "Simplifying Tech," */}
-        <div
-          style={{
-            opacity: line1Opacity,
-            transform: `translateY(${line1Y}px)`,
-            fontSize: isMobile ? 26 : 44,
-            fontWeight: 700,
-            color: '#ffffff',
-            fontFamily: "'Space Grotesk', system-ui, sans-serif",
-            letterSpacing: '-0.5px',
-            lineHeight: 1.2,
-            textAlign: 'center',
-          }}
-        >
-          Simplifying Tech,
-        </div>
-
-        {/* "Amplifying Growth" */}
-        <div
-          style={{
-            opacity: line2Opacity,
-            transform: `translateY(${line2Y}px)`,
-            fontSize: isMobile ? 26 : 44,
-            fontWeight: 700,
-            fontFamily: "'Space Grotesk', system-ui, sans-serif",
-            letterSpacing: '-0.5px',
-            lineHeight: 1.2,
-            textAlign: 'center',
-            background: `linear-gradient(135deg, ${CORAL}, hsl(12, 90%, 58%))`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}
-        >
-          Amplifying Growth
-        </div>
-
-        {/* Subtitle */}
-        <div
-          style={{
-            opacity: subOpacity,
-            fontSize: isMobile ? 13 : 16,
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.5)',
-            fontFamily: "'Inter', system-ui, sans-serif",
-            textAlign: 'center',
-            marginTop: isMobile ? 10 : 16,
-            maxWidth: isMobile ? 320 : 540,
-            lineHeight: 1.5,
-          }}
-        >
-          End-to-end technology solutions from architecture to production.
-          We build, secure, and scale the infrastructure your business runs on.
-        </div>
-      </div>
 
       {/* Vignette overlay */}
       <div
@@ -433,7 +184,7 @@ export const HeroComposition: React.FC = () => {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(ellipse at center, transparent 40%, rgba(5,5,8,0.6) 100%)',
+            'radial-gradient(ellipse at center, transparent 15%, rgba(1,1,8,0.85) 100%)',
         }}
       />
     </AbsoluteFill>

@@ -26,7 +26,12 @@
       "WebFetch(domain:cdn.jsdelivr.net)",
       "WebFetch(domain:cdn.simpleicons.org)",
       "Bash(npm install:*)",
-      "WebFetch(domain:fortifiedhealthsecurity.com)"
+      "WebFetch(domain:fortifiedhealthsecurity.com)",
+      "Bash(file:*)",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:pin.it)",
+      "WebFetch(domain:api.pinterest.com)",
+      "WebFetch(domain:www.pinterest.com)"
     ]
   }
 }

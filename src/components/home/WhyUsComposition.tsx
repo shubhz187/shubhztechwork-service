@@ -77,7 +77,7 @@ export const WhyUsComposition: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #0e0e16 50%, #0a0a0a 100%)',
+        background: 'linear-gradient(135deg, #010108 0%, #080814 50%, #010108 100%)',
         fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
         overflow: 'hidden',
       }}

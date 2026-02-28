@@ -4,7 +4,7 @@ import { ChevronDown, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
-import logoImg from '@/assets/logo.svg';
+import { LogoBadge } from './LogoBadge';
 
 const services = [
   // { name: 'Full Stack Development', href: '/services#fullstack' },
@@ -31,6 +31,7 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,8 +86,12 @@ export const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        'bg-background/90 backdrop-blur-md border-b border-border/50 shadow-sm'
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+        isHomePage
+          ? isScrolled
+            ? 'bg-[#010108]/85 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20'
+            : 'bg-transparent border-b border-transparent'
+          : 'bg-background/90 backdrop-blur-md border-b border-border/50 shadow-sm'
       )}
     >
       <a
@@ -98,11 +103,22 @@ export const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20 relative">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logoImg} alt="ShubhzTechWork" width={44} height={44} className="shrink-0" />
-            <span className="font-display font-bold text-xl text-foreground hidden lg:block">
-              ShubhzTechWork
-            </span>
+          <Link to="/" className="flex items-center">
+            <LogoBadge animated />
+            <motion.div
+              className="overflow-hidden hidden lg:block"
+              initial={false}
+              animate={
+                isScrolled
+                  ? { maxWidth: 0, opacity: 0, marginLeft: 0 }
+                  : { maxWidth: 250, opacity: 1, marginLeft: 12 }
+              }
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <span className="font-display font-bold text-xl text-foreground whitespace-nowrap">
+                ShubhzTechWork
+              </span>
+            </motion.div>
           </Link>
 
           {/* Mobile centered brand name */}
@@ -138,7 +154,12 @@ export const Navbar = () => {
                       exit={{ opacity: 0, y: 10 }}
                       className="absolute top-full left-0 pt-2"
                     >
-                      <div className="bg-popover border border-border rounded-xl shadow-elevated py-2 min-w-[220px]">
+                      <div className={cn(
+                        "border rounded-xl shadow-elevated py-2 min-w-[220px]",
+                        isHomePage
+                          ? "bg-[#0e0f18]/95 backdrop-blur-xl border-white/10"
+                          : "bg-popover border-border"
+                      )}>
                         {link.dropdown.map((item) => (
                           <NavLink
                             key={item.name}
@@ -158,7 +179,7 @@ export const Navbar = () => {
 
           {/* CTA Button & Theme Toggle */}
           <div className="hidden lg:flex items-center gap-3">
-            <ThemeToggle />
+            {!isHomePage && <ThemeToggle />}
             <Link
               to="/#contact"
               className="bg-gradient-primary text-primary-foreground font-semibold px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity shadow-glow"
@@ -184,7 +205,7 @@ export const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-border"
+              className={cn("lg:hidden border-t", isHomePage ? "border-white/5" : "border-border")}
             >
               <div className="py-4 space-y-2">
                 {navLinks.map((link) => (
@@ -211,7 +232,7 @@ export const Navbar = () => {
                   </div>
                 ))}
                 <div className="flex items-center gap-3 mx-4 mt-4">
-                  <ThemeToggle />
+                  {!isHomePage && <ThemeToggle />}
                   <Link
                     to="/#contact"
                     className="flex-1 bg-gradient-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg text-center"

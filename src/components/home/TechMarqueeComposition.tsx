@@ -34,11 +34,11 @@ export const TechMarqueeComposition: React.FC = () => {
   // Row total for current pill size
   const currentRowTotal = (pillW + PILL_GAP) * ROW_1.length;
 
-  // Row offsets — opposite directions
-  const row1Offset = interpolate(frame, [0, 600], [0, -currentRowTotal], {
+  // Row offsets — opposite directions (1500 frames = slower, relaxed scroll)
+  const row1Offset = interpolate(frame, [0, 1500], [0, -currentRowTotal], {
     extrapolateRight: 'wrap',
   });
-  const row2Offset = interpolate(frame, [0, 600], [-currentRowTotal, 0], {
+  const row2Offset = interpolate(frame, [0, 1500], [-currentRowTotal, 0], {
     extrapolateRight: 'wrap',
   });
 
@@ -93,7 +93,7 @@ export const TechMarqueeComposition: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #0e0e14 50%, #0a0a0a 100%)',
+        background: 'linear-gradient(135deg, #010108 0%, #080812 50%, #010108 100%)',
         fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
         overflow: 'hidden',
       }}
@@ -183,7 +183,7 @@ export const TechMarqueeComposition: React.FC = () => {
           left: 0,
           width: fadeWidth,
           height: 120,
-          background: 'linear-gradient(90deg, #0a0a0a, transparent)',
+          background: 'linear-gradient(90deg, #010108, transparent)',
           zIndex: 2,
         }}
       />
@@ -194,7 +194,7 @@ export const TechMarqueeComposition: React.FC = () => {
           right: 0,
           width: fadeWidth,
           height: 120,
-          background: 'linear-gradient(-90deg, #0a0a0a, transparent)',
+          background: 'linear-gradient(-90deg, #010108, transparent)',
           zIndex: 2,
         }}
       />

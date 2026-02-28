@@ -15,10 +15,10 @@ export const TechMarqueePlayer: React.FC = () => {
 
   return (
     <RemotionErrorBoundary>
-      <div ref={containerRef} className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
+      <div ref={containerRef} className="w-full overflow-hidden">
         <Player
           component={TechMarqueeComposition}
-          durationInFrames={600}
+          durationInFrames={1500}
           fps={30}
           compositionWidth={compositionWidth}
           compositionHeight={compositionHeight}

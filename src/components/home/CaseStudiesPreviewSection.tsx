@@ -3,9 +3,14 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { caseStudies } from '@/data/case-studies';
+import { SectionGlow } from './SectionGlow';
 
 export const CaseStudiesPreviewSection = () => (
-  <section className="py-4 md:py-10 relative overflow-hidden">
+  <section className="py-12 md:py-24 relative overflow-hidden section-divider-gradient">
+    <SectionGlow blobs={[
+      { color: '#ff6644', opacity: 0.05, size: '500px', top: '-120px', left: '-100px' },
+      { color: '#4488ff', opacity: 0.04, size: '450px', bottom: '-140px', right: '-80px', delay: '4s' },
+    ]} />
     <div className="container mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -35,7 +40,7 @@ export const CaseStudiesPreviewSection = () => (
             transition={{ duration: 0.4, delay: index * 0.08 }}
           >
             <Link to={`/case-studies/${study.slug}`} className="block group">
-              <div className="relative bg-card border border-border rounded-xl overflow-hidden card-hover shadow-card h-full">
+              <div className="relative glass-card rounded-xl overflow-hidden card-hover h-full">
                 <div className={`h-2 bg-gradient-to-r ${study.gradient}`} />
 
                 {study.comingSoon && (

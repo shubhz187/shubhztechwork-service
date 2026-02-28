@@ -1,6 +1,6 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import logoImg from '@/assets/logo.svg';
+import { LogoBadge } from './LogoBadge';
 
 export const Footer = () => {
   return (
@@ -10,7 +10,7 @@ export const Footer = () => {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-3 mb-4">
-              <img src={logoImg} alt="ShubhzTechWork" width={40} height={40} className="shrink-0" />
+              <LogoBadge />
               <span className="font-display font-bold text-lg text-foreground">
                 ShubhzTechWork
               </span>
