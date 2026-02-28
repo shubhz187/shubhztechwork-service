@@ -183,34 +183,34 @@ const Services = () => {
       <Navbar />
       <main id="main-content">
 
-      {/* Remotion Hero */}
-      <section className="pt-28 pb-4 container mx-auto px-4">
-        <ServicesHeroPlayer />
-        <div className="flex flex-wrap justify-center gap-3 mt-6">
-          {serviceCategories.map((svc, i) => (
-            <motion.a
-              key={svc.label}
-              href={svc.hash}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector(svc.hash)?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-5 py-2.5 rounded-full text-sm font-semibold border transition-all hover:scale-105 active:scale-95 cursor-pointer border-primary/20 text-primary hover:bg-primary hover:text-white bg-primary/5"
-            >
-              {svc.label}
-            </motion.a>
-          ))}
-        </div>
-      </section>
+        {/* Remotion Hero */}
+        <section className="pt-28 pb-4 container mx-auto px-4">
+          <ServicesHeroPlayer />
+          <div className="flex flex-wrap justify-center gap-3 mt-6">
+            {serviceCategories.map((svc, i) => (
+              <motion.a
+                key={svc.label}
+                href={svc.hash}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector(svc.hash)?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-5 py-2.5 rounded-full text-sm font-semibold border transition-all hover:scale-105 active:scale-95 cursor-pointer border-primary/20 text-primary hover:bg-primary hover:text-white bg-primary/5"
+              >
+                {svc.label}
+              </motion.a>
+            ))}
+          </div>
+        </section>
 
-      {/* Services Sections */}
-      <section className="py-16 relative">
-        <div className="container mx-auto px-4">
+        {/* Services Sections */}
+        <section className="py-16 relative">
+          <div className="container mx-auto px-4">
 
-          {/* Full Stack Development 
+            {/* Full Stack Development 
           <div id="fullstack" className="mb-12 md:mb-24">
             <SectionTitle title="Full Stack Development" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -221,68 +221,68 @@ const Services = () => {
           </div>
           */}
 
-          {/* Infrastructure */}
-          <div id="infrastructure" className="mb-12 md:mb-24">
-            <SectionTitle title="Infrastructure" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {infrastructureServices.map((service, index) => (
-                <ServiceCard key={service.title} {...service} delay={index * 0.1} />
-              ))}
+            {/* Infrastructure */}
+            <div id="infrastructure" className="mb-12 md:mb-24">
+              <SectionTitle title="Infrastructure" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {infrastructureServices.map((service, index) => (
+                  <ServiceCard key={service.title} {...service} delay={index * 0.1} />
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Security */}
-          <div id="security" className="mb-12 md:mb-24">
-            <SectionTitle title="Security" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {securityServices.map((service, index) => (
-                <ServiceCard key={service.title} {...service} delay={index * 0.1} />
-              ))}
+            {/* Security */}
+            <div id="security" className="mb-12 md:mb-24">
+              <SectionTitle title="Security" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {securityServices.map((service, index) => (
+                  <ServiceCard key={service.title} {...service} delay={index * 0.1} />
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* DevOps & SRE */}
-          <div id="devops" className="mb-12 md:mb-24">
-            <SectionTitle title="DevOps & SRE" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {devopsServices.map((service, index) => (
-                <ServiceCard key={service.title} {...service} delay={index * 0.1} />
-              ))}
+            {/* DevOps & SRE */}
+            <div id="devops" className="mb-12 md:mb-24">
+              <SectionTitle title="DevOps & SRE" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {devopsServices.map((service, index) => (
+                  <ServiceCard key={service.title} {...service} delay={index * 0.1} />
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Graphics */}
-          <div id="graphics" className="mb-12 md:mb-24">
-            <SectionTitle title="Graphics" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {graphicsServices.map((service, index) => (
-                <ServiceCard key={service.title} {...service} delay={index * 0.1} />
-              ))}
+            {/* Graphics */}
+            <div id="graphics" className="mb-12 md:mb-24">
+              <SectionTitle title="Graphics" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                {graphicsServices.map((service, index) => (
+                  <ServiceCard key={service.title} {...service} delay={index * 0.1} />
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* IT Solutions */}
-          <div id="itsolutions" className="mb-12 md:mb-24">
-            <SectionTitle title="ShubhzTechWork IT Solutions" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {itSolutionsServices.map((service, index) => (
-                <ServiceCard key={service.title} {...service} delay={index * 0.1} />
-              ))}
+            {/* IT Solutions */}
+            <div id="itsolutions" className="mb-12 md:mb-24">
+              <SectionTitle title="IT Solutions" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                {itSolutionsServices.map((service, index) => (
+                  <ServiceCard key={service.title} {...service} delay={index * 0.1} />
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Gen AI */}
-          <div id="genai">
-            <SectionTitle title="Gen AI" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {genAIServices.map((service, index) => (
-                <ServiceCard key={service.title} {...service} delay={index * 0.1} />
-              ))}
+            {/* Gen AI */}
+            <div id="genai">
+              <SectionTitle title="Gen AI" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                {genAIServices.map((service, index) => (
+                  <ServiceCard key={service.title} {...service} delay={index * 0.1} />
+                ))}
+              </div>
             </div>
-          </div>
 
-        </div>
-      </section>
+          </div>
+        </section>
       </main>
 
       <Footer />
