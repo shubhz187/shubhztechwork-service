@@ -27,6 +27,7 @@ Tests live in `src/**/*.{test,spec}.{ts,tsx}` and use jsdom environment with glo
 - **Forms:** React Hook Form + Zod validation
 - **Icons:** Lucide React
 - **Testing:** Vitest + jsdom + React Testing Library
+- **Linting:** ESLint flat config (`eslint.config.js`) with typescript-eslint, react-hooks, react-refresh plugins
 
 ## Architecture
 
@@ -46,7 +47,12 @@ Tests live in `src/**/*.{test,spec}.{ts,tsx}` and use jsdom environment with glo
 
 **Theme system** (`src/hooks/use-theme.tsx`): Custom `ThemeProvider` using Context API with localStorage persistence and system preference detection. Toggled via `ThemeToggle` component. Applied via CSS class on document root.
 
-**Styling architecture** (`src/index.css` + `tailwind.config.ts`): HSL CSS variables define the color system for both light/dark modes. Primary color is orange/red (`hsl(6 93% 64%)`). Two font families: `font-sans` (Inter) for body text, `font-display` (Space Grotesk) for headings. Custom gradients (`--gradient-primary`, etc.), shadows (`--shadow-glow`, etc.), and animation keyframes are defined in CSS and extended in the Tailwind config.
+**Styling architecture** (`src/index.css` + `tailwind.config.ts`): HSL CSS variables define the color system for both light/dark modes. Primary color is orange/red (`hsl(6 93% 64%)`). Two font families: `font-sans` (Inter) for body text, `font-display` (Space Grotesk) for headings. Custom gradients (`--gradient-primary`, etc.), shadows (`--shadow-glow`, etc.), and animation keyframes are defined in CSS and extended in the Tailwind config. Key CSS utility classes:
+- `.homepage-dark` — Immersive deep-blue color override (`--background: 230 70% 2%`) applied to the homepage `<main>` for a dark cinematic feel distinct from the standard `.dark` theme
+- `.glass-card` — Glassmorphism cards (`rgba(255,255,255,0.04)` bg + backdrop-filter blur), used extensively on homepage sections
+- `.section-divider-gradient` — Adds a subtle horizontal gradient line at the top of each section for visual separation
+
+**Bundle splitting** (`vite.config.ts`): Manual chunks split `vendor-react` (react, react-dom, react-router-dom), `vendor-motion` (framer-motion), and `vendor-remotion` (remotion, @remotion/player) for optimal caching.
 
 **TypeScript config:** Relaxed checking — `noImplicitAny: false`, `strictNullChecks: false`, `noUnusedLocals: false`.
 

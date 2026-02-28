@@ -3,14 +3,9 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { caseStudies } from '@/data/case-studies';
-import { SectionGlow } from './SectionGlow';
 
 export const CaseStudiesPreviewSection = () => (
   <section className="py-12 md:py-24 relative overflow-hidden section-divider-gradient">
-    <SectionGlow blobs={[
-      { color: '#ff6644', opacity: 0.05, size: '500px', top: '-120px', left: '-100px' },
-      { color: '#4488ff', opacity: 0.04, size: '450px', bottom: '-140px', right: '-80px', delay: '4s' },
-    ]} />
     <div className="container mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
