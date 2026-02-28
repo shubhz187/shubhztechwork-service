@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { ServiceIconPlayer } from './services/ServiceIconPlayer';
-import { ServiceIconType } from './services/ServiceIconComposition';
+import { ServiceIcon } from './services/ServiceIcon';
+import { ServiceIconType } from './services/serviceIcons';
 
 interface ServiceCardProps {
   title: string;
@@ -20,13 +20,13 @@ export const ServiceCard = ({ title, description, delay = 0, iconType }: Service
     >
       {iconType && (
         <div className="mb-4">
-          <ServiceIconPlayer iconType={iconType} />
+          <ServiceIcon iconType={iconType} />
         </div>
       )}
       <h3 className="font-display text-xl font-semibold text-foreground mb-4">
         {title}
       </h3>
-      <p className="text-muted-foreground leading-relaxed">
+      <p className="text-muted-foreground leading-relaxed max-w-sm">
         {description}
       </p>
     </motion.div>

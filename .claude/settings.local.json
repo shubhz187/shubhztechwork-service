@@ -25,7 +25,8 @@
       "WebFetch(domain:unpkg.com)",
       "WebFetch(domain:cdn.jsdelivr.net)",
       "WebFetch(domain:cdn.simpleicons.org)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "WebFetch(domain:fortifiedhealthsecurity.com)"
     ]
   }
 }

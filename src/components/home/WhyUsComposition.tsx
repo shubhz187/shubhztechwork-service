@@ -17,7 +17,7 @@ const differentiators = [
   {
     title: 'Security-First',
     desc: 'Built-in compliance, not bolted on.',
-    icon: 'M 12 2 L 2 7 L 2 14 C 2 19 6 23 12 26 C 18 23 22 19 22 14 L 22 7 Z',
+    icon: 'M 12 2 L 4 6 L 4 12 C 4 17 7.5 21 12 23 C 16.5 21 20 17 20 12 L 20 6 Z',
   },
   {
     title: 'Modern Stack',
