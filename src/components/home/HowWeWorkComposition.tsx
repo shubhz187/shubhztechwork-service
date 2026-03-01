@@ -93,11 +93,6 @@ export const HowWeWorkComposition: React.FC = () => {
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
   const titleY = interpolate(titleSpring, [0, 1], [30, 0]);
 
-  const lineWidth = interpolate(frame - 12, [0, 25], [0, 100], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
   /* ── Traveling pulse — smooth continuous flow ── */
   const pulseStart = 90;
   const cycleDuration = 180; // 6 seconds per cycle for relaxed flow
@@ -241,17 +236,6 @@ export const HowWeWorkComposition: React.FC = () => {
           }}
         >
           How We <span style={{ color: CORAL }}>Work</span>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
-          <div
-            style={{
-              height: 3,
-              width: `${lineWidth}%`,
-              maxWidth: 100,
-              background: `linear-gradient(90deg, transparent, ${CORAL}, transparent)`,
-              borderRadius: 2,
-            }}
-          />
         </div>
       </div>
 

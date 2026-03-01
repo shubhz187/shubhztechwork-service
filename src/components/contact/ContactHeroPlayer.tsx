@@ -18,7 +18,7 @@ export const ContactHeroPlayer: React.FC = () => {
             <div ref={containerRef} className="w-full overflow-hidden">
                 <Player
                     component={ContactHeroComposition}
-                    durationInFrames={150}
+                    durationInFrames={600}
                     fps={30}
                     compositionWidth={compositionWidth}
                     compositionHeight={compositionHeight}

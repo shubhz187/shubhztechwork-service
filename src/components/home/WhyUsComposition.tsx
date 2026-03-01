@@ -57,12 +57,6 @@ export const WhyUsComposition: React.FC = () => {
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
   const titleY = interpolate(titleSpring, [0, 1], [30, 0]);
 
-  // Accent line
-  const lineWidth = interpolate(frame - 12, [0, 25], [0, 100], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
   // Center glow
   const glowOpacity = interpolate(frame, [40, 80], [0, 0.3], {
     extrapolateLeft: 'clamp',
@@ -140,17 +134,6 @@ export const WhyUsComposition: React.FC = () => {
           }}
         >
           Why <span style={{ color: CORAL }}>ShubhzTechWork</span>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
-          <div
-            style={{
-              height: 3,
-              width: `${lineWidth}%`,
-              maxWidth: 100,
-              background: `linear-gradient(90deg, transparent, ${CORAL}, transparent)`,
-              borderRadius: 2,
-            }}
-          />
         </div>
       </div>
 

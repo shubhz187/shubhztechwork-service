@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Linkedin, Mail } from 'lucide-react';
-import { SectionTitle } from './SectionTitle';
 import { AboutHeroPlayer } from './about/AboutHeroPlayer';
 
 const teamMembers = [
@@ -38,8 +37,6 @@ export const AboutSection = () => {
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/50 rounded-full blur-[80px]" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <SectionTitle title="About Us" />
-
         {/* Remotion Hero */}
         <div className="mb-16">
           <AboutHeroPlayer />

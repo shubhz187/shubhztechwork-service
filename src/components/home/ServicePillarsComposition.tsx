@@ -61,12 +61,6 @@ export const ServicePillarsComposition: React.FC = () => {
   const titleY = interpolate(titleSpring, [0, 1], [40, 0]);
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
 
-  // Accent line
-  const lineWidth = interpolate(frame - 15, [0, 25], [0, 100], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
   // Center glow
   const glowOpacity = interpolate(frame, [30, 70], [0, 0.35], {
     extrapolateLeft: 'clamp',
@@ -139,18 +133,6 @@ export const ServicePillarsComposition: React.FC = () => {
           }}
         >
           Four Pillars of <span style={{ color: CORAL }}>Excellence</span>
-        </div>
-        {/* Accent line */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 12 }}>
-          <div
-            style={{
-              height: 3,
-              width: `${lineWidth}%`,
-              maxWidth: 120,
-              background: `linear-gradient(90deg, transparent, ${CORAL}, transparent)`,
-              borderRadius: 2,
-            }}
-          />
         </div>
       </div>
 

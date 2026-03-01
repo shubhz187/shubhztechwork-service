@@ -7,8 +7,6 @@ const prefersReducedMotion =
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const MOBILE_BREAKPOINT = 768;
-
 export const HeroPlayer: React.FC = () => {
   // HeroPlayer uses absolute positioning (inset: 0), so use window.innerWidth
   const [compWidth, setCompWidth] = useState(() =>

@@ -54,12 +54,6 @@ export const WhoWeServeComposition: React.FC = () => {
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
   const titleY = interpolate(titleSpring, [0, 1], [30, 0]);
 
-  // Accent line
-  const lineWidth = interpolate(frame - 12, [0, 25], [0, 100], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
   // Middle card glow
   const glowPulse = interpolate(
     (frame + 20) % 90,
@@ -121,17 +115,6 @@ export const WhoWeServeComposition: React.FC = () => {
           }}
         >
           Who We <span style={{ color: CORAL }}>Serve</span>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
-          <div
-            style={{
-              height: 3,
-              width: `${lineWidth}%`,
-              maxWidth: 100,
-              background: CORAL,
-              borderRadius: 2,
-            }}
-          />
         </div>
       </div>
 

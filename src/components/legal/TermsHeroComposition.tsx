@@ -5,6 +5,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
+import { HeroRibbonBackground } from '../shared/HeroRibbonBackground';
 
 const CORAL = 'hsl(6, 93%, 64%)';
 const ICON_PATH_LEN = 300;
@@ -22,53 +23,38 @@ export const TermsHeroComposition: React.FC = () => {
   const { fps, width } = useVideoConfig();
   const isMobile = width < 768;
 
-  // Grid bg
-  const gridOpacity = interpolate(frame, [0, 60], [0, 0.08], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  const textFrame = Math.min(frame, 90);
 
-  // Glow
-  const glowOpacity = interpolate(frame, [20, 70], [0, 0.3], {
+  // Icon draw-on (caps at completion)
+  const iconFrame = Math.min(frame, 80);
+  const docDraw = interpolate(iconFrame - 10, [0, 35], [ICON_PATH_LEN, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-
-  // Icon draw-on
-  const docDraw = interpolate(frame - 10, [0, 35], [ICON_PATH_LEN, 0], {
+  const foldDraw = interpolate(iconFrame - 25, [0, 15], [ICON_PATH_LEN, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const foldDraw = interpolate(frame - 25, [0, 15], [ICON_PATH_LEN, 0], {
+  const linesDraw = interpolate(iconFrame - 35, [0, 20], [ICON_PATH_LEN, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const linesDraw = interpolate(frame - 35, [0, 20], [ICON_PATH_LEN, 0], {
+  const checkDraw = interpolate(iconFrame - 50, [0, 15], [ICON_PATH_LEN, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const checkDraw = interpolate(frame - 50, [0, 15], [ICON_PATH_LEN, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const iconOpacity = interpolate(frame - 5, [0, 15], [0, 1], {
+  const iconOpacity = interpolate(iconFrame - 5, [0, 15], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
 
   // Title
-  const titleSpring = spring({ frame: frame - 15, fps, config: { damping: 14, stiffness: 100 } });
+  const titleSpring = spring({ frame: textFrame - 15, fps, config: { damping: 14, stiffness: 100 } });
   const titleY = interpolate(titleSpring, [0, 1], [30, 0]);
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
 
   // Subtitle
-  const subOpacity = interpolate(frame - 40, [0, 20], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
-  // Accent line
-  const lineWidth = interpolate(frame - 50, [0, 25], [0, 100], {
+  const subOpacity = interpolate(textFrame - 40, [0, 20], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -76,36 +62,10 @@ export const TermsHeroComposition: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #0f0f14 50%, #0a0a0a 100%)',
         fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
-        overflow: 'hidden',
       }}
     >
-      {/* Dot grid */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `radial-gradient(circle, ${CORAL}0d 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
-          opacity: gridOpacity,
-        }}
-      />
-
-      {/* Glow blob */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 500,
-          height: 300,
-          borderRadius: '50%',
-          background: `radial-gradient(ellipse, ${CORAL}14, transparent 70%)`,
-          opacity: glowOpacity,
-        }}
-      />
+      <HeroRibbonBackground idPrefix="terms" />
 
       {/* Layout: icon left, text right (stacked on mobile) */}
       <div
@@ -119,6 +79,7 @@ export const TermsHeroComposition: React.FC = () => {
           alignItems: 'center',
           gap: isMobile ? 16 : 40,
           textAlign: isMobile ? 'center' : 'left',
+          zIndex: 1,
         }}
       >
         {/* Document icon */}
@@ -128,7 +89,6 @@ export const TermsHeroComposition: React.FC = () => {
           viewBox="0 0 64 64"
           style={{ opacity: iconOpacity, flexShrink: 0 }}
         >
-          {/* Document outline */}
           <path
             d={DOC_OUTER}
             fill="none"
@@ -139,7 +99,6 @@ export const TermsHeroComposition: React.FC = () => {
             strokeDasharray={ICON_PATH_LEN}
             strokeDashoffset={docDraw}
           />
-          {/* Corner fold */}
           <path
             d={DOC_FOLD}
             fill="none"
@@ -150,7 +109,6 @@ export const TermsHeroComposition: React.FC = () => {
             strokeDasharray={ICON_PATH_LEN}
             strokeDashoffset={foldDraw}
           />
-          {/* Text lines */}
           {[DOC_LINE1, DOC_LINE2, DOC_LINE3].map((d, i) => (
             <path
               key={i}
@@ -163,7 +121,6 @@ export const TermsHeroComposition: React.FC = () => {
               strokeDashoffset={linesDraw}
             />
           ))}
-          {/* Checkmark */}
           <path
             d={DOC_CHECK}
             fill="none"
@@ -201,30 +158,8 @@ export const TermsHeroComposition: React.FC = () => {
           >
             Rules for using our website
           </div>
-          {/* Accent line */}
-          <div
-            style={{
-              height: 3,
-              width: `${lineWidth}%`,
-              maxWidth: 100,
-              marginTop: 12,
-              background: `linear-gradient(90deg, ${CORAL}, transparent)`,
-              borderRadius: 2,
-              ...(isMobile ? { marginLeft: 'auto', marginRight: 'auto' } : {}),
-            }}
-          />
         </div>
       </div>
-
-      {/* Vignette */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(ellipse at center, transparent 50%, #0a0a0a 100%)',
-          pointerEvents: 'none',
-        }}
-      />
     </AbsoluteFill>
   );
 };

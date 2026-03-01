@@ -5,6 +5,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
+import { HeroRibbonBackground } from '../shared/HeroRibbonBackground';
 
 const CORAL = 'hsl(6, 93%, 64%)';
 const ICON_PATH_LEN = 300;
@@ -20,45 +21,30 @@ export const PrivacyHeroComposition: React.FC = () => {
   const { fps, width } = useVideoConfig();
   const isMobile = width < 768;
 
-  // Grid bg
-  const gridOpacity = interpolate(frame, [0, 60], [0, 0.08], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  const textFrame = Math.min(frame, 90);
 
-  // Glow
-  const glowOpacity = interpolate(frame, [20, 70], [0, 0.3], {
+  // Icon draw-on (caps at completion)
+  const iconFrame = Math.min(frame, 80);
+  const shieldDraw = interpolate(iconFrame - 10, [0, 40], [ICON_PATH_LEN, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-
-  // Icon draw-on
-  const shieldDraw = interpolate(frame - 10, [0, 40], [ICON_PATH_LEN, 0], {
+  const keyholeDraw = interpolate(iconFrame - 35, [0, 25], [ICON_PATH_LEN, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const keyholeDraw = interpolate(frame - 35, [0, 25], [ICON_PATH_LEN, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const iconOpacity = interpolate(frame - 5, [0, 15], [0, 1], {
+  const iconOpacity = interpolate(iconFrame - 5, [0, 15], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
 
   // Title
-  const titleSpring = spring({ frame: frame - 15, fps, config: { damping: 14, stiffness: 100 } });
+  const titleSpring = spring({ frame: textFrame - 15, fps, config: { damping: 14, stiffness: 100 } });
   const titleY = interpolate(titleSpring, [0, 1], [30, 0]);
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
 
   // Subtitle
-  const subOpacity = interpolate(frame - 40, [0, 20], [0, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
-  // Accent line
-  const lineWidth = interpolate(frame - 50, [0, 25], [0, 100], {
+  const subOpacity = interpolate(textFrame - 40, [0, 20], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -66,36 +52,10 @@ export const PrivacyHeroComposition: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #0f0f14 50%, #0a0a0a 100%)',
         fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
-        overflow: 'hidden',
       }}
     >
-      {/* Dot grid */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `radial-gradient(circle, ${CORAL}0d 1px, transparent 1px)`,
-          backgroundSize: '40px 40px',
-          opacity: gridOpacity,
-        }}
-      />
-
-      {/* Glow blob */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 500,
-          height: 300,
-          borderRadius: '50%',
-          background: `radial-gradient(ellipse, ${CORAL}14, transparent 70%)`,
-          opacity: glowOpacity,
-        }}
-      />
+      <HeroRibbonBackground idPrefix="privacy" />
 
       {/* Layout: icon left, text right (stacked on mobile) */}
       <div
@@ -109,6 +69,7 @@ export const PrivacyHeroComposition: React.FC = () => {
           alignItems: 'center',
           gap: isMobile ? 16 : 40,
           textAlign: isMobile ? 'center' : 'left',
+          zIndex: 1,
         }}
       >
         {/* Shield icon */}
@@ -165,30 +126,8 @@ export const PrivacyHeroComposition: React.FC = () => {
           >
             How we protect your data
           </div>
-          {/* Accent line */}
-          <div
-            style={{
-              height: 3,
-              width: `${lineWidth}%`,
-              maxWidth: 100,
-              marginTop: 12,
-              background: `linear-gradient(90deg, ${CORAL}, transparent)`,
-              borderRadius: 2,
-              ...(isMobile ? { marginLeft: 'auto', marginRight: 'auto' } : {}),
-            }}
-          />
         </div>
       </div>
-
-      {/* Vignette */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'radial-gradient(ellipse at center, transparent 50%, #0a0a0a 100%)',
-          pointerEvents: 'none',
-        }}
-      />
     </AbsoluteFill>
   );
 };

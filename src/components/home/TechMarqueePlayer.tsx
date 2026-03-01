@@ -10,7 +10,8 @@ const prefersReducedMotion =
 export const TechMarqueePlayer: React.FC = () => {
   const { containerRef, compositionWidth, compositionHeight } = useResponsivePlayer({
     desktopWidth: 1200,
-    desktopHeight: 200,
+    desktopHeight: 260,
+    mobileHeight: 240,
   });
 
   return (

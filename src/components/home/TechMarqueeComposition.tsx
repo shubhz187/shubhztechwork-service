@@ -24,7 +24,7 @@ export const TechMarqueeComposition: React.FC = () => {
   // Title
   const titleSpring = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
-  const titleY = interpolate(titleSpring, [0, 1], [20, 0]);
+  const titleY = interpolate(titleSpring, [0, 1], [30, 0]);
 
   // Responsive pill dimensions
   const centerX = width / 2;
@@ -128,7 +128,7 @@ export const TechMarqueeComposition: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: 16,
+          top: 20,
           width: '100%',
           textAlign: 'center',
           opacity: titleOpacity,
@@ -137,14 +137,25 @@ export const TechMarqueeComposition: React.FC = () => {
       >
         <div
           style={{
-            fontSize: 20,
+            fontSize: isMobile ? 11 : 13,
             fontWeight: 600,
-            letterSpacing: 4,
+            letterSpacing: 3,
             color: CORAL,
+            marginBottom: 8,
             fontFamily: "'Inter', system-ui, sans-serif",
           }}
         >
           OUR TECH STACK
+        </div>
+        <div
+          style={{
+            fontSize: isMobile ? 22 : 34,
+            fontWeight: 700,
+            color: '#fff',
+            letterSpacing: '-1px',
+          }}
+        >
+          Technologies We <span style={{ color: CORAL }}>Master</span>
         </div>
       </div>
 
@@ -152,7 +163,7 @@ export const TechMarqueeComposition: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: 60,
+          top: 130,
           left: 0,
           width: currentRowTotal,
           height: PILL_H,
@@ -166,7 +177,7 @@ export const TechMarqueeComposition: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: 60 + PILL_H + 16,
+          top: 130 + PILL_H + 16,
           left: 0,
           width: currentRowTotal,
           height: PILL_H,
@@ -179,7 +190,7 @@ export const TechMarqueeComposition: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: 50,
+          top: 120,
           left: 0,
           width: fadeWidth,
           height: 120,
@@ -190,7 +201,7 @@ export const TechMarqueeComposition: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: 50,
+          top: 120,
           right: 0,
           width: fadeWidth,
           height: 120,

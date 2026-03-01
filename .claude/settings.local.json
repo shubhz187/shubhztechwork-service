@@ -31,7 +31,9 @@
       "WebFetch(domain:www.anthropic.com)",
       "WebFetch(domain:pin.it)",
       "WebFetch(domain:api.pinterest.com)",
-      "WebFetch(domain:www.pinterest.com)"
+      "WebFetch(domain:www.pinterest.com)",
+      "WebFetch(domain:services.shubhztechwork.com)",
+      "WebFetch(domain:icons.getbootstrap.com)"
     ]
   }
 }

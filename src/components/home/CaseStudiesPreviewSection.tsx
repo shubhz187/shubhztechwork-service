@@ -3,27 +3,17 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { caseStudies } from '@/data/case-studies';
+import { SectionHeading } from './SectionHeading';
 
 export const CaseStudiesPreviewSection = () => (
-  <section className="py-12 md:py-24 relative overflow-hidden section-divider-gradient">
+  <section className="py-12 md:py-20 relative overflow-hidden section-divider-gradient">
     <div className="container mx-auto px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-8 md:mb-14"
+      <SectionHeading
+        label="OUR WORK"
+        subtitle="Real projects. Real outcomes. See how we've helped clients build, scale, and secure their technology."
       >
-        <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">
-          Our Work
-        </p>
-        <h2 className="section-title">
-          Case Studies
-        </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Real projects. Real outcomes. See how we've helped clients build, scale, and secure their technology.
-        </p>
-      </motion.div>
+        Case <span className="text-primary">Studies</span>
+      </SectionHeading>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {caseStudies.map((study, index) => (
