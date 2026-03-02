@@ -173,7 +173,6 @@ export const WhoWeServeComposition: React.FC = () => {
             <div
               style={{
                 background: 'rgba(255,255,255,0.03)',
-                backdropFilter: 'blur(8px)',
                 borderRadius: 16,
                 padding: isMobile ? '20px 16px' : '24px 20px',
                 border: `1.5px solid ${isCenter ? CORAL : 'rgba(255,255,255,0.08)'}`,

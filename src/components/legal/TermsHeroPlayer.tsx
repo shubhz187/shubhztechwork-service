@@ -19,7 +19,7 @@ export const TermsHeroPlayer: React.FC = () => {
         <Player
           component={TermsHeroComposition}
           durationInFrames={600}
-          fps={30}
+          fps={60}
           compositionWidth={compositionWidth}
           compositionHeight={compositionHeight}
           style={{ width: '100%', display: 'block' }}

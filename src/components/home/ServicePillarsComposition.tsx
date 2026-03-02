@@ -51,7 +51,7 @@ export const ServicePillarsComposition: React.FC = () => {
   const START_X = (width - TOTAL_WIDTH) / 2;
 
   // Grid background
-  const gridOpacity = interpolate(frame, [0, 40], [0, 0.1], {
+  const gridOpacity = interpolate(frame, [0, 20], [0, 0.1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -62,7 +62,7 @@ export const ServicePillarsComposition: React.FC = () => {
   const titleOpacity = interpolate(titleSpring, [0, 1], [0, 1]);
 
   // Center glow
-  const glowOpacity = interpolate(frame, [30, 70], [0, 0.35], {
+  const glowOpacity = interpolate(frame, [15, 35], [0, 0.35], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -140,7 +140,7 @@ export const ServicePillarsComposition: React.FC = () => {
       {pillars.map((pillar, colIdx) => {
         const col = colIdx % cols;
         const row = Math.floor(colIdx / cols);
-        const colDelay = 30 + colIdx * 20;
+        const colDelay = 15 + colIdx * 10;
         const colSpring = spring({
           frame: frame - colDelay,
           fps,
@@ -150,7 +150,7 @@ export const ServicePillarsComposition: React.FC = () => {
         const colOpacity = interpolate(colSpring, [0, 1], [0, 1]);
 
         // Icon stroke draw-on
-        const iconDraw = interpolate(frame - (colDelay + 15), [0, 35], [ICON_PATH_LEN, 0], {
+        const iconDraw = interpolate(frame - (colDelay + 8), [0, 18], [ICON_PATH_LEN, 0], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
         });
@@ -179,7 +179,6 @@ export const ServicePillarsComposition: React.FC = () => {
                 border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: isMobile ? 12 : 16,
                 padding: isMobile ? '18px 14px' : '28px 24px',
-                backdropFilter: 'blur(8px)',
               }}
             >
               {/* Icon */}
@@ -216,7 +215,7 @@ export const ServicePillarsComposition: React.FC = () => {
               {/* Service pills */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 6 : 8 }}>
                 {pillar.services.map((svc, svcIdx) => {
-                  const pillDelay = colDelay + 40 + svcIdx * 12;
+                  const pillDelay = colDelay + 20 + svcIdx * 6;
                   const pillSpring = spring({
                     frame: frame - pillDelay,
                     fps,
@@ -262,8 +261,8 @@ export const ServicePillarsComposition: React.FC = () => {
           const fromX = START_X + COL_WIDTH + i * (COL_WIDTH + COL_GAP);
           const toX = fromX + COL_GAP;
           const y = 220;
-          const lineDelay = 55 + i * 15;
-          const lineDraw = interpolate(frame - lineDelay, [0, 20], [COL_GAP, 0], {
+          const lineDelay = 28 + i * 8;
+          const lineDraw = interpolate(frame - lineDelay, [0, 10], [COL_GAP, 0], {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',
           });
@@ -287,8 +286,8 @@ export const ServicePillarsComposition: React.FC = () => {
           const fromX = START_X + COL_WIDTH;
           const toX = fromX + COL_GAP;
           const y = 220;
-          const lineDelay = 55;
-          const lineDraw = interpolate(frame - lineDelay, [0, 20], [COL_GAP, 0], {
+          const lineDelay = 28;
+          const lineDraw = interpolate(frame - lineDelay, [0, 10], [COL_GAP, 0], {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',
           });

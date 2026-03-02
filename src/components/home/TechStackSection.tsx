@@ -1,34 +1,19 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { TechMarqueePlayer } from './TechMarqueePlayer';
+import { TechStackRedesign } from './TechStackRedesign';
 
 export const TechStackSection = () => (
-  <section className="py-12 md:py-20 relative overflow-hidden section-divider-gradient">
-    <div className="container mx-auto px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <TechMarqueePlayer />
-      </motion.div>
+  <section className="relative overflow-hidden w-full">
+    <TechStackRedesign />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="mt-2 md:mt-4 text-center"
+    <div className="bg-[#010108] w-full pb-20 pt-10 flex justify-center relative z-10 text-center">
+      <Link
+        to="/technologies"
+        className="inline-flex items-center gap-2 text-[#22c55e] font-semibold hover:gap-3 transition-all"
       >
-        <Link
-          to="/technologies"
-          className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
-        >
-          View All Technologies <ArrowRight className="w-4 h-4" />
-        </Link>
-      </motion.div>
+        View All Technologies <ArrowRight className="w-4 h-4" />
+      </Link>
     </div>
   </section>
 );

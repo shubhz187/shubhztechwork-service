@@ -33,8 +33,8 @@ export const AboutSection = () => {
   return (
     <section id="about" className="py-12 md:py-24 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/50 rounded-full blur-[80px]" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[40px]" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/50 rounded-full blur-[40px]" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Remotion Hero */}

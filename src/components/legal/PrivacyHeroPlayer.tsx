@@ -19,7 +19,7 @@ export const PrivacyHeroPlayer: React.FC = () => {
         <Player
           component={PrivacyHeroComposition}
           durationInFrames={600}
-          fps={30}
+          fps={60}
           compositionWidth={compositionWidth}
           compositionHeight={compositionHeight}
           style={{ width: '100%', display: 'block' }}

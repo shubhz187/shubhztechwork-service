@@ -193,7 +193,6 @@ export const WhyUsComposition: React.FC = () => {
                 inset: 0,
                 background: 'rgba(255,255,255,0.02)',
                 borderRadius: 14,
-                backdropFilter: 'blur(6px)',
               }}
             />
 

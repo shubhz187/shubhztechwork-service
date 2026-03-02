@@ -29,7 +29,7 @@ const TechTile = memo(({ tech, index, isHovered, onMouseEnter, onMouseLeave }: T
     <motion.div
       animate={isHovered ? { scale: 1.08, y: -4 } : { scale: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 w-[105px] sm:w-[140px] rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/30 hover:bg-card transition-colors cursor-default"
+      className="flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 w-[105px] sm:w-[140px] rounded-xl border border-border/50 bg-card/50 hover:border-primary/30 hover:bg-card transition-colors cursor-default"
     >
       <TechIcon iconType={tech.iconType} />
       <span className="text-xs sm:text-sm font-semibold text-foreground/90 text-center leading-snug max-w-full">

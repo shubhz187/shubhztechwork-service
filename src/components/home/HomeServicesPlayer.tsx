@@ -19,7 +19,7 @@ export const HomeServicesPlayer: React.FC = () => {
                 <Player
                     component={HomeServicesComposition}
                     durationInFrames={150}
-                    fps={30}
+                    fps={60}
                     compositionWidth={compositionWidth}
                     compositionHeight={compositionHeight}
                     style={{ width: '100%', display: 'block' }}

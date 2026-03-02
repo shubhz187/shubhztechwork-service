@@ -2,6 +2,7 @@ import { Player } from '@remotion/player';
 import { ServicesHeroComposition } from './ServicesHeroComposition';
 import { useResponsivePlayer } from '@/hooks/use-responsive-player';
 import { RemotionErrorBoundary } from '@/components/RemotionErrorBoundary';
+import { useInView } from '@/hooks/use-in-view';
 
 const prefersReducedMotion =
     typeof window !== 'undefined' &&
@@ -12,23 +13,30 @@ export const ServicesHeroPlayer: React.FC = () => {
         desktopWidth: 1200,
         desktopHeight: 260,
     });
+    const { ref: inViewRef, isInView } = useInView({ rootMargin: '200px' });
 
     return (
         <RemotionErrorBoundary>
-            <div ref={containerRef} className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
-                <Player
-                    component={ServicesHeroComposition}
-                    durationInFrames={600}
-                    fps={30}
-                    compositionWidth={compositionWidth}
-                    compositionHeight={compositionHeight}
-                    style={{ width: '100%', display: 'block' }}
-                    autoPlay={!prefersReducedMotion}
-                    loop
-                    controls={false}
-                    clickToPlay={false}
-                />
+            <div ref={(el) => { (containerRef as React.MutableRefObject<HTMLDivElement | null>).current = el; (inViewRef as React.MutableRefObject<HTMLDivElement | null>).current = el; }} className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
+                {isInView ? (
+                    <Player
+                        component={ServicesHeroComposition}
+                        durationInFrames={600}
+                        fps={60}
+                        compositionWidth={compositionWidth}
+                        compositionHeight={compositionHeight}
+                        style={{ width: '100%', display: 'block' }}
+                        autoPlay={!prefersReducedMotion}
+                        loop={false}
+                        muted
+                        controls={false}
+                        clickToPlay={false}
+                    />
+                ) : (
+                    <div style={{ width: '100%', aspectRatio: `${compositionWidth}/${compositionHeight}`, background: '#0a0a0a' }} />
+                )}
             </div>
         </RemotionErrorBoundary>
     );
 };
+
