@@ -48,7 +48,7 @@ const cardVariants = {
     transition: {
       duration: 0.7,
       delay: 0.15 + i * 0.12,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
     },
   }),
 };
@@ -78,7 +78,7 @@ export const ServicePillarsSection = () => (
         <span className="text-xs md:text-sm font-semibold tracking-[0.25em] text-[#f95f4e] uppercase block mb-3 font-sans">
           What We Do
         </span>
-        <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+        <h2 className="text-3xl md:text-5xl font-display font-bold text-gray-900 dark:text-white tracking-tight">
           Four Pillars of{' '}
           <span className="text-[#f95f4e]">Excellence</span>
         </h2>
@@ -127,7 +127,7 @@ function PillarCard({ pillar, index }: { pillar: Pillar; index: number }) {
       {/* Left accent bar */}
       <div className="absolute left-0 top-4 bottom-4 w-[2px] rounded-full bg-[#f95f4e]/25 transition-all duration-500 group-hover:bg-[#f95f4e]/70 group-hover:shadow-[0_0_10px_rgba(249,95,78,0.25)]" />
 
-      <div className="relative overflow-hidden rounded-xl ml-3 border border-white/[0.06] bg-white/[0.02] p-7 md:p-8 transition-all duration-500 hover:border-white/[0.12] hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+      <div className="relative overflow-hidden rounded-xl ml-3 border border-gray-200 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] shadow-sm dark:shadow-none p-7 md:p-8 transition-all duration-500 hover:border-gray-300 dark:hover:border-white/[0.12] hover:-translate-y-1.5 hover:shadow-xl dark:hover:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
 
         {/* Scanning-line hover effect */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
@@ -141,13 +141,13 @@ function PillarCard({ pillar, index }: { pillar: Pillar; index: number }) {
           <div className="w-11 h-11 rounded-lg bg-[#f95f4e]/[0.07] border border-[#f95f4e]/[0.12] flex items-center justify-center transition-all duration-500 group-hover:bg-[#f95f4e]/[0.12] group-hover:border-[#f95f4e]/[0.25] group-hover:shadow-[0_0_24px_rgba(249,95,78,0.1)]">
             <Icon className="w-5 h-5 text-[#f95f4e]" strokeWidth={1.5} />
           </div>
-          <span className="text-[32px] font-mono font-bold leading-none text-white/[0.04] select-none transition-colors duration-500 group-hover:text-[#f95f4e]/[0.08]">
+          <span className="text-[32px] font-mono font-bold leading-none text-black/[0.1] dark:text-white/[0.04] select-none transition-colors duration-500 group-hover:text-[#f95f4e]/[0.15] dark:group-hover:text-[#f95f4e]/[0.08]">
             {pillar.num}
           </span>
         </div>
 
         {/* Pillar name */}
-        <h3 className="relative z-10 text-lg md:text-xl font-display font-bold text-white mb-1.5 tracking-tight">
+        <h3 className="relative z-10 text-lg md:text-xl font-display font-bold text-gray-900 dark:text-white mb-1.5 tracking-tight">
           {pillar.name}
         </h3>
 
@@ -159,7 +159,7 @@ function PillarCard({ pillar, index }: { pillar: Pillar; index: number }) {
           {pillar.services.map((svc) => (
             <li
               key={svc}
-              className="flex items-center gap-2.5 text-[13px] text-white/40 tracking-wide transition-colors duration-300 group-hover:text-white/60"
+              className="flex items-center gap-2.5 text-[13px] text-gray-700 dark:text-white/40 tracking-wide transition-colors duration-300 group-hover:text-gray-900 dark:group-hover:text-white/60"
             >
               <span className="w-1 h-1 rounded-full bg-[#f95f4e]/40 shrink-0" />
               {svc}

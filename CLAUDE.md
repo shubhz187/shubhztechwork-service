@@ -21,7 +21,7 @@ Tests live in `src/**/*.{test,spec}.{ts,tsx}` and use jsdom environment with glo
 - **Framework:** React 18 + TypeScript + Vite (SWC compiler)
 - **Styling:** Tailwind CSS with HSL CSS custom properties for theming (light/dark via `class` strategy on `<html>`)
 - **Components:** shadcn/ui (Radix UI primitives) in `src/components/ui/`
-- **Animations:** Framer Motion for scroll-triggered animations; Remotion for animated banners and section visuals
+- **Animations:** Framer Motion for scroll-triggered animations; Remotion for animated hero banners and some section visuals
 - **Routing:** React Router DOM v6
 - **State/Data:** TanStack React Query; custom Context API for theme (`src/hooks/use-theme.tsx`)
 - **Forms:** React Hook Form + Zod validation
@@ -35,85 +35,83 @@ Tests live in `src/**/*.{test,spec}.{ts,tsx}` and use jsdom environment with glo
 
 **Provider hierarchy** (`src/App.tsx`): `QueryClientProvider` → `ThemeProvider` → `TooltipProvider` → toasters → `BrowserRouter` → Routes.
 
-**Routing** (`src/App.tsx`): Ten routes — `/` (Index), `/services`, `/technologies`, `/about`, `/blogs`, `/blogs/:slug` (BlogPost), `/case-studies`, `/case-studies/:slug` (CaseStudyDetail), `/privacy-policy`, `/terms-of-service`, plus a catch-all 404. Supports hash navigation for in-page sections (e.g., `/services#fullstack`, `/#contact`).
+**Routing** (`src/App.tsx`): All routes lazy-loaded via `React.lazy()` — `/` (Index), `/services`, `/technologies`, `/about`, `/blogs`, `/blogs/:slug`, `/case-studies`, `/case-studies/:slug`, `/privacy-policy`, `/terms-of-service`, plus catch-all 404. Supports hash navigation (e.g., `/#contact`, `/services#devops`).
 
-**Page composition pattern**: Every page follows: `Navbar` → page-specific sections → `Footer`. The homepage (`src/pages/Index.tsx`) composes 8 animated sections: HeroSection → ServicePillarsSection → HowWeWorkSection → CaseStudiesPreviewSection → TechStackSection → WhoWeServeSection → WhyUsSection → ContactSection.
+**Page composition pattern**: Every page: `Navbar` → page-specific sections → `Footer`. The homepage (`src/pages/Index.tsx`) composes 8 sections: HeroSection → ServicePillarsSection → HowWeWorkSection → CaseStudiesPreviewSection → TechStackSection → WhoWeServeSection → WhyUsSection → ContactSection.
 
-**Data layer** (`src/data/`): Blog posts and case studies are defined as typed arrays with TypeScript interfaces:
-- `src/data/blogs.ts` — `BlogPost` interface, `blogPosts` array, `BlogAuthor` records
-- `src/data/case-studies.ts` — `CaseStudy` interface (includes `comingSoon?: boolean` flag), `caseStudies` array, helper functions `getCaseStudyBySlug()` and `getRelatedCaseStudies()`
+**Data layer** (`src/data/`):
+- `blogs.ts` — `BlogPost` interface, `blogPosts` array, `BlogAuthor` records
+- `case-studies.ts` — `CaseStudy` interface (includes `comingSoon?: boolean` flag), `caseStudies` array, `getCaseStudyBySlug()` and `getRelatedCaseStudies()` helpers
 
-**Content rendering with embedded animations**: Blog and case study HTML content strings use `%%ANIMATION:type%%` markers. The detail page renderers (`BlogPost.tsx`, `CaseStudyDetail.tsx`) split content on this regex (`/%%ANIMATION:(\w+)%%/`) and intersperse Remotion animation components between HTML blocks via `dangerouslySetInnerHTML`.
+**Content rendering with embedded animations**: Blog and case study HTML content strings use `%%ANIMATION:type%%` markers. Detail page renderers (`BlogPost.tsx`, `CaseStudyDetail.tsx`) split on `/%%ANIMATION:(\w+)%%/` and intersperse Remotion components between HTML blocks via `dangerouslySetInnerHTML`.
 
-**Theme system** (`src/hooks/use-theme.tsx`): Custom `ThemeProvider` using Context API with localStorage persistence and system preference detection. Toggled via `ThemeToggle` component. Applied via CSS class on document root.
+**Theme system** (`src/hooks/use-theme.tsx`): Custom `ThemeProvider` with localStorage persistence and system preference detection. The `ThemeToggle` component appears in the `Navbar` on all pages.
 
-**Styling architecture** (`src/index.css` + `tailwind.config.ts`): HSL CSS variables define the color system for both light/dark modes. Primary color is orange/red (`hsl(6 93% 64%)`). Two font families: `font-sans` (Inter) for body text, `font-display` (Space Grotesk) for headings. Custom gradients (`--gradient-primary`, etc.), shadows (`--shadow-glow`, etc.), and animation keyframes are defined in CSS and extended in the Tailwind config. Key CSS utility classes:
-- `.homepage-dark` — Immersive deep-blue color override (`--background: 230 70% 2%`) applied to the homepage `<main>` for a dark cinematic feel distinct from the standard `.dark` theme
-- `.glass-card` — Glassmorphism cards (`rgba(255,255,255,0.04)` bg + backdrop-filter blur), used extensively on homepage sections
-- `.section-divider-gradient` — Adds a subtle horizontal gradient line at the top of each section for visual separation
+**Styling architecture** (`src/index.css` + `tailwind.config.ts`): HSL CSS variables for both light/dark modes. Primary color: `hsl(6 93% 64%)` (coral). Two font families: `font-sans` (Inter), `font-display` (Space Grotesk). Key CSS utility classes:
+- `.homepage-dark` — Deep-blue override (`--background: 230 70% 2%`) on the homepage `<main>` for cinematic dark feel
+- `.glass-card` — Glassmorphism cards (`rgba(255,255,255,0.04)` + backdrop-filter blur)
+- `.section-divider-gradient` — Subtle horizontal gradient line at section tops
 
-**Bundle splitting** (`vite.config.ts`): Manual chunks split `vendor-react` (react, react-dom, react-router-dom), `vendor-motion` (framer-motion), and `vendor-remotion` (remotion, @remotion/player) for optimal caching.
+**Bundle splitting** (`vite.config.ts`): Manual chunks — `vendor-react`, `vendor-motion` (framer-motion), `vendor-remotion` (remotion + @remotion/player).
 
-**TypeScript config:** Relaxed checking — `noImplicitAny: false`, `strictNullChecks: false`, `noUnusedLocals: false`.
+**TypeScript config:** Relaxed — `noImplicitAny: false`, `strictNullChecks: false`, `noUnusedLocals: false`.
 
 ## Remotion Animation System
 
-The project uses Remotion extensively — not just for hero banners but for section-level visuals throughout the site.
+**Shared hero background** (`src/components/shared/HeroRibbonBackground.tsx`): All 9 page hero sections share this single Remotion composition — flowing SVG ribbons, ambient glow spots, shield/cloud outlines, vignette overlay. Takes an `idPrefix: string` prop to prevent SVG gradient/filter ID collisions when multiple Players exist on the same page. The cycle is FPS-independent (`fps * 10` frames = always 10s).
 
-**Composition + Player pattern**: Every animation follows a two-file convention:
-- `*Composition.tsx` — Remotion composition using `useCurrentFrame`/`spring`/`interpolate` from `remotion`, plus `AbsoluteFill` and optionally `Img`. Compositions receive `width`/`height` via `useCurrentFrame` context and should adapt layout for mobile widths (< 768px).
-- `*Player.tsx` — Wraps the composition in a `@remotion/player` `<Player>` with auto-play, loop, no controls, and `prefers-reduced-motion` respect. All Players use the `useResponsivePlayer` hook (`src/hooks/use-responsive-player.ts`) which measures the container via `ResizeObserver` and returns `compositionWidth`, `compositionHeight`, and `isMobile`. This ensures Remotion compositions resize fluidly on mobile instead of using fixed desktop dimensions. Config shape: `{ desktopWidth, desktopHeight, mobileHeight? }`.
+**Composition + Player pattern**: Most animations follow a two-file convention:
+- `*Composition.tsx` — Remotion composition using `useCurrentFrame`/`useVideoConfig`/`spring`/`interpolate`. Adapts layout for `width < 768` (mobile).
+- `*Player.tsx` — Wraps in `@remotion/player` `<Player>`. Most section Players use `useResponsivePlayer` hook (`src/hooks/use-responsive-player.ts`) which measures via ResizeObserver. All Players gate rendering via `useInView` hook.
+
+**`useInView` hook** (`src/hooks/use-in-view.ts`): IntersectionObserver-based hook that gates Remotion Player mounting. Default `rootMargin: '800px'` so Players mount well before they're visible (avoids scroll jank). Uses `startTransition` so heavy React tree mounts don't block scroll. Players unmount when off-screen by default (`once: false`) to save memory — set `once: true` to keep mounted.
+
+**Hero Player** (`src/components/home/HeroPlayer.tsx`): Special case — uses `document.documentElement.clientWidth` + `window.innerHeight` directly (not `useResponsivePlayer`) so the composition exactly matches the viewport with no letterboxing. Updates on resize with 150ms debounce.
+
+**Non-Remotion section replacements**: `HowWeWorkRedesign.tsx` (Framer Motion scroll-linked parallax pipeline) and `TechStackRedesign.tsx` (pure CSS marquee, zero JS overhead) replace their former Remotion counterparts for performance.
 
 **Component domain directories** under `src/components/`:
-- `home/` — Hero (full-viewport unified composition with circuit graph + logo + tagline), plus 6 section animations (ServicePillars, HowWeWork, TechMarquee, WhoWeServe, WhyUs, HomeServices)
-- `services/` — Hero banner + ServiceIcon compositions
-- `blogs/` — Hero banner + 5 topic-specific animations in `animations/` subdirectory
-- `case-studies/` — Hero banner + 5 case-study-specific animations in `animations/` subdirectory, mapped via `CaseStudyAnimation.tsx`
-- `about/`, `contact/` — Hero banners only
-- `legal/` — Privacy and Terms hero banners
-- `technologies/` — Hero banner, TechIconComposition (61 custom SVG icons), TechCarousel grid
+- `home/` — Hero + 5 Remotion section compositions (ServicePillars, WhoWeServe, WhyUs, HomeServices) + 2 Framer/CSS redesigns (HowWeWork, TechStack)
+- `shared/` — `HeroRibbonBackground.tsx` (shared across all 9 hero compositions)
+- `services/` — Hero + ServiceIcon compositions
+- `blogs/` — Hero + 5 topic animations in `animations/` subdirectory
+- `case-studies/` — Hero + 5 animations in `animations/` subdirectory, mapped via `CaseStudyAnimation.tsx`
+- `about/`, `contact/`, `legal/` — Hero compositions only
+- `technologies/` — Hero, TechIconComposition (61 SVG icons), TechCarousel grid
 
-**Remotion conventions**: Dark bg `#0a0a0a`, coral accent `hsl(6, 93%, 64%)`, purple `#a855f7`, pink `#ec4899`. Spring physics typically `damping: 12-14, stiffness: 80-130`. Dot grid backgrounds, glow blobs, and vignette overlays. Standard dimensions: 800x400 for inline animations (with per-type height overrides in `CaseStudyAnimation.tsx`), 1200x400-700 for section/hero animations, all at 30fps.
+**Remotion conventions**: Dark bg `#010108`, coral accent `#ff6644` / `hsl(6, 93%, 64%)`, blue `#4488ff`, teal `#22ccaa`. Spring physics: `damping: 12-14, stiffness: 80-130`. When text animations should settle once in a looping composition, use `const textFrame = Math.min(frame, 90)` to clamp the frame input.
 
-**Critical: composition height must accommodate card content.** When Remotion compositions contain cards/grids with absolute positioning, the `compositionHeight` in the Player must be tall enough to avoid clipping. Always verify by calculating: card `top` + card content height + animation `translateY` offset < compositionHeight.
+**Critical: composition height must fit content.** For compositions with absolute-positioned cards, verify: card `top` + content height + max `translateY` offset < `compositionHeight`.
 
 ## Technologies Page Architecture
 
-The Technologies page (`src/pages/Technologies.tsx`) showcases 61 technologies across 7 categories using a custom Remotion-animated icon system:
-
-- `src/components/technologies/TechIconComposition.tsx` — 61 custom SVG icons with stroke-dashoffset draw-on animation, pulse glow ring. `TechIconType` union type defines all icon identifiers.
-- `src/components/technologies/TechIconPlayer.tsx` — 100×100 Remotion Player wrapper for individual tech icons.
-- `src/components/technologies/techData.ts` — Central data file with `Technology` and `TechCategory` interfaces. 7 categories: Cloud & Infra (11), DevOps & SRE (14), Monitoring (6), Security (10), Databases (5), AI & LLM (11), Contact Center (4).
-- `src/components/technologies/TechCarousel.tsx` — Flex-wrap grid with staggered Framer Motion entrance animations. Hover shows scale-up + description tooltip.
-
-Each category renders as a separate bordered section with its own heading and TechCarousel instance.
+The Technologies page showcases 61 technologies across 7 categories:
+- `TechIconComposition.tsx` — 61 custom SVG icons with stroke-dashoffset draw-on animation
+- `techIcons.tsx` — maps `TechIconType` identifiers to icon elements using `lucide-react` + `react-icons/si`
+- `techData.ts` — `Technology`/`TechCategory` interfaces; 7 categories: Cloud & Infra (11), DevOps & SRE (14), Monitoring (6), Security (10), Databases (5), AI & LLM (11), Contact Center (4)
+- `TechCarousel.tsx` — Flex-wrap grid with staggered Framer Motion entrance, hover tooltip
 
 ## Key Patterns
 
-- `cn()` utility from `src/lib/utils.ts` merges Tailwind classes (clsx + tailwind-merge) — use it for conditional class composition
-- shadcn/ui components are pre-installed in `src/components/ui/` — use existing components rather than adding new UI primitives
-- Framer Motion `motion.*` elements with `initial`/`whileInView`/`viewport={{ once: true }}` for scroll-triggered reveal animations
-- Service data uses `iconType` string identifiers mapped to Remotion-rendered icon compositions in `ServiceCard`
-- Responsive layouts use Tailwind's grid system (1/2/3 column breakpoints: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`)
-- Case studies support a `comingSoon: true` flag that shows a "Coming Soon" badge on cards and a poster treatment on the detail page instead of full content
-- Contact form (`src/components/ContactSection.tsx`) submits via Web3Forms API with a hardcoded access key
-- Elements inside Remotion `<Player>` are NOT interactive (rendered as visual-only) — never put clickable buttons/links inside compositions
+- `cn()` from `src/lib/utils.ts` — merge Tailwind classes (clsx + tailwind-merge)
+- All Remotion Players must be wrapped in `<RemotionErrorBoundary>` and gate rendering with `useInView`
+- Elements inside Remotion `<Player>` are NOT interactive — never put clickable buttons/links inside compositions
 - Use `staticFile()` from Remotion for public assets inside compositions (not hardcoded `/` paths)
-- `.npmrc` has `legacy-peer-deps=true` to resolve peer dependency conflicts during CI builds
-- This project was scaffolded with Lovable (lovable.dev); the `lovable-tagger` dev plugin runs in development mode only
+- SVG gradient/filter IDs inside shared compositions must be prefixed with `idPrefix` prop to avoid collisions
+- `SectionHeading` component (`src/components/home/SectionHeading.tsx`) for consistent section heading style in React (non-Remotion) sections
+- Contact form (`src/components/ContactSection.tsx`) submits via Web3Forms API with a hardcoded access key
+- `.npmrc` has `legacy-peer-deps=true` for CI peer dependency resolution
 
 ## Deployment
 
-**Hosting:** GitHub Pages with custom subdomain `services.shubhztechwork.com`
+**Hosting:** GitHub Pages — `services.shubhztechwork.com`
 
-**CI/CD:** `.github/workflows/deploy.yml` — GitHub Actions workflow triggers on push to `main`. Builds with Node 20, deploys `dist/` to GitHub Pages via `actions/deploy-pages`.
+**CI/CD:** `.github/workflows/deploy.yml` — triggers on push to `main`, builds with Node 20, deploys `dist/` via `actions/deploy-pages`.
 
-**SPA routing on GitHub Pages:** `public/404.html` redirects unknown paths back to `index.html` with the path encoded as a query parameter. A script in `index.html` `<head>` restores the original URL via `history.replaceState` before React mounts.
+**SPA routing:** `public/404.html` redirects unknown paths to `index.html` with path as query param; `index.html` `<head>` script restores via `history.replaceState` before React mounts.
 
-**Custom domain:** `public/CNAME` contains `services.shubhztechwork.com`. DNS is a CNAME record pointing `services` to `shubhz187.github.io`.
-
-**Static assets:** `public/` contains `logo.png`, `robots.txt`, `sitemap.xml`, `404.html`, `CNAME`.
+**Custom domain:** `public/CNAME` = `services.shubhztechwork.com`. DNS: CNAME `services` → `shubhz187.github.io`.
 
 ## Domain Context
 
-This is a marketing/portfolio website for **ShubhzTechWork**, a technology services company. Content covers service categories (Infrastructure, Security, DevOps/SRE, Graphics, IT Solutions, Gen AI), technology showcases, a blog section, and case studies across FinTech, HealthTech, E-Commerce, Cybersecurity, and Healthcare verticals.
+Marketing/portfolio site for **ShubhzTechWork**, a technology services company. Service categories: Infrastructure, Security, DevOps/SRE, Graphics, IT Solutions, Gen AI. Case studies span FinTech, HealthTech, E-Commerce, Cybersecurity, Healthcare verticals.
