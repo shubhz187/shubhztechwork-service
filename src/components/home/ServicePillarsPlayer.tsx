@@ -14,7 +14,7 @@ export const ServicePillarsPlayer: React.FC = () => {
     desktopHeight: 500,
     mobileHeight: 700,
   });
-  const { ref: inViewRef, isInView } = useInView({ rootMargin: '0px' });
+  const { ref: inViewRef, isInView } = useInView({ rootMargin: '0px', once: true });
 
   return (
     <RemotionErrorBoundary>

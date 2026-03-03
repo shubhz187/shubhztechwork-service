@@ -33,13 +33,13 @@ export const CaseStudyAnimation = ({ type }: CaseStudyAnimationProps) => {
     <div className="my-8 rounded-xl overflow-hidden shadow-elevated border border-border">
       <Player
         component={Composition}
-        durationInFrames={150}
+        durationInFrames={type === 'connectDeploy' ? 216000 : 150}
         fps={30}
         compositionWidth={800}
         compositionHeight={heights[type] || 400}
         style={{ width: '100%', display: 'block' }}
         autoPlay={!prefersReducedMotion}
-        loop
+        loop={type !== 'connectDeploy'}
         controls={false}
         clickToPlay={false}
       />

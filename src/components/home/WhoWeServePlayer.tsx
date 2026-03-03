@@ -22,14 +22,13 @@ export const WhoWeServePlayer: React.FC = () => {
         {isInView ? (
           <Player
             component={WhoWeServeComposition}
-            durationInFrames={300}
+            durationInFrames={216000}
             fps={60}
             compositionWidth={compositionWidth}
             compositionHeight={compositionHeight}
             style={{ width: '100%', display: 'block' }}
             autoPlay={!prefersReducedMotion}
             loop
-                        muted
             controls={false}
             clickToPlay={false}
           />

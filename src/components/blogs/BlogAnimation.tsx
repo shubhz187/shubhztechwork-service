@@ -29,13 +29,13 @@ export const BlogAnimation = ({ type }: BlogAnimationProps) => {
     <div className="my-8 rounded-xl overflow-hidden shadow-elevated border border-border">
       <Player
         component={Composition}
-        durationInFrames={150}
+        durationInFrames={216000}
         fps={30}
         compositionWidth={800}
         compositionHeight={320}
         style={{ width: '100%', display: 'block' }}
         autoPlay={!prefersReducedMotion}
-        loop
+        loop={false}
         controls={false}
         clickToPlay={false}
       />
