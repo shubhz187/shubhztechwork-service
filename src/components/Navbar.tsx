@@ -87,9 +87,9 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-        isHomePage && !isScrolled
+        (isHomePage && !isScrolled && !isMobileMenuOpen)
           ? 'bg-transparent border-b border-transparent dark'
-          : 'bg-background/90 backdrop-blur-md border-b border-border/50 shadow-sm'
+          : 'bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm'
       )}
     >
       <a
@@ -203,7 +203,7 @@ export const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className={cn("lg:hidden border-t", isHomePage && !isScrolled ? "border-white/5" : "border-border")}
+              className={cn("lg:hidden border-t", (isHomePage && !isScrolled && !isMobileMenuOpen) ? "border-white/5" : "border-border")}
             >
               <div className="py-4 space-y-2">
                 {navLinks.map((link) => (
