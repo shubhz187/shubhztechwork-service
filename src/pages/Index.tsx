@@ -13,17 +13,17 @@ import { Footer } from '@/components/Footer';
 const Index = () => {
   useDocumentTitle('ShubhzTechWork - Simplifying Tech, Amplifying Growth', 'End-to-end technology solutions — from architecture to production. We build, secure, and scale the infrastructure your business runs on.');
   return (
-    <div className="min-h-screen bg-background homepage-dark">
+    <div className="min-h-screen bg-background">
       <Navbar />
       <main id="main-content">
-      <HeroSection />
-      <ServicePillarsSection />
-      <HowWeWorkSection />
-      <CaseStudiesPreviewSection />
-      <TechStackSection />
-      <WhoWeServeSection />
-      <WhyUsSection />
-      <ContactSection />
+        <HeroSection />
+        <ServicePillarsSection />
+        <HowWeWorkSection />
+        <CaseStudiesPreviewSection />
+        <TechStackSection />
+        <WhoWeServeSection />
+        <WhyUsSection />
+        <ContactSection />
       </main>
       <Footer />
     </div>

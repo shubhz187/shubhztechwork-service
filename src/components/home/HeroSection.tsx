@@ -21,6 +21,19 @@ const prefersReducedMotion =
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+const typewriterParent = {
+  hidden: { opacity: 1 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    transition: { staggerChildren: 0.04, delayChildren: delay }
+  })
+};
+
+const typewriterChar = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: "easeOut" as const } }
+};
+
 export const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -51,22 +64,32 @@ export const HeroSection = () => {
       {/* Content overlay */}
       <div className="relative z-10 container mx-auto px-4 text-center max-w-4xl">
         {/* Tagline */}
-        <h1 className="font-display font-bold leading-[1.1] mb-6">
+        <h1 className="font-display font-bold leading-[1.2] mb-6 pb-1">
           <motion.span
             className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            variants={typewriterParent}
+            initial="hidden"
+            animate="visible"
+            custom={0.1}
           >
-            Simplifying Tech,
+            {"Simplifying Tech,".split("").map((char, index) => (
+              <motion.span key={index} variants={typewriterChar} className="inline-block">
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
           </motion.span>
           <motion.span
-            className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-gradient-primary"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-gradient-primary pb-2"
+            variants={typewriterParent}
+            initial="hidden"
+            animate="visible"
+            custom={0.9}
           >
-            Amplifying Growth
+            {"Amplifying Growth".split("").map((char, index) => (
+              <motion.span key={index} variants={typewriterChar} className="inline-block">
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
           </motion.span>
         </h1>
 

@@ -32,16 +32,16 @@ export const HeroRibbonBackground: React.FC<HeroRibbonBackgroundProps> = ({ idPr
 
   /* ═══════ Ribbon 1 — Upper-right flowing shape ═══════ */
   const r1 = {
-    sx: width * 0.42,  sy: height * (-0.10 + w1 * 0.04),
+    sx: width * 0.42, sy: height * (-0.10 + w1 * 0.04),
     c1x: width * 0.80, c1y: height * (0.02 + w2 * 0.06),
     c2x: width * 0.98, c2y: height * (0.28 + w3 * 0.05),
-    ex: width * 0.52,  ey: height * (0.52 + w4 * 0.04),
+    ex: width * 0.52, ey: height * (0.52 + w4 * 0.04),
   };
   const r1b = {
-    sx: width * 0.48,  sy: height * (-0.14 + w1 * 0.04),
+    sx: width * 0.48, sy: height * (-0.14 + w1 * 0.04),
     c1x: width * 0.86, c1y: height * (-0.01 + w2 * 0.06),
     c2x: width * 1.03, c2y: height * (0.26 + w3 * 0.05),
-    ex: width * 0.58,  ey: height * (0.50 + w4 * 0.04),
+    ex: width * 0.58, ey: height * (0.50 + w4 * 0.04),
   };
 
   const r1Edge = `M ${r1.sx} ${r1.sy} C ${r1.c1x} ${r1.c1y}, ${r1.c2x} ${r1.c2y}, ${r1.ex} ${r1.ey}`;
@@ -53,13 +53,13 @@ export const HeroRibbonBackground: React.FC<HeroRibbonBackgroundProps> = ({ idPr
     sx: width * -0.05, sy: height * (0.52 + w3 * 0.05),
     c1x: width * 0.18, c1y: height * (0.68 + w1 * 0.04),
     c2x: width * 0.50, c2y: height * (0.82 + w4 * 0.05),
-    ex: width * 0.88,  ey: height * (0.96 + w2 * 0.04),
+    ex: width * 0.88, ey: height * (0.96 + w2 * 0.04),
   };
   const r2b = {
     sx: width * -0.05, sy: height * (0.58 + w3 * 0.05),
     c1x: width * 0.16, c1y: height * (0.74 + w1 * 0.04),
     c2x: width * 0.48, c2y: height * (0.88 + w4 * 0.05),
-    ex: width * 0.86,  ey: height * (1.02 + w2 * 0.04),
+    ex: width * 0.86, ey: height * (1.02 + w2 * 0.04),
   };
 
   const r2Edge = `M ${r2.sx} ${r2.sy} C ${r2.c1x} ${r2.c1y}, ${r2.c2x} ${r2.c2y}, ${r2.ex} ${r2.ey}`;
@@ -80,6 +80,10 @@ export const HeroRibbonBackground: React.FC<HeroRibbonBackgroundProps> = ({ idPr
   const spot3X = width * (0.55 + w4 * 0.015);
   const spot3Y = height * (0.42 + w1 * 0.02);
 
+  // Edge glow spots — cover the far left and far right
+  const edgeL_Y = height * (0.45 + w2 * 0.05);
+  const edgeR_Y = height * (0.40 + w3 * 0.05);
+
   // Larger radii to simulate blur spread without expensive filters
   const glowR = isMobile ? 160 : 260;
 
@@ -95,9 +99,8 @@ export const HeroRibbonBackground: React.FC<HeroRibbonBackgroundProps> = ({ idPr
     >
       <svg
         viewBox={`0 0 ${width} ${height}`}
-        width={width}
-        height={height}
-        style={{ position: 'absolute', inset: 0 }}
+        preserveAspectRatio="xMidYMid slice"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', transform: 'scale(1.05)', transformOrigin: 'center' }}
       >
         <defs>
           {/* ── Ribbon 1 gradients ── */}
@@ -155,12 +158,27 @@ export const HeroRibbonBackground: React.FC<HeroRibbonBackgroundProps> = ({ idPr
             <stop offset="0%" stopColor={TEAL} stopOpacity="0.04" />
             <stop offset="100%" stopColor={TEAL} stopOpacity="0" />
           </radialGradient>
+          <radialGradient id={id('edgeLeft')} cx="0%" cy="50%" r="60%">
+            <stop offset="0%" stopColor={BLUE_MID} stopOpacity="0.12" />
+            <stop offset="100%" stopColor={BLUE_MID} stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id={id('edgeRight')} cx="100%" cy="50%" r="60%">
+            <stop offset="0%" stopColor={BLUE_BRIGHT} stopOpacity="0.09" />
+            <stop offset="100%" stopColor={BLUE_BRIGHT} stopOpacity="0" />
+          </radialGradient>
         </defs>
 
-        {/* ══════ Ambient glow spots — large soft circles instead of blur-filtered small circles ══════ */}
+        {/* ══════ Edge coverage — left and right fills ══════ */}
+        <rect x="0" y="0" width={width * 0.35} height={height} fill={`url(#${id('edgeLeft')})`} />
+        <rect x={width * 0.65} y="0" width={width * 0.35} height={height} fill={`url(#${id('edgeRight')})`} />
+
+        {/* ══════ Ambient glow spots ══════ */}
         <circle cx={spot1X} cy={spot1Y} r={glowR} fill={`url(#${id('spotBlue')})`} />
         <circle cx={spot2X} cy={spot2Y} r={glowR * 0.8} fill={`url(#${id('spotCoral')})`} />
         <circle cx={spot3X} cy={spot3Y} r={glowR * 0.6} fill={`url(#${id('spotTeal')})`} />
+        {/* Edge glow circles */}
+        <circle cx={0} cy={edgeL_Y} r={glowR * 1.2} fill={`url(#${id('spotBlue')})`} opacity="0.7" />
+        <circle cx={width} cy={edgeR_Y} r={glowR * 1.2} fill={`url(#${id('spotBlue')})`} opacity="0.6" />
 
         {/* ══════ Ribbon 1: Upper-right ══════ */}
         <path d={r1Edge} fill="none" stroke={BLUE_BRIGHT} strokeWidth="40" opacity="0.03" />
@@ -209,13 +227,13 @@ export const HeroRibbonBackground: React.FC<HeroRibbonBackgroundProps> = ({ idPr
         </g>
       </svg>
 
-      {/* Vignette overlay */}
+      {/* Vignette — only subtle corner darkening, not full edge blackout */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(ellipse at center, transparent 15%, rgba(1,1,8,0.85) 100%)',
+            'radial-gradient(ellipse 120% 100% at center, transparent 40%, rgba(1,1,8,0.45) 100%)',
         }}
       />
     </AbsoluteFill>

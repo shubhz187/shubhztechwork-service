@@ -21,11 +21,18 @@ export const ServicesHeroComposition: React.FC = () => {
     const titleY = interpolate(titleProgress, [0, 1], [60, 0]);
     const titleOpacity = interpolate(titleProgress, [0, 1], [0, 1]);
 
-    // Subtitle
-    const subtitleOpacity = interpolate(textFrame - 18, [0, 28], [0, 1], {
-        extrapolateLeft: 'clamp',
-        extrapolateRight: 'clamp',
-    });
+    // Subtitle typewriter
+    const fullSubtitle = 'Comprehensive technology solutions tailored to drive your business forward.';
+    const subtitleStart = 15;
+    const subtitleDuration = 55;
+    const typeFrame = Math.min(frame, subtitleStart + subtitleDuration + 10);
+    const charsVisible = Math.floor(
+        interpolate(typeFrame - subtitleStart, [0, subtitleDuration], [0, fullSubtitle.length], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+        })
+    );
+    const subtitleText = fullSubtitle.slice(0, charsVisible);
 
     return (
         <AbsoluteFill
@@ -62,13 +69,14 @@ export const ServicesHeroComposition: React.FC = () => {
 
                     <div
                         style={{
-                            opacity: subtitleOpacity,
                             fontSize: isMobile ? '14px' : '20px',
                             color: 'rgba(255,255,255,0.6)',
                             fontFamily: "'Inter', system-ui, sans-serif",
+                            minHeight: isMobile ? '20px' : '30px',
                         }}
                     >
-                        Comprehensive technology solutions tailored to drive your business forward.
+                        {subtitleText}
+                        <span style={{ opacity: frame % 30 < 15 ? 1 : 0, color: CORAL }}>|</span>
                     </div>
                 </div>
             </div>

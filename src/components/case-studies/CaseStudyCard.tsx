@@ -15,10 +15,11 @@ export const CaseStudyCard = ({ study, index }: CaseStudyCardProps) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.4, delay: index * 0.1 }}
+    className="h-full"
   >
-    <Link to={`/case-studies/${study.slug}`} className="block group">
-      <div className="relative bg-card border border-border rounded-xl overflow-hidden card-hover shadow-card">
-        <div className={`h-3 bg-gradient-to-r ${study.gradient}`} />
+    <Link to={`/case-studies/${study.slug}`} className="block group h-full">
+      <div className="relative bg-card border border-border rounded-xl overflow-hidden card-hover shadow-card h-full flex flex-col">
+        <div className={`h-3 shrink-0 bg-gradient-to-r ${study.gradient}`} />
 
         {/* Coming Soon badge overlay */}
         {study.comingSoon && (
@@ -30,7 +31,7 @@ export const CaseStudyCard = ({ study, index }: CaseStudyCardProps) => (
           </div>
         )}
 
-        <div className="p-6">
+        <div className="p-6 flex flex-col flex-grow">
           {/* Industry + project type */}
           <div className="flex items-start justify-between gap-3 mb-4">
             <Badge
@@ -50,12 +51,12 @@ export const CaseStudyCard = ({ study, index }: CaseStudyCardProps) => (
           </h3>
 
           {/* Excerpt */}
-          <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3">
+          <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
             {study.excerpt}
           </p>
 
           {/* Highlights */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 p-4 bg-secondary/40 rounded-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 p-4 bg-secondary/40 rounded-xl mt-auto">
             {study.highlights.map((h) => (
               <div key={h.label} className="text-center">
                 <p className="font-display font-bold text-lg text-foreground">{h.value}</p>

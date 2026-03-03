@@ -13,7 +13,7 @@ export const BlogsHeroPlayer: React.FC = () => {
         desktopWidth: 1200,
         desktopHeight: 250,
     });
-    const { ref: inViewRef, isInView } = useInView({ rootMargin: '200px' });
+    const { ref: inViewRef, isInView } = useInView({ rootMargin: '200px', once: true });
 
     return (
         <RemotionErrorBoundary>
@@ -21,14 +21,13 @@ export const BlogsHeroPlayer: React.FC = () => {
                 {isInView ? (
                     <Player
                         component={BlogsHeroComposition}
-                        durationInFrames={600}
+                        durationInFrames={216000}
                         fps={60}
                         compositionWidth={compositionWidth}
                         compositionHeight={compositionHeight}
                         style={{ width: '100%', display: 'block' }}
                         autoPlay={!prefersReducedMotion}
-                        loop={false}
-                        muted
+                        loop
                         controls={false}
                         clickToPlay={false}
                     />

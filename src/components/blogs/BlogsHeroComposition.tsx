@@ -78,9 +78,7 @@ export const BlogsHeroComposition: React.FC = () => {
                         }}
                     >
                         {subtitleText}
-                        {charsVisible < fullSubtitle.length && (
-                            <span style={{ opacity: frame % 30 < 15 ? 1 : 0, color: CORAL }}>|</span>
-                        )}
+                        <span style={{ opacity: frame % 30 < 15 ? 1 : 0, color: CORAL }}>|</span>
                     </div>
                 </div>
             </div>

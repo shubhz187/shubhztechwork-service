@@ -175,10 +175,10 @@ export const WhoWeServeComposition: React.FC = () => {
                 background: 'rgba(255,255,255,0.03)',
                 borderRadius: 16,
                 padding: isMobile ? '20px 16px' : '24px 20px',
-                border: `1.5px solid ${isCenter ? CORAL : 'rgba(255,255,255,0.08)'}`,
+                border: `1.5px solid ${CORAL}`,
                 boxShadow: isCenter
                   ? `0 8px 32px ${CORAL}22`
-                  : '0 4px 16px rgba(0,0,0,0.2)',
+                  : `0 4px 16px ${CORAL}11`,
                 position: 'relative',
               }}
             >

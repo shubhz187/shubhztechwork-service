@@ -34,7 +34,9 @@
       "WebFetch(domain:www.pinterest.com)",
       "WebFetch(domain:services.shubhztechwork.com)",
       "WebFetch(domain:icons.getbootstrap.com)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(du:*)",
+      "Bash(wc:*)"
     ]
   }
 }

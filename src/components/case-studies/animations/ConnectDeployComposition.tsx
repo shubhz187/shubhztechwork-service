@@ -25,7 +25,7 @@ export const ConnectDeployComposition: React.FC = () => {
   const gridOpacity = interpolate(frame, [0, 40], [0, 0.25], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
 
   // Pipeline progress pulse
-  const pipelineFrame = (frame - 70) % 100;
+  const pipelineFrame = Math.min(100, Math.max(0, frame - 70));
   const pipelineProgress = interpolate(pipelineFrame, [0, 100], [0, pipelineSteps.length], { extrapolateRight: 'clamp' });
 
   return (

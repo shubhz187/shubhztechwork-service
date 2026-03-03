@@ -87,10 +87,8 @@ export const Navbar = () => {
       animate={{ y: 0 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-        isHomePage
-          ? isScrolled
-            ? 'bg-[#010108]/85 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20'
-            : 'bg-transparent border-b border-transparent'
+        isHomePage && !isScrolled
+          ? 'bg-transparent border-b border-transparent dark'
           : 'bg-background/90 backdrop-blur-md border-b border-border/50 shadow-sm'
       )}
     >
@@ -156,7 +154,7 @@ export const Navbar = () => {
                     >
                       <div className={cn(
                         "border rounded-xl shadow-elevated py-2 min-w-[220px]",
-                        isHomePage
+                        isHomePage && !isScrolled
                           ? "bg-[#0e0f18]/95 backdrop-blur-xl border-white/10"
                           : "bg-popover border-border"
                       )}>
@@ -179,7 +177,7 @@ export const Navbar = () => {
 
           {/* CTA Button & Theme Toggle */}
           <div className="hidden lg:flex items-center gap-3">
-            {!isHomePage && <ThemeToggle />}
+            <ThemeToggle />
             <Link
               to="/#contact"
               className="bg-gradient-primary text-primary-foreground font-semibold px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity shadow-glow"
@@ -205,7 +203,7 @@ export const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className={cn("lg:hidden border-t", isHomePage ? "border-white/5" : "border-border")}
+              className={cn("lg:hidden border-t", isHomePage && !isScrolled ? "border-white/5" : "border-border")}
             >
               <div className="py-4 space-y-2">
                 {navLinks.map((link) => (
@@ -232,7 +230,7 @@ export const Navbar = () => {
                   </div>
                 ))}
                 <div className="flex items-center gap-3 mx-4 mt-4">
-                  {!isHomePage && <ThemeToggle />}
+                  <ThemeToggle />
                   <Link
                     to="/#contact"
                     className="flex-1 bg-gradient-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg text-center"

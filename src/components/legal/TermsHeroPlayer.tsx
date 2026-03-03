@@ -18,7 +18,7 @@ export const TermsHeroPlayer: React.FC = () => {
       <div ref={containerRef} className="w-full rounded-2xl overflow-hidden shadow-elevated border border-border">
         <Player
           component={TermsHeroComposition}
-          durationInFrames={600}
+          durationInFrames={216000}
           fps={60}
           compositionWidth={compositionWidth}
           compositionHeight={compositionHeight}

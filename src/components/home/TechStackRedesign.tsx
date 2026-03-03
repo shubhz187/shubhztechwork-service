@@ -25,10 +25,10 @@ export const TechStackRedesign: React.FC = () => {
                     to { transform: translateX(0); }
                 }
                 .animate-marquee-left {
-                    animation: marquee-left 30s linear infinite;
+                    animation: marquee-left 60s linear infinite;
                 }
                 .animate-marquee-right {
-                    animation: marquee-right 30s linear infinite;
+                    animation: marquee-right 60s linear infinite;
                 }
                 .pause-on-hover:hover .animate-marquee-left,
                 .pause-on-hover:hover .animate-marquee-right {

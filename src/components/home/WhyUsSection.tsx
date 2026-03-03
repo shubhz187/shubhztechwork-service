@@ -14,7 +14,7 @@ const differentiators: Differentiator[] = [
   {
     num: '01',
     title: 'End-to-End Delivery',
-    desc: 'From architecture to production — we own it.',
+    desc: 'From architecture to production we own it.',
     icon: Rocket,
   },
   {

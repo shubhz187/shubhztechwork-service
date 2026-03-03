@@ -10,16 +10,20 @@ const prefersReducedMotion =
 
 export const HeroPlayer: React.FC = () => {
   const [compWidth, setCompWidth] = useState(() =>
-    typeof window !== 'undefined' ? Math.min(window.innerWidth, 1200) : 1200
+    typeof document !== 'undefined' ? document.documentElement.clientWidth : 1200
   );
-  const { ref: inViewRef, isInView } = useInView({ rootMargin: '0px' });
+  const [compHeight, setCompHeight] = useState(() =>
+    typeof window !== 'undefined' ? window.innerHeight : 700
+  );
+  const { ref: inViewRef, isInView } = useInView({ rootMargin: '0px', once: true });
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
     const handleResize = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        setCompWidth(Math.min(window.innerWidth, 1200));
+        setCompWidth(document.documentElement.clientWidth);
+        setCompHeight(window.innerHeight);
       }, 150);
     };
     window.addEventListener('resize', handleResize);
@@ -35,20 +39,18 @@ export const HeroPlayer: React.FC = () => {
         {isInView ? (
           <Player
             component={HeroComposition}
-            durationInFrames={600}
+            durationInFrames={216000}
             fps={60}
             compositionWidth={compWidth}
-            compositionHeight={700}
+            compositionHeight={compHeight}
             style={{
               position: 'absolute',
               inset: 0,
               width: '100%',
               height: '100%',
-              objectFit: 'cover',
             }}
             autoPlay={!prefersReducedMotion}
-            loop={false}
-                        muted
+            loop
             controls={false}
             clickToPlay={false}
           />

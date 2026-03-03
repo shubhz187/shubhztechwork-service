@@ -15,12 +15,13 @@ export const BlogCard = ({ post, index }: BlogCardProps) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.4, delay: index * 0.1 }}
+    className="h-full"
   >
-    <Link to={`/blogs/${post.slug}`} className="block group">
-      <div className="bg-card border border-border rounded-xl overflow-hidden card-hover shadow-card">
+    <Link to={`/blogs/${post.slug}`} className="block group h-full">
+      <div className="bg-card border border-border rounded-xl overflow-hidden card-hover shadow-card h-full flex flex-col">
         <div className={`h-3 bg-gradient-to-r ${post.gradient}`} />
 
-        <div className="p-6">
+        <div className="p-6 flex flex-col flex-grow">
           {/* Category + reading time */}
           <div className="flex items-center justify-between mb-4">
             <Badge
@@ -41,12 +42,12 @@ export const BlogCard = ({ post, index }: BlogCardProps) => (
           </h3>
 
           {/* Excerpt */}
-          <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3">
+          <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
             {post.excerpt}
           </p>
 
           {/* Author + date + CTA */}
-          <div className="flex items-center justify-between pt-4 border-t border-border">
+          <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center shrink-0">
                 <span className="text-primary-foreground text-xs font-bold">

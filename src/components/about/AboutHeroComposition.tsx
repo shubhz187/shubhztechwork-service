@@ -21,8 +21,18 @@ export const AboutHeroComposition: React.FC = () => {
     const nameY = interpolate(nameProgress, [0, 1], [70, 0]);
     const nameOpacity = interpolate(nameProgress, [0, 1], [0, 1]);
 
-    // Tagline fade
-    const taglineOpacity = interpolate(textFrame - 15, [0, 30], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    // Tagline typewriter
+    const fullTagline = 'Making cutting-edge technology accessible to businesses of all sizes.';
+    const taglineStart = 15;
+    const taglineDuration = 55;
+    const typeFrame = Math.min(frame, taglineStart + taglineDuration + 10);
+    const charsVisible = Math.floor(
+        interpolate(typeFrame - taglineStart, [0, taglineDuration], [0, fullTagline.length], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+        })
+    );
+    const taglineText = fullTagline.slice(0, charsVisible);
 
     return (
         <AbsoluteFill
@@ -59,14 +69,15 @@ export const AboutHeroComposition: React.FC = () => {
 
                     <div
                         style={{
-                            opacity: taglineOpacity,
                             fontSize: isMobile ? '14px' : '22px',
                             color: 'rgba(255,255,255,0.6)',
                             fontWeight: 400,
+                            minHeight: isMobile ? '20px' : '32px',
                             fontFamily: "'Inter', system-ui, sans-serif",
                         }}
                     >
-                        Making cutting-edge technology accessible to businesses of all sizes.
+                        {taglineText}
+                        <span style={{ opacity: frame % 30 < 15 ? 1 : 0, color: CORAL }}>|</span>
                     </div>
                 </div>
             </div>
