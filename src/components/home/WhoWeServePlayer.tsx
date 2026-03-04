@@ -33,7 +33,7 @@ export const WhoWeServePlayer: React.FC = () => {
             clickToPlay={false}
           />
         ) : (
-          <div style={{ width: '100%', aspectRatio: `${compositionWidth}/${compositionHeight}`, background: '#010108' }} />
+          <div style={{ width: '100%', aspectRatio: `${compositionWidth}/${compositionHeight}`, background: 'transparent' }} />
         )}
       </div>
     </RemotionErrorBoundary>

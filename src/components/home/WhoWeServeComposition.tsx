@@ -67,7 +67,8 @@ export const WhoWeServeComposition: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        background: 'linear-gradient(135deg, #010108 0%, #080814 50%, #010108 100%)',
+        width: '100%',
+        height: '100%',
         fontFamily: "'Space Grotesk', 'Inter', system-ui, sans-serif",
         overflow: 'hidden',
       }}
@@ -110,7 +111,7 @@ export const WhoWeServeComposition: React.FC = () => {
           style={{
             fontSize: isMobile ? 24 : 34,
             fontWeight: 700,
-            color: '#fff',
+            color: 'var(--foreground, #000)',
             letterSpacing: '-1px',
           }}
         >
@@ -172,7 +173,7 @@ export const WhoWeServeComposition: React.FC = () => {
 
             <div
               style={{
-                background: 'rgba(255,255,255,0.03)',
+                background: 'rgba(249, 95, 78, 0.03)',
                 borderRadius: 16,
                 padding: isMobile ? '20px 16px' : '24px 20px',
                 border: `1.5px solid ${CORAL}`,
@@ -206,7 +207,7 @@ export const WhoWeServeComposition: React.FC = () => {
                 style={{
                   fontSize: isMobile ? 17 : 20,
                   fontWeight: 700,
-                  color: '#fff',
+                  color: 'var(--foreground, #000)',
                   marginBottom: 14,
                 }}
               >
@@ -235,7 +236,7 @@ export const WhoWeServeComposition: React.FC = () => {
                         gap: 8,
                         fontSize: isMobile ? 12 : 13,
                         fontWeight: 500,
-                        color: 'rgba(255,255,255,0.55)',
+                        color: 'var(--muted-foreground, rgba(0,0,0,0.6))',
                         fontFamily: "'Inter', system-ui, sans-serif",
                       }}
                     >

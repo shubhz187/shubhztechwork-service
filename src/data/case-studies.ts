@@ -428,12 +428,12 @@ export const caseStudies: CaseStudy[] = [
 `,
   },
   {
-    slug: 'dr-mitesh-shah-website',
-    client: 'Dr. Mitesh Shah',
+    slug: 'clinical-website',
+    client: 'Clinical Website',
     subtitle: 'A professional medical clinic website built for trust, patient access, and fast delivery.',
     industry: 'Healthcare / Medical',
     projectType: 'Professional Clinic Website',
-    excerpt: 'Dr. Mitesh Shah needed a trustworthy digital presence for his medical practice : built for patient convenience, mobile-first access, and fast launch. Delivered end-to-end in 15 days with a 20-day total turnaround.',
+    excerpt: 'A medical practitioner needed a trustworthy digital presence for his medical practice : built for patient convenience, mobile-first access, and fast launch. Delivered end-to-end in 15 days.',
     gradient: 'from-sky-500 to-blue-500',
     stack: ['Web Development', 'Content Strategy', 'UX Design', 'SEO', 'Mobile-First'],
     highlights: [
@@ -441,14 +441,14 @@ export const caseStudies: CaseStudy[] = [
       { value: 'Live', label: 'Status' },
       { value: 'End-to-End', label: 'Delivery' },
     ],
-    metaTitle: 'Dr. Mitesh Shah : Medical Clinic Website Case Study | ShubhzTechWork',
-    metaDescription: 'How ShubhzTechWork delivered a professional medical clinic website for Dr. Mitesh Shah in 15 days : from requirement gathering to live production deployment.',
+    metaTitle: 'Clinical Website : Medical Clinic Case Study | ShubhzTechWork',
+    metaDescription: 'How ShubhzTechWork delivered a professional medical clinic website in 15 days : from requirement gathering to live production deployment.',
     content: `
 <h2 class="text-2xl font-bold font-display text-foreground mt-12 mb-4">Executive Summary</h2>
 
-<p class="mb-5 text-muted-foreground leading-relaxed">Dr. Mitesh Shah needed a professional digital presence to represent his medical practice online, improve discoverability, and provide patients with a clear way to understand services and connect with the clinic. The goal was to launch a trustworthy, patient-friendly website quickly without compromising usability.</p>
+<p class="mb-5 text-muted-foreground leading-relaxed">A medical practitioner needed a professional digital presence to represent his medical practice online, improve discoverability, and provide patients with a clear way to understand services and connect with the clinic. The goal was to launch a trustworthy, patient-friendly website quickly without compromising usability.</p>
 
-<p class="mb-5 text-muted-foreground leading-relaxed">ShubhzTechWork delivered a fully functional clinic website in <strong class="text-foreground">15 days of build time</strong>, with complete project delivery in <strong class="text-foreground">20 days</strong>, including content structuring, page setup, service presentation, and deployment support. The final website is live at <strong class="text-foreground">drmiteshshah.in</strong>.</p>
+<p class="mb-5 text-muted-foreground leading-relaxed">ShubhzTechWork delivered a fully functional clinic website in <strong class="text-foreground">15 days of build time</strong>, with complete project delivery in <strong class="text-foreground">20 days</strong>, including content structuring, page setup, service presentation, and deployment support. The final website is live at <a href="https://drmiteshshah.in/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-semibold">drmiteshshah.in</a>.</p>
 
 <div class="bg-primary/5 border border-primary/20 rounded-xl p-5 mb-6">
   <p class="text-foreground font-semibold mb-1">Outcome</p>
@@ -508,11 +508,11 @@ export const caseStudies: CaseStudy[] = [
 <h2 class="text-2xl font-bold font-display text-foreground mt-12 mb-4">Key Features Delivered</h2>
 
 <ul class="list-disc pl-6 mb-6 space-y-2 text-muted-foreground">
-  <li><strong class="text-foreground">Professional Clinic Website Presence</strong> : A complete website that positions Dr. Mitesh Shah as a credible medical practitioner online</li>
+  <li><strong class="text-foreground">Professional Clinic Website Presence</strong> : A complete website that positions the medical practice securely online</li>
   <li><strong class="text-foreground">Structured Service/Treatment Pages</strong> : Service discovery is a core patient need, with organized treatment/service content</li>
   <li><strong class="text-foreground">Contact & Location Accessibility</strong> : Clinic address and contact-oriented pages are easily discoverable</li>
   <li><strong class="text-foreground">Appointment/Inquiry-Oriented Experience</strong> : Booking/contact flow elements help users move from browsing to action</li>
-  <li><strong class="text-foreground">Live Deployment</strong> : Successfully launched and live on drmiteshshah.in</li>
+  <li><strong class="text-foreground">Live Deployment</strong> : Successfully launched and live at <a href="https://drmiteshshah.in/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-semibold">drmiteshshah.in</a></li>
 </ul>
 
 <h2 class="text-2xl font-bold font-display text-foreground mt-12 mb-4">Outcomes & Business Impact</h2>
@@ -539,7 +539,7 @@ export const caseStudies: CaseStudy[] = [
 
 <p class="mb-5 text-muted-foreground leading-relaxed">Recommended next steps include local SEO optimization (Google Business Profile, schema markup, city/service targeting), WhatsApp click-to-chat integration, FAQ pages for common patient questions, doctor profile credentials and experience highlights, patient testimonials, and periodic content audits for quality and compliance.</p>
 
-<p class="text-muted-foreground leading-relaxed">A live website is not the finish line : it's the launchpad for digital growth. Dr. Mitesh Shah now has a professional foundation to build on.</p>
+<p class="text-muted-foreground leading-relaxed">A live website is not the finish line : it's the launchpad for digital growth. The clinic now has a professional foundation to build on.</p>
 `,
   },
   {
@@ -558,7 +558,6 @@ export const caseStudies: CaseStudy[] = [
     ],
     metaTitle: 'Vulnerability Management Platform : Security Operations Case Study | ShubhzTechWork',
     metaDescription: 'How ShubhzTechWork is building a centralized vulnerability management platform with risk-based prioritization, SLA enforcement, and audit-ready remediation workflows.',
-    comingSoon: true,
     content: `
 <h2 class="text-2xl font-bold font-display text-foreground mt-12 mb-4">Overview</h2>
 

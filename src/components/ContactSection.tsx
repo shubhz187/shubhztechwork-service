@@ -58,12 +58,12 @@ export const ContactSection = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Remotion Hero */}
-        <div className="mb-8 md:mb-14">
-          <ContactHeroPlayer />
-        </div>
+      {/* Remotion Hero - Full Width */}
+      <div className="w-full relative z-10 mb-8 md:mb-14">
+        <ContactHeroPlayer />
+      </div>
 
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-5xl mx-auto">
           {/* Contact Info */}
           <motion.div

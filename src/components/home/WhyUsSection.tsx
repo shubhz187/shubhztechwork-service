@@ -68,7 +68,7 @@ export const WhyUsSection = () => (
         <span className="text-xs md:text-sm font-semibold tracking-[0.25em] text-[#f95f4e] uppercase block mb-3 font-sans">
           Why Us
         </span>
-        <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 tracking-tight">
+        <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 dark:text-white tracking-tight">
           Why <span className="text-[#f95f4e]">ShubhzTechWork</span>
         </h2>
       </motion.div>
@@ -139,7 +139,7 @@ function DifferentiatorStrip({
           <span className="text-2xl md:text-3xl font-mono font-bold text-[#f95f4e]/40 group-hover:text-[#f95f4e]/80 transition-colors duration-500 select-none leading-none">
             {item.num}
           </span>
-          <div className="w-8 h-8 md:w-9 md:h-9 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center group-hover:border-[#f95f4e]/40 group-hover:bg-[#f95f4e]/10 transition-all duration-500">
+          <div className="w-8 h-8 md:w-9 md:h-9 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover:border-[#f95f4e]/40 group-hover:bg-[#f95f4e]/10 transition-all duration-500">
             <Icon
               className="w-4 h-4 text-[#f95f4e]/50 group-hover:text-[#f95f4e]/80 transition-colors duration-500"
               strokeWidth={1.5}
@@ -154,7 +154,7 @@ function DifferentiatorStrip({
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: delay + 0.08 }}
         >
-          <h3 className="text-lg md:text-[22px] font-display font-bold text-slate-800 tracking-tight leading-tight">
+          <h3 className="text-lg md:text-[22px] font-display font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-tight">
             {item.title}
           </h3>
           <div className="w-8 h-[2px] bg-[#f95f4e]/25 mt-3 rounded-full group-hover:w-14 group-hover:bg-[#f95f4e]/50 transition-all duration-500" />
@@ -162,7 +162,7 @@ function DifferentiatorStrip({
 
         {/* Description — aligns under title on mobile, right-aligned on desktop */}
         <motion.p
-          className="col-start-2 md:col-start-auto text-[13px] md:text-[15px] text-slate-500 group-hover:text-slate-700 transition-colors duration-500 font-sans leading-relaxed md:text-right"
+          className="col-start-2 md:col-start-auto text-[13px] md:text-[15px] text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors duration-500 font-sans leading-relaxed md:text-right"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
