@@ -1,12 +1,15 @@
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { usePageMeta } from '@/hooks/use-page-meta';
 import { motion } from "framer-motion";
 import { Home } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
-  useDocumentTitle('Page Not Found | ShubhzTechWork');
+  usePageMeta({
+    title: 'Page Not Found | ShubhzTechWork',
+    description: 'The page you are looking for does not exist.',
+    robots: 'noindex, nofollow',
+  });
 
   return (
     <main id="main-content" className="flex min-h-screen items-center justify-center bg-background">

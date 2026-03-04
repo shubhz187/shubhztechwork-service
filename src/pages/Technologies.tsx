@@ -1,4 +1,4 @@
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { usePageMeta } from '@/hooks/use-page-meta';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { motion } from 'framer-motion';
@@ -7,7 +7,11 @@ import { TechCarousel } from '@/components/technologies/TechCarousel';
 import { techCategories } from '@/components/technologies/techData';
 
 const Technologies = () => {
-  useDocumentTitle('Technologies | ShubhzTechWork', '61 technologies across cloud, DevOps, monitoring, security, databases, AI, and contact center.');
+  usePageMeta({
+    title: 'Technologies | ShubhzTechWork',
+    description: '61 technologies across cloud, DevOps, monitoring, security, databases, AI, and contact center.',
+    canonicalPath: '/technologies',
+  });
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });

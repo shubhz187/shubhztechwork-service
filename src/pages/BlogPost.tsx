@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { usePageMeta } from '@/hooks/use-page-meta';
 import { motion } from 'framer-motion';
 import { Clock } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
@@ -28,51 +28,42 @@ const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = getBlogBySlug(slug || '');
 
-  useDocumentTitle(
-    post ? post.metaTitle : 'Blog | ShubhzTechWork',
-    post ? post.metaDescription : undefined
-  );
+  const jsonLd = useMemo(() => {
+    if (!post) return undefined;
+    return [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.title,
+        description: post.metaDescription,
+        author: { '@type': 'Person', name: post.author.name },
+        datePublished: post.date,
+        publisher: { '@type': 'Organization', name: 'ShubhzTechWork', logo: { '@type': 'ImageObject', url: 'https://services.shubhztechwork.com/logo.png' } },
+        url: `https://services.shubhztechwork.com/blogs/${post.slug}`,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://services.shubhztechwork.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://services.shubhztechwork.com/blogs' },
+          { '@type': 'ListItem', position: 3, name: post.title },
+        ],
+      },
+    ];
+  }, [post]);
+
+  usePageMeta({
+    title: post ? post.metaTitle : 'Blog | ShubhzTechWork',
+    description: post ? post.metaDescription : undefined,
+    canonicalPath: post ? `/blogs/${post.slug}` : '/blogs',
+    ogType: 'article',
+    jsonLd,
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
-
-  // Inject BlogPosting JSON-LD
-  useEffect(() => {
-    if (!post) return;
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
-      headline: post.title,
-      description: post.metaDescription,
-      author: { '@type': 'Person', name: post.author.name },
-      datePublished: post.date,
-      publisher: { '@type': 'Organization', name: 'ShubhzTechWork', logo: { '@type': 'ImageObject', url: 'https://services.shubhztechwork.com/logo.png' } },
-      url: `https://services.shubhztechwork.com/blogs/${post.slug}`,
-    });
-    document.head.appendChild(script);
-    return () => { document.head.removeChild(script); };
-  }, [post]);
-
-  // Inject BreadcrumbList JSON-LD
-  useEffect(() => {
-    if (!post) return;
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://services.shubhztechwork.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://services.shubhztechwork.com/blogs' },
-        { '@type': 'ListItem', position: 3, name: post.title },
-      ],
-    });
-    document.head.appendChild(script);
-    return () => { document.head.removeChild(script); };
-  }, [post]);
 
   if (!post) {
     return <Navigate to="/blogs" replace />;

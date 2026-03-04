@@ -50,9 +50,9 @@ export const AboutSection = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center mb-10 md:mb-20"
         >
-          <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-6">
+          <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-6">
             Our Story
-          </h3>
+          </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mb-6">
             ShubhzTechWork started in the most honest way possible with one friend casually saying, "Let's start a business," and the other saying, "Yes."
           </p>
@@ -78,9 +78,9 @@ export const AboutSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-4">
+          <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-4">
             Meet Our Team
-          </h3>
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             The brilliant minds behind ShubhzTechWork, dedicated to delivering excellence in every project.
           </p>

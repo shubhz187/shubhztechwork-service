@@ -1,4 +1,5 @@
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { useMemo } from 'react';
+import { usePageMeta } from '@/hooks/use-page-meta';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -7,7 +8,29 @@ import { BlogCard } from '@/components/blogs/BlogCard';
 import { blogPosts } from '@/data/blogs';
 
 const Blogs = () => {
-  useDocumentTitle('Blog | ShubhzTechWork', 'Insights on SaaS security, cloud infrastructure, DevSecOps, and data privacy from the ShubhzTechWork team.');
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'ShubhzTechWork Blog',
+    description: 'Insights on SaaS security, cloud infrastructure, DevSecOps, and data privacy.',
+    url: 'https://services.shubhztechwork.com/blogs',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: blogPosts.map((post, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `https://services.shubhztechwork.com/blogs/${post.slug}`,
+        name: post.title,
+      })),
+    },
+  }), []);
+
+  usePageMeta({
+    title: 'Blog | ShubhzTechWork',
+    description: 'Insights on SaaS security, cloud infrastructure, DevSecOps, and data privacy from the ShubhzTechWork team.',
+    canonicalPath: '/blogs',
+    jsonLd,
+  });
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

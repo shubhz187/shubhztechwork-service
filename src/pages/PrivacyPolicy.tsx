@@ -2,10 +2,14 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PrivacyHeroPlayer } from '@/components/legal/PrivacyHeroPlayer';
 import { useEffect } from 'react';
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { usePageMeta } from '@/hooks/use-page-meta';
 
 const PrivacyPolicy = () => {
-  useDocumentTitle('Privacy Policy | ShubhzTechWork');
+  usePageMeta({
+    title: 'Privacy Policy | ShubhzTechWork',
+    description: 'How ShubhzTechWork collects, uses, and protects your personal information on services.shubhztechwork.com.',
+    canonicalPath: '/privacy-policy',
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);

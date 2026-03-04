@@ -3,10 +3,14 @@ import { Footer } from '@/components/Footer';
 import { TermsHeroPlayer } from '@/components/legal/TermsHeroPlayer';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { usePageMeta } from '@/hooks/use-page-meta';
 
 const TermsOfService = () => {
-  useDocumentTitle('Terms of Service | ShubhzTechWork');
+  usePageMeta({
+    title: 'Terms of Service | ShubhzTechWork',
+    description: 'Terms governing your use of the ShubhzTechWork website and services.',
+    canonicalPath: '/terms-of-service',
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);

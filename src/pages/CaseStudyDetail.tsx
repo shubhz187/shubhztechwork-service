@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { usePageMeta } from '@/hooks/use-page-meta';
 import { motion } from 'framer-motion';
 import { Clock, ArrowRight } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
@@ -26,32 +26,41 @@ const CaseStudyDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const study = getCaseStudyBySlug(slug || '');
 
-  useDocumentTitle(
-    study ? study.metaTitle : 'Case Studies | ShubhzTechWork',
-    study ? study.metaDescription : undefined
-  );
+  const jsonLd = useMemo(() => {
+    if (!study) return undefined;
+    return [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: study.client,
+        description: study.metaDescription,
+        author: { '@type': 'Organization', name: 'ShubhzTechWork' },
+        publisher: { '@type': 'Organization', name: 'ShubhzTechWork', logo: { '@type': 'ImageObject', url: 'https://services.shubhztechwork.com/logo.png' } },
+        url: `https://services.shubhztechwork.com/case-studies/${study.slug}`,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://services.shubhztechwork.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Case Studies', item: 'https://services.shubhztechwork.com/case-studies' },
+          { '@type': 'ListItem', position: 3, name: study.client },
+        ],
+      },
+    ];
+  }, [study]);
+
+  usePageMeta({
+    title: study ? study.metaTitle : 'Case Studies | ShubhzTechWork',
+    description: study ? study.metaDescription : undefined,
+    canonicalPath: study ? `/case-studies/${study.slug}` : '/case-studies',
+    ogType: 'article',
+    jsonLd,
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
-
-  // Inject BreadcrumbList JSON-LD
-  useEffect(() => {
-    if (!study) return;
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://services.shubhztechwork.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Case Studies', item: 'https://services.shubhztechwork.com/case-studies' },
-        { '@type': 'ListItem', position: 3, name: study.client },
-      ],
-    });
-    document.head.appendChild(script);
-    return () => { document.head.removeChild(script); };
-  }, [study]);
 
   if (!study) {
     return <Navigate to="/case-studies" replace />;

@@ -1,4 +1,5 @@
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { useMemo } from 'react';
+import { usePageMeta } from '@/hooks/use-page-meta';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -7,7 +8,29 @@ import { CaseStudyCard } from '@/components/case-studies/CaseStudyCard';
 import { caseStudies } from '@/data/case-studies';
 
 const CaseStudies = () => {
-    useDocumentTitle('Case Studies | ShubhzTechWork', 'Real projects, real outcomes. See how we help clients build, scale, and secure their technology.');
+    const jsonLd = useMemo(() => ({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'ShubhzTechWork Case Studies',
+      description: 'Real projects, real outcomes. See how we help clients build, scale, and secure their technology.',
+      url: 'https://services.shubhztechwork.com/case-studies',
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: caseStudies.map((study, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `https://services.shubhztechwork.com/case-studies/${study.slug}`,
+          name: study.client,
+        })),
+      },
+    }), []);
+
+    usePageMeta({
+      title: 'Case Studies | ShubhzTechWork',
+      description: 'Real projects, real outcomes. See how we help clients build, scale, and secure their technology.',
+      canonicalPath: '/case-studies',
+      jsonLd,
+    });
     return (
         <div className="min-h-screen bg-background">
             <Navbar />

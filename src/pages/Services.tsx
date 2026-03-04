@@ -1,4 +1,5 @@
-import { useDocumentTitle } from '@/hooks/use-document-title';
+import { useMemo } from 'react';
+import { usePageMeta } from '@/hooks/use-page-meta';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { SectionTitle } from '@/components/SectionTitle';
@@ -155,7 +156,33 @@ const genAIServices = [
 ];
 
 const Services = () => {
-  useDocumentTitle('Services | ShubhzTechWork', 'Security-first technology services: cybersecurity, cloud infrastructure, DevOps & SRE, IT solutions, and Gen AI.');
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Technology Services',
+    description: 'Security-first technology services: cybersecurity, cloud infrastructure, DevOps & SRE, IT solutions, and Gen AI.',
+    url: 'https://services.shubhztechwork.com/services',
+    provider: { '@type': 'Organization', name: 'ShubhzTechWork' },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Technology Services',
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cybersecurity', description: 'DevSecOps, vulnerability management, cybersecurity posture, networking, and compliance.' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Cloud Infrastructure', description: 'Cloud deployments, virtualization, data center management, and serverless architectures.' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'DevOps & SRE', description: 'Monitoring, logging, observability, incident management, automation, and infrastructure as code.' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Graphics & Animation', description: 'Motion design, game development, and digital marketing.' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'IT Solutions', description: 'Data warehousing, visualization, and transformation pipelines.' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Generative AI', description: 'AI integration, LLM engineering, and autonomous AI agents.' } },
+      ],
+    },
+  }), []);
+
+  usePageMeta({
+    title: 'Services | ShubhzTechWork',
+    description: 'Security-first technology services: cybersecurity, cloud infrastructure, DevOps & SRE, IT solutions, and Gen AI.',
+    canonicalPath: '/services',
+    jsonLd,
+  });
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
