@@ -1,8 +1,24 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { LogoBadge } from './LogoBadge';
 
 export const Footer = () => {
+  const location = useLocation();
+
+  const handleNavClick = (href: string) => {
+    if (href.includes('#')) {
+      const [path, hash] = href.split('#');
+      if (location.pathname === path || (path === '/' && location.pathname === '/')) {
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    }
+  };
+
   return (
     <footer className="py-12 border-t border-border">
       <div className="container mx-auto px-4">
@@ -36,7 +52,7 @@ export const Footer = () => {
             <h4 className="font-display font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3">
               <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">About Us</Link></li>
-              <li><Link to="/#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
+              <li><Link to="/#contact" onClick={() => handleNavClick('/#contact')} className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
               <li><Link to="/blogs" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link></li>
               <li><Link to="/case-studies" className="text-muted-foreground hover:text-foreground transition-colors">Case Studies</Link></li>
             </ul>

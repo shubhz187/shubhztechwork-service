@@ -54,7 +54,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-12 md:py-20 relative overflow-hidden section-divider-gradient">
+    <section className="py-12 md:py-20 relative overflow-hidden section-divider-gradient">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent" />
 
@@ -63,7 +63,7 @@ export const ContactSection = () => {
         <ContactHeroPlayer />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div id="contact" className="container mx-auto px-4 relative z-10 scroll-mt-24">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-5xl mx-auto">
           {/* Contact Info */}
           <motion.div
