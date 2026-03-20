@@ -11,12 +11,13 @@ import { Separator } from '@/components/ui/separator';
 import { RelatedCaseStudies } from '@/components/case-studies/RelatedCaseStudies';
 import { CaseStudyAnimation } from '@/components/case-studies/CaseStudyAnimation';
 import { getCaseStudyBySlug, getRelatedCaseStudies } from '@/data/case-studies';
+import DOMPurify from 'dompurify';
 
 const renderContent = (htmlContent: string) => {
   const parts = htmlContent.split(/%%ANIMATION:(\w+)%%/);
   return parts.map((part, i) => {
     if (i % 2 === 0) {
-      return part ? <div key={i} dangerouslySetInnerHTML={{ __html: part }} /> : null;
+      return part ? <div key={i} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(part) }} /> : null;
     }
     return <CaseStudyAnimation key={i} type={part} />;
   });

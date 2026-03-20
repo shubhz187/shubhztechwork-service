@@ -36,7 +36,8 @@
       "WebFetch(domain:icons.getbootstrap.com)",
       "Bash(npx vite:*)",
       "Bash(du:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(npm audit:*)"
     ]
   }
 }

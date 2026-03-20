@@ -29,7 +29,7 @@ export const ContactSection = () => {
 
   const onSubmit = async (data: ContactFormData) => {
     const formData = new FormData();
-    formData.append("access_key", "9fda30d8-884b-4da0-8b34-b91a330ef478");
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY || "9fda30d8-884b-4da0-8b34-b91a330ef478");
     formData.append("First Name", data.firstName);
     formData.append("Last Name", data.lastName);
     formData.append("Email", data.email);
@@ -46,7 +46,7 @@ export const ContactSection = () => {
         toast.success('Message sent successfully!');
         reset();
       } else {
-        toast.error(result.message || 'Failed to send message.');
+        toast.error('Failed to send message. Please try again.');
       }
     } catch {
       toast.error('Something went wrong. Please try again.');

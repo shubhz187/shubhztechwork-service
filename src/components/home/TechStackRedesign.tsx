@@ -13,29 +13,6 @@ export const TechStackRedesign: React.FC = () => {
     return (
         <div className="w-full relative bg-[#010108] py-16 overflow-hidden flex flex-col items-center">
 
-            {/* Inline styles for 0-JS overhead pure CSS marquee */}
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                @keyframes marquee-left {
-                    from { transform: translateX(0); }
-                    to { transform: translateX(-50%); }
-                }
-                @keyframes marquee-right {
-                    from { transform: translateX(-50%); }
-                    to { transform: translateX(0); }
-                }
-                .animate-marquee-left {
-                    animation: marquee-left 60s linear infinite;
-                }
-                .animate-marquee-right {
-                    animation: marquee-right 60s linear infinite;
-                }
-                .pause-on-hover:hover .animate-marquee-left,
-                .pause-on-hover:hover .animate-marquee-right {
-                    animation-play-state: paused;
-                }
-            `}} />
-
             {/* Subtle Center Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] rounded-full bg-[radial-gradient(ellipse,rgba(249,95,78,0.15),transparent_70%)] opacity-60 pointer-events-none" />
 

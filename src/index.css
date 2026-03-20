@@ -297,6 +297,26 @@
 }
 
 
+/* Tech stack marquee animations */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.animate-marquee-left {
+  animation: marquee-left 60s linear infinite;
+}
+.animate-marquee-right {
+  animation: marquee-right 60s linear infinite;
+}
+.pause-on-hover:hover .animate-marquee-left,
+.pause-on-hover:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+
 /* Tech icon tiles */
 @keyframes tech-fade-in {
   from { opacity: 0; transform: scale(0.85); }

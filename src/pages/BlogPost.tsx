@@ -13,12 +13,13 @@ import { AuthorBioCard } from '@/components/blogs/AuthorBioCard';
 import { RelatedPosts } from '@/components/blogs/RelatedPosts';
 import { BlogAnimation } from '@/components/blogs/BlogAnimation';
 import { getBlogBySlug, getRelatedPosts } from '@/data/blogs';
+import DOMPurify from 'dompurify';
 
 const renderContent = (htmlContent: string) => {
   const parts = htmlContent.split(/%%ANIMATION:(\w+)%%/);
   return parts.map((part, i) => {
     if (i % 2 === 0) {
-      return part ? <div key={i} dangerouslySetInnerHTML={{ __html: part }} /> : null;
+      return part ? <div key={i} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(part) }} /> : null;
     }
     return <BlogAnimation key={i} type={part} />;
   });
