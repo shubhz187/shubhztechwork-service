@@ -11,14 +11,14 @@ const teamMembers = [
     linkedin: 'https://www.linkedin.com/in/nirmit-dagli-62857916a',
     email: 'nirmit.dagli@shubhztechwork.com',
   },
-  {
+  /* {
     name: 'Shubham Kadam',
     role: 'Co-Founder & CFO',
     bio: 'Financial expert ensuring sustainable growth and strong financial foundations.',
     initials: 'SK',
     linkedin: 'https://www.linkedin.com/in/nirmit-dagli-62857916a',
     email: 'shubham.kadam@shubhztechwork.com',
-  },
+  }, */
   {
     name: 'Kunal Shinde',
     role: 'CoFounder & CTO',
