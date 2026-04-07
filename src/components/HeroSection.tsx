@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import heroBg from '@/assets/hero-bg.jpg';
+import { AnimatedFluidText } from './ui/AnimatedFluidText';
+
 export const HeroSection = () => {
   return <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
     {/* Background Image */}
@@ -55,19 +57,15 @@ export const HeroSection = () => {
         </h1>
       </motion.div>
 
-      <motion.p initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        duration: 0.8,
-        delay: 0.4
-      }} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-        We provide cutting-edge technology to drive your business forward.
-        From innovative software solutions to cloud infrastructure, we've got you covered.
-      </motion.p>
+      <div className="mt-6 mb-10 max-w-2xl mx-auto min-h-[80px]">
+        <AnimatedFluidText 
+          animationType="scramble"
+          delay={0.4}
+          align="center"
+          className="text-lg md:text-xl text-muted-foreground"
+          text="We provide cutting-edge technology to drive your business forward. From innovative software solutions to cloud infrastructure, we've got you covered."
+        />
+      </div>
 
       <motion.div initial={{
         opacity: 0,

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { TechnologiesHeroPlayer } from '@/components/technologies/TechnologiesHeroPlayer';
 import { TechCarousel } from '@/components/technologies/TechCarousel';
 import { techCategories } from '@/components/technologies/techData';
+import { AnimatedFluidText } from '@/components/ui/AnimatedFluidText';
 
 const Technologies = () => {
   usePageMeta({
@@ -26,6 +27,15 @@ const Technologies = () => {
         <section className="pt-28 pb-4 container mx-auto px-4">
           <TechnologiesHeroPlayer />
         </section>
+
+        {/* Intro Text using AnimatedFluidText */}
+        <div className="container mx-auto px-4 text-center max-w-3xl mb-8 mt-4">
+          <AnimatedFluidText 
+            animationType="fluid" 
+            text="Explore the extensive stack of tools, frameworks, and infrastructure that power our scalable solutions. We constantly adapt and integrate the best-in-class technologies to build reliable and robust software."
+            className="text-muted-foreground text-lg leading-relaxed"
+          />
+        </div>
 
         {/* Quick-nav pills */}
         <nav className="py-4 container mx-auto px-4">

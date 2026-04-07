@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Linkedin, Mail } from 'lucide-react';
 import { AboutHeroPlayer } from './about/AboutHeroPlayer';
+import { AnimatedFluidText } from './ui/AnimatedFluidText';
 
 const teamMembers = [
   {
@@ -53,21 +54,35 @@ export const AboutSection = () => {
           <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-6">
             Our Story
           </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            ShubhzTechWork started in the most honest way possible with one friend casually saying, "Let's start a business," and the other saying, "Yes."
-          </p>
-          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            What began as a simple conversation between friends turned into a serious journey of building, learning, and solving real problems through technology. We started small, took on real work, kept improving, and grew through consistency, trust, and results.
-          </p>
-          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            Today, ShubhzTechWork has evolved into a technology partner focused on building practical, scalable solutions across development, cloud, DevOps, security, and AI. But our foundation remains the same: stay curious, build with purpose, and keep technology simple enough to be useful.
-          </p>
-          <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-            We believe the best solutions are not the most complicated ones they're the ones that actually work, scale well, and make life easier for businesses.
-          </p>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            From a single "yes" to a growing vision, ShubhzTechWork is built on action, trust, and the belief that great things can start from one small idea.
-          </p>
+          <AnimatedFluidText 
+            animationType="scramble" 
+            text="ShubhzTechWork started in the most honest way possible with one friend casually saying, &quot;Let's start a business,&quot; and the other saying, &quot;Yes.&quot;" 
+            className="text-muted-foreground text-lg leading-relaxed mb-6" 
+          />
+          <AnimatedFluidText 
+            animationType="scramble" 
+            delay={0.2}
+            text="What began as a simple conversation between friends turned into a serious journey of building, learning, and solving real problems through technology. We started small, took on real work, kept improving, and grew through consistency, trust, and results." 
+            className="text-muted-foreground text-lg leading-relaxed mb-6" 
+          />
+          <AnimatedFluidText 
+            animationType="scramble"
+            delay={0.4} 
+            text="Today, ShubhzTechWork has evolved into a technology partner focused on building practical, scalable solutions across development, cloud, DevOps, security, and AI. But our foundation remains the same: stay curious, build with purpose, and keep technology simple enough to be useful." 
+            className="text-muted-foreground text-lg leading-relaxed mb-6" 
+          />
+          <AnimatedFluidText 
+            animationType="scramble" 
+            delay={0.6}
+            text="We believe the best solutions are not the most complicated ones they're the ones that actually work, scale well, and make life easier for businesses." 
+            className="text-muted-foreground text-lg leading-relaxed mb-6" 
+          />
+          <AnimatedFluidText 
+            animationType="scramble" 
+            delay={0.8}
+            text="From a single &quot;yes&quot; to a growing vision, ShubhzTechWork is built on action, trust, and the belief that great things can start from one small idea." 
+            className="text-muted-foreground text-lg leading-relaxed" 
+          />
         </motion.div>
 
         {/* Team Section */}
