@@ -1,21 +1,21 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
 
 export default {
-  darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: "1.5rem",
+      screens: { "2xl": "1440px" },
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        sans: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Inter Tight"', 'ui-sans-serif', 'system-ui'],
+        serif: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,16 +51,22 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
+        // Awake palette
+        ink:      "#0A0A0A",
+        cream:    "#F6F1E6",
+        violet:   "#4928FD",
+        orange:   "#FFAF68",
+        yellow:   "#F6E683",
+        green:    "#79D45E",
+        purple:   "#A484E9",
+        pink:     "#F4889A",
+      },
+      fontSize: {
+        'display-1': ['clamp(34px, 4.5vw, 72px)', { lineHeight: '1.08', letterSpacing: '-0.022em', fontWeight: '500' }],
+        'display-2': ['clamp(30px, 3.8vw, 56px)', { lineHeight: '1.1',  letterSpacing: '-0.018em', fontWeight: '500' }],
+        'display-3': ['clamp(26px, 3vw, 42px)',   { lineHeight: '1.15', letterSpacing: '-0.015em', fontWeight: '500' }],
+        'display-4': ['clamp(24px, 2.8vw, 36px)', { lineHeight: '1.2',  letterSpacing: '-0.014em', fontWeight: '500' }],
+        'display-5': ['clamp(20px, 2vw, 28px)',   { lineHeight: '1.25', letterSpacing: '-0.01em', fontWeight: '600' }],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -76,32 +82,32 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "marquee-x": {
+          "0%":   { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "marquee-x-reverse": {
+          "0%":   { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        "spin-slow": {
+          "0%":   { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
         "float": {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.4" },
-          "50%": { opacity: "0.8" },
-        },
-        "fade-in-up": {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        "slide-in-right": {
-          "0%": { opacity: "0", transform: "translateX(20px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
+          "0%,100%": { transform: "translateY(0)" },
+          "50%":     { transform: "translateY(-12px)" },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "float": "float 3s ease-in-out infinite",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-        "fade-in-up": "fade-in-up 0.6s ease-out forwards",
-        "slide-in-right": "slide-in-right 0.6s ease-out forwards",
+        "accordion-down": "accordion-down 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+        "accordion-up": "accordion-up 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+        "marquee-x":         "marquee-x 40s linear infinite",
+        "marquee-x-reverse": "marquee-x-reverse 30s linear infinite",
+        "spin-slow":         "spin-slow 40s linear infinite",
+        "float":             "float 6s ease-in-out infinite",
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [tailwindcssAnimate, typography],
 } satisfies Config;

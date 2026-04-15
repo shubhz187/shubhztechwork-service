@@ -1,265 +1,119 @@
-import { useEffect, useMemo } from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
-import { usePageMeta } from '@/hooks/use-page-meta';
-import { motion } from 'framer-motion';
-import { Clock, ArrowRight } from 'lucide-react';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
-import { Badge } from '@/components/ui/badge';
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
-import { RelatedCaseStudies } from '@/components/case-studies/RelatedCaseStudies';
-import { CaseStudyAnimation } from '@/components/case-studies/CaseStudyAnimation';
-import { getCaseStudyBySlug, getRelatedCaseStudies } from '@/data/case-studies';
-import DOMPurify from 'dompurify';
-
-const renderContent = (htmlContent: string) => {
-  const parts = htmlContent.split(/%%ANIMATION:(\w+)%%/);
-  return parts.map((part, i) => {
-    if (i % 2 === 0) {
-      return part ? <div key={i} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(part) }} /> : null;
-    }
-    return <CaseStudyAnimation key={i} type={part} />;
-  });
-};
+import { useEffect, useMemo } from "react";
+import { useParams, Navigate, Link } from "react-router-dom";
+import { usePageMeta } from "@/hooks/use-page-meta";
+import { motion } from "framer-motion";
+import { ArrowLeft, Clock } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { RelatedCaseStudies } from "@/components/case-studies/RelatedCaseStudies";
+import { getCaseStudyBySlug, getRelatedCaseStudies } from "@/data/case-studies";
+import { MaskRevealText } from "@/components/awake/MaskRevealText";
+import { SanitizedHtml } from "@/lib/sanitize-html";
 
 const CaseStudyDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const study = getCaseStudyBySlug(slug || '');
+  const study = getCaseStudyBySlug(slug || "");
 
   const jsonLd = useMemo(() => {
     if (!study) return undefined;
     return [
       {
-        '@context': 'https://schema.org',
-        '@type': 'Article',
+        "@context": "https://schema.org",
+        "@type": "Article",
         headline: study.client,
         description: study.metaDescription,
-        author: { '@type': 'Organization', name: 'ShubhzTechWork' },
-        publisher: { '@type': 'Organization', name: 'ShubhzTechWork', logo: { '@type': 'ImageObject', url: 'https://services.shubhztechwork.com/logo.png' } },
+        author: { "@type": "Organization", name: "ShubhzTechWork" },
+        publisher: {
+          "@type": "Organization",
+          name: "ShubhzTechWork",
+          logo: { "@type": "ImageObject", url: "https://services.shubhztechwork.com/logo.png" },
+        },
         url: `https://services.shubhztechwork.com/case-studies/${study.slug}`,
-      },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://services.shubhztechwork.com/' },
-          { '@type': 'ListItem', position: 2, name: 'Case Studies', item: 'https://services.shubhztechwork.com/case-studies' },
-          { '@type': 'ListItem', position: 3, name: study.client },
-        ],
       },
     ];
   }, [study]);
 
   usePageMeta({
-    title: study ? study.metaTitle : 'Case Studies | ShubhzTechWork',
+    title: study ? study.metaTitle : "Case Studies | ShubhzTechWork",
     description: study ? study.metaDescription : undefined,
-    canonicalPath: study ? `/case-studies/${study.slug}` : '/case-studies',
-    ogType: 'article',
+    canonicalPath: study ? `/case-studies/${study.slug}` : "/case-studies",
+    ogType: "article",
     jsonLd,
   });
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [slug]);
+  useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
-  if (!study) {
-    return <Navigate to="/case-studies" replace />;
-  }
-
-  const relatedStudies = getRelatedCaseStudies(study.slug);
+  if (!study) return <Navigate to="/case-studies" replace />;
+  const related = getRelatedCaseStudies(study.slug);
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <Navbar />
-      <main id="main-content" className="pt-20">
-        <article className="container mx-auto px-4 py-12">
-          {/* Breadcrumb navigation */}
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
-            className="max-w-3xl mx-auto mb-8"
-          >
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild><Link to="/case-studies">Case Studies</Link></BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{study.client}</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </motion.div>
-
-          {/* Header */}
-          <motion.header
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="max-w-3xl mx-auto mb-10"
-          >
-            {/* Industry + project type */}
-            <div className="flex items-center gap-3 mb-6">
-              <Badge
-                variant="secondary"
-                className="bg-primary/10 text-primary border border-primary/20 font-semibold"
-              >
-                {study.industry}
-              </Badge>
-              <Separator orientation="vertical" className="h-4" />
-              <span className="text-sm text-muted-foreground">
-                {study.projectType}
-              </span>
+      <main id="main-content">
+        <section className="relative pt-36 pb-12 md:pt-44 md:pb-16">
+          <div className="container-md relative z-10">
+            <Link to="/case-studies" className="inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors">
+              <ArrowLeft className="h-4 w-4" /> All case studies
+            </Link>
+            <div className="mt-8 flex flex-wrap items-center gap-3 text-sm">
+              <span className="pill">{study.industry}</span>
+              <span className="text-foreground/40">·</span>
+              <span className="text-foreground/60">{study.projectType}</span>
+              {study.comingSoon && (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-foreground text-background text-xs font-medium px-3 py-1.5">
+                  <Clock className="h-3 w-3" /> Coming soon
+                </span>
+              )}
             </div>
-
-            {/* Client name */}
-            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
-              {study.client}
+            <h1 className="mt-8 text-display-2 font-display leading-[1.02] max-w-5xl">
+              <MaskRevealText immediate stagger={50}>{study.client}</MaskRevealText>
             </h1>
-
-            {/* Subtitle */}
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.7 }}
+              className="mt-6 max-w-3xl text-lg text-foreground/70 leading-relaxed"
+            >
               {study.subtitle}
-            </p>
-          </motion.header>
+            </motion.p>
+          </div>
+        </section>
 
-          {/* Gradient divider */}
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="max-w-3xl mx-auto mb-8"
-          >
-            <div className={`h-1 rounded-full bg-gradient-to-r ${study.gradient}`} />
-          </motion.div>
-
-          {study.comingSoon ? (
-            <>
-              {/* Coming Soon treatment */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="max-w-3xl mx-auto"
+        <section className="container-md pb-10">
+          <div className="grid gap-4 rounded-[28px] border border-foreground/10 bg-card p-6 md:grid-cols-3 md:gap-0 md:p-0">
+            {study.highlights.map((h, i) => (
+              <div
+                key={h.label}
+                className={`flex flex-col items-start md:p-8 ${i > 0 ? "md:border-l md:border-foreground/10" : ""}`}
               >
-                {/* Coming Soon animation */}
-                <CaseStudyAnimation type="comingSoon" />
-
-                {/* Coming Soon banner */}
-                <div className="mt-8 p-6 bg-secondary/40 border border-border rounded-xl text-center">
-                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-rose-500 to-red-600 text-white text-sm font-bold px-4 py-2 rounded-full mb-4">
-                    <Clock className="w-4 h-4" />
-                    Coming Soon
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed max-w-lg mx-auto mb-2">
-                    This case study is currently being prepared. Check back soon for the full story.
-                  </p>
-                </div>
-
-                {/* Highlights bar */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 bg-secondary/40 rounded-xl mt-8 mb-4">
-                  {study.highlights.map((h) => (
-                    <div key={h.label} className="text-center">
-                      <p className="font-display font-bold text-xl text-foreground">{h.value}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{h.label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Tech stack */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {study.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-xs bg-secondary text-secondary-foreground px-2.5 py-1 rounded-md font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Teaser content */}
-                <div className="blog-content">
-                  {renderContent(study.content)}
-                </div>
-
-                {/* CTA back to case studies */}
-                <div className="mt-10 text-center">
-                  <Link
-                    to="/case-studies"
-                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
-                  >
-                    Browse All Case Studies
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Related case studies */}
-              <div className="max-w-5xl mx-auto mt-16">
-                <Separator className="mb-10" />
-                <RelatedCaseStudies studies={relatedStudies} />
+                <p className="font-display text-3xl md:text-4xl font-semibold text-foreground">{h.value}</p>
+                <p className="mt-2 text-sm text-foreground/60">{h.label}</p>
               </div>
-            </>
-          ) : (
-            <>
-              {/* Highlights bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.25 }}
-                className="max-w-3xl mx-auto mb-4"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 bg-secondary/40 rounded-xl mb-4">
-                  {study.highlights.map((h) => (
-                    <div key={h.label} className="text-center">
-                      <p className="font-display font-bold text-xl text-foreground">{h.value}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{h.label}</p>
-                    </div>
-                  ))}
-                </div>
+            ))}
+          </div>
 
-                {/* Tech stack */}
-                <div className="flex flex-wrap gap-2">
-                  {study.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-xs bg-secondary text-secondary-foreground px-2.5 py-1 rounded-md font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {study.stack.map((tech) => (
+              <span key={tech} className="pill">{tech}</span>
+            ))}
+          </div>
+        </section>
 
-              {/* Article content */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="max-w-3xl mx-auto blog-content"
-              >
-                {renderContent(study.content)}
-              </motion.div>
+        <motion.article
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+          className="container-sm pb-20 md:pb-28"
+        >
+          <SanitizedHtml html={study.content} className="prose-awake" />
+        </motion.article>
 
-              {/* Related case studies */}
-              <div className="max-w-5xl mx-auto mt-16">
-                <Separator className="mb-10" />
-                <RelatedCaseStudies studies={relatedStudies} />
-              </div>
-            </>
-          )}
-        </article>
+        {related.length > 0 && (
+          <section className="border-t border-foreground/10 py-20 md:py-28">
+            <div className="container-lg">
+              <RelatedCaseStudies studies={related} />
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
-    </div>
+    </>
   );
 };
 

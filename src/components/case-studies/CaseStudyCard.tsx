@@ -1,96 +1,55 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, Clock } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
-import type { CaseStudy } from '@/data/case-studies';
+import { motion } from "framer-motion";
+import { Clock } from "lucide-react";
+import { Link } from "react-router-dom";
+import type { CaseStudy } from "@/data/case-studies";
+import { RoundArrow } from "@/components/awake/decorative/OrbitStars";
 
-interface CaseStudyCardProps {
-  study: CaseStudy;
-  index: number;
-}
+const tints = [
+  "bg-violet/20",
+  "bg-orange/30",
+  "bg-green/20",
+  "bg-pink/20",
+  "bg-purple/20",
+  "bg-yellow/40",
+];
 
-export const CaseStudyCard = ({ study, index }: CaseStudyCardProps) => (
+interface Props { study: CaseStudy; index: number; }
+
+export const CaseStudyCard = ({ study, index }: Props) => (
   <motion.article
-    initial={{ opacity: 0, y: 30 }}
+    initial={{ opacity: 0, y: 32 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.4, delay: index * 0.1 }}
-    className="h-full"
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.8, delay: (index % 2) * 0.1, ease: [0.22, 1, 0.36, 1] }}
   >
-    <Link to={`/case-studies/${study.slug}`} className="block group h-full">
-      <div className="relative bg-card border border-border rounded-xl overflow-hidden card-hover shadow-card h-full flex flex-col">
-        <div className={`h-3 shrink-0 bg-gradient-to-r ${study.gradient}`} />
-
-        {/* Coming Soon badge overlay */}
-        {study.comingSoon && (
-          <div className="absolute top-5 right-4 z-10">
-            <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-rose-500 to-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-              <Clock className="w-3 h-3" />
-              Coming Soon
-            </span>
-          </div>
-        )}
-
-        <div className="p-6 flex flex-col flex-grow">
-          {/* Industry + project type */}
-          <div className="flex items-start justify-between gap-3 mb-4">
-            <Badge
-              variant="secondary"
-              className="bg-primary/10 text-primary border border-primary/20 font-semibold whitespace-nowrap shrink-0"
-            >
-              {study.industry}
-            </Badge>
-            <span className="text-xs text-muted-foreground text-right mt-0.5">
-              {study.projectType}
-            </span>
-          </div>
-
-          {/* Client name */}
-          <h3 className="font-display text-xl font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+    <Link to={`/case-studies/${study.slug}`} className="portfolio-card group block aspect-[5/4]">
+      <div className={`portfolio-img absolute inset-0 ${tints[index % tints.length]}`}>
+        <div className="absolute inset-0 flex items-center justify-center p-10">
+          <span className="font-serif text-6xl md:text-7xl italic text-foreground/25 text-center leading-[1] line-clamp-3">
             {study.client}
-          </h3>
-
-          {/* Excerpt */}
-          <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
-            {study.excerpt}
-          </p>
-
-          {/* Highlights */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 p-4 bg-secondary/40 rounded-xl mt-auto">
-            {study.highlights.map((h) => (
-              <div key={h.label} className="text-center">
-                <p className="font-display font-bold text-lg text-foreground">{h.value}</p>
-                <p className="text-xs text-muted-foreground">{h.label}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Tech stack + CTA */}
-          <div className="flex flex-wrap gap-2 items-center justify-between pt-4 border-t border-border">
-            <div className="flex flex-wrap gap-2">
-              {study.stack.slice(0, 4).map((tech) => (
-                <span
-                  key={tech}
-                  className="text-xs bg-secondary text-secondary-foreground px-2.5 py-1 rounded-md font-medium"
-                >
-                  {tech}
-                </span>
-              ))}
-              {study.stack.length > 4 && (
-                <span className="text-xs text-muted-foreground px-1 py-1">
-                  +{study.stack.length - 4}
-                </span>
-              )}
-            </div>
-            <span className="flex items-center gap-1 text-primary font-semibold text-sm group-hover:gap-2 transition-all">
-              {study.comingSoon ? (
-                <>Coming Soon <Clock className="w-4 h-4" /></>
-              ) : (
-                <>View Details <ArrowRight className="w-4 h-4" /></>
-              )}
-            </span>
-          </div>
+          </span>
         </div>
+      </div>
+
+      {study.comingSoon && (
+        <div className="absolute top-5 right-5 z-10">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-foreground text-background text-xs font-medium px-3 py-1.5">
+            <Clock className="w-3 h-3" />
+            Coming soon
+          </span>
+        </div>
+      )}
+
+      <div className="absolute top-5 left-5 z-10">
+        <span className="pill !bg-card !text-foreground">{study.industry}</span>
+      </div>
+
+      <div className="absolute bottom-6 left-6 right-6 z-10">
+        <h3 className="text-2xl md:text-3xl font-display text-foreground">{study.client}</h3>
+        <p className="mt-2 text-foreground/65 line-clamp-2 text-[14px] max-w-md">{study.excerpt}</p>
+      </div>
+      <div className="round-arrow absolute bottom-6 right-6 z-10 text-foreground">
+        <RoundArrow size={56} />
       </div>
     </Link>
   </motion.article>

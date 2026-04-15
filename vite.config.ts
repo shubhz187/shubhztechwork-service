@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-motion': ['framer-motion'],
-          'vendor-remotion': ['remotion', '@remotion/player'],
+          'vendor-smooth': ['lenis', 'gsap'],
         },
       },
     },

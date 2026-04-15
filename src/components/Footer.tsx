@@ -1,74 +1,99 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
-import { LogoBadge } from './LogoBadge';
+import { Link } from "react-router-dom";
+import { Linkedin, Twitter, Instagram, Github } from "lucide-react";
 
-export const Footer = () => {
-  const location = useLocation();
+const year = new Date().getFullYear();
 
-  const handleNavClick = (href: string) => {
-    if (href.includes('#')) {
-      const [path, hash] = href.split('#');
-      if (location.pathname === path || (path === '/' && location.pathname === '/')) {
-        setTimeout(() => {
-          const element = document.getElementById(hash);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
-      }
-    }
-  };
+const cols = [
+  {
+    title: "Company",
+    links: [
+      { label: "About", to: "/about" },
+      { label: "Services", to: "/services" },
+      { label: "Technologies", to: "/technologies" },
+      { label: "Work", to: "/case-studies" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Blogs", to: "/blogs" },
+      { label: "Privacy Policy", to: "/privacy-policy" },
+      { label: "Terms of Service", to: "/terms-of-service" },
+    ],
+  },
+];
 
-  return (
-    <footer className="py-12 border-t border-border">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-start md:justify-between gap-8 mb-12">
-          {/* Brand */}
-          <div>
-            <Link to="/" className="flex items-center gap-3 mb-4">
-              <LogoBadge />
-              <span className="font-display font-bold text-lg text-foreground">
-                ShubhzTechWork
-              </span>
-            </Link>
-            <p className="text-muted-foreground max-w-sm mb-6">
-              Simplifying Tech, Amplifying Growth. Your trusted partner for cutting-edge software solutions.
-            </p>
-            <div className="flex items-center gap-4">
-              <a href="https://www.linkedin.com/company/106167425" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
-                <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary" />
+export const Footer = () => (
+  <footer className="relative overflow-hidden bg-foreground text-background">
+    <div className="container-lg py-16 md:py-20">
+      <div className="grid gap-12 md:grid-cols-12">
+        <div className="md:col-span-5">
+          <Link to="/" className="flex items-center gap-3.5">
+            <img src="/logo.png" alt="" className="h-14 w-14 object-contain" />
+            <span className="font-serif italic text-3xl leading-none tracking-tight">ShubhzTechWork</span>
+          </Link>
+          <p className="mt-6 max-w-md text-background/70 leading-relaxed">
+            We help teams build, secure, and scale the infrastructure their business runs on,
+            from cloud and DevOps to Gen AI and security.
+          </p>
+          <div className="mt-8 flex items-center gap-3">
+            {[
+              { Icon: Twitter, href: "#", label: "Twitter" },
+              { Icon: Linkedin, href: "https://www.linkedin.com/company/106167425", label: "LinkedIn" },
+              { Icon: Instagram, href: "#", label: "Instagram" },
+              { Icon: Github, href: "https://github.com/shubhz187", label: "GitHub" },
+            ].map(({ Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-background/15 text-background/80 transition-all hover:border-background hover:bg-background hover:text-foreground"
+              >
+                <Icon className="h-4 w-4" />
               </a>
-              <a href="https://github.com/shubhz187" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
-                <Github className="w-5 h-5 text-muted-foreground hover:text-primary" />
-              </a>
-              <a href="mailto:info@shubhztechwork.com" aria-label="Email" className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center hover:bg-primary/20 transition-colors">
-                <Mail className="w-5 h-5 text-muted-foreground hover:text-primary" />
-              </a>
-            </div>
+            ))}
           </div>
+        </div>
 
-          {/* Company */}
-          <div className="md:text-right">
-            <h4 className="font-display font-semibold text-foreground mb-4">Company</h4>
-            <ul className="space-y-3">
-              <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">About Us</Link></li>
-              <li><Link to="/#contact" onClick={() => handleNavClick('/#contact')} className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
-              <li><Link to="/blogs" className="text-muted-foreground hover:text-foreground transition-colors">Blog</Link></li>
-              <li><Link to="/case-studies" className="text-muted-foreground hover:text-foreground transition-colors">Case Studies</Link></li>
+        {cols.map((col) => (
+          <div key={col.title} className="md:col-span-2">
+            <h4 className="text-xs font-medium uppercase tracking-[0.22em] text-background/50">
+              {col.title}
+            </h4>
+            <ul className="mt-5 space-y-3">
+              {col.links.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className="text-background/80 hover:text-background transition-colors">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-        </div>
+        ))}
 
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm">
-            &copy; 2026 ShubhzTechWork. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6 text-sm">
-            <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link to="/terms-of-service" className="text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
-          </div>
+        <div className="md:col-span-3">
+          <h4 className="text-xs font-medium uppercase tracking-[0.22em] text-background/50">
+            Get in touch
+          </h4>
+          <a
+            href="mailto:info@shubhztechwork.com"
+            className="mt-5 block font-serif text-2xl italic leading-tight text-background hover:opacity-80 transition-opacity"
+          >
+            info@<br />shubhztechwork.com
+          </a>
+          <p className="mt-4 text-sm text-background/60">Mumbai, Maharashtra, India</p>
         </div>
       </div>
-    </footer>
-  );
-};
+
+      <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-background/10 pt-8 md:flex-row md:items-center">
+        <p className="text-sm text-background/50">© {year} ShubhzTechWork. All rights reserved.</p>
+        <p className="text-sm text-background/50">Simplifying Tech, Amplifying Growth.</p>
+      </div>
+    </div>
+  </footer>
+);
+
+export default Footer;

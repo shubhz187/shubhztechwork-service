@@ -1,249 +1,141 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Link, useLocation } from 'react-router-dom';
-import { ThemeToggle } from './ThemeToggle';
-import { LogoBadge } from './LogoBadge';
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { AwakeButton } from "@/components/awake/AwakeButton";
+import { useContactDialog } from "@/components/awake/ContactDialog";
 
-const services = [
-  // { name: 'Full Stack Development', href: '/services#fullstack' },
-  { name: 'Infrastructure', href: '/services#infrastructure' },
-  { name: 'Security', href: '/services#security' },
-  { name: 'DevOps & SRE', href: '/services#devops' },
-  { name: 'Graphics', href: '/services#graphics' },
-  { name: 'IT Solutions', href: '/services#itsolutions' },
-  { name: 'Gen AI', href: '/services#genai' },
-];
-
-const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Contact Us', href: '/#contact' },
-  { name: 'Services', href: '/services', dropdown: services },
-  { name: 'About Us', href: '/about' },
-  { name: 'Technologies', href: '/technologies' },
-  { name: 'Blog', href: '/blogs' },
-  { name: 'Case Studies', href: '/case-studies' },
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/services", label: "Services" },
+  { to: "/technologies", label: "Technologies" },
+  { to: "/case-studies", label: "Work" },
+  { to: "/about", label: "About" },
+  { to: "/blogs", label: "Blogs" },
 ];
 
 export const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const { open: openContact } = useContactDialog();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
-    setIsMobileMenuOpen(false);
-
-    // Handle hash navigation
-    if (href.includes('#')) {
-      const [path, hash] = href.split('#');
-      if (location.pathname === path || (path === '/' && location.pathname === '/')) {
-        // Same page, scroll to element
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    }
-  };
-
-  const NavLink = ({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) => {
-    const isExternal = href.startsWith('http');
-    const isHashLink = href.includes('#');
-
-    if (isExternal) {
-      return <a href={href} className={className} target="_blank" rel="noopener noreferrer">{children}</a>;
-    }
-
-    if (isHashLink && href.startsWith('/#')) {
-      // Hash link on home page
-      return (
-        <Link to={href} className={className} onClick={() => handleNavClick(href)}>
-          {children}
-        </Link>
-      );
-    }
-
-    return (
-      <Link to={href} className={className} onClick={() => handleNavClick(href)}>
-        {children}
-      </Link>
-    );
-  };
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+    <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-        (isHomePage && !isScrolled && !isMobileMenuOpen)
-          ? 'bg-transparent border-b border-transparent dark'
-          : 'bg-background/95 backdrop-blur-md border-b border-border/50 shadow-sm'
+        "fixed top-0 inset-x-0 z-50 transition-all duration-500",
+        scrolled ? "pt-3" : "pt-5",
       )}
     >
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded-lg focus:outline-none"
-      >
-        Skip to main content
-      </a>
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20 relative">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <LogoBadge animated />
-            <motion.div
-              className="overflow-hidden hidden lg:block"
-              initial={false}
-              animate={
-                isScrolled
-                  ? { maxWidth: 0, opacity: 0, marginLeft: 0 }
-                  : { maxWidth: 250, opacity: 1, marginLeft: 12 }
-              }
-              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <span className="font-display font-bold text-xl text-foreground whitespace-nowrap">
-                ShubhzTechWork
-              </span>
-            </motion.div>
-          </Link>
-
-          {/* Mobile centered brand name */}
-          <Link to="/" className="absolute left-1/2 -translate-x-1/2 lg:hidden">
-            <span className="font-display font-bold text-lg text-foreground">
+      <div className="container-lg">
+        <div
+          className={cn(
+            "flex items-center justify-between gap-4 rounded-full px-5 py-2.5 transition-all duration-500",
+            scrolled
+              ? "border border-foreground/10 bg-background/80 backdrop-blur-xl shadow-sm"
+              : "border border-transparent",
+          )}
+        >
+          <Link to="/" className="flex items-center gap-3 shrink-0" aria-label="ShubhzTechWork home">
+            <img src="/logo.png" alt="ShubhzTechWork" className="h-11 w-11 object-contain" />
+            <span className="font-serif italic text-[22px] leading-none tracking-tight hidden sm:inline">
               ShubhzTechWork
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <div
-                key={link.name}
-                className="relative"
-                onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
+          <nav className="hidden md:flex items-center gap-1">
+            {links.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                end={l.to === "/"}
+                className={({ isActive }) =>
+                  cn(
+                    "group relative rounded-full px-4 py-2 text-[14px] font-medium transition-colors",
+                    isActive ? "text-foreground" : "text-foreground/60 hover:text-foreground",
+                  )
+                }
               >
-                <NavLink
-                  href={link.href}
-                  className="nav-link flex items-center gap-1 py-2 font-medium"
-                >
-                  {link.name}
-                  {link.dropdown && <ChevronDown className="w-4 h-4" />}
-                </NavLink>
-
-                {/* Dropdown */}
-                <AnimatePresence>
-                  {link.dropdown && activeDropdown === link.name && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 pt-2"
-                    >
-                      <div className={cn(
-                        "border rounded-xl shadow-elevated py-2 min-w-[220px]",
-                        isHomePage && !isScrolled
-                          ? "bg-[#0e0f18]/95 backdrop-blur-xl border-white/10"
-                          : "bg-popover border-border"
-                      )}>
-                        {link.dropdown.map((item) => (
-                          <NavLink
-                            key={item.name}
-                            href={item.href}
-                            className="block px-4 py-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
-                          >
-                            {item.name}
-                          </NavLink>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                {({ isActive }) => (
+                  <>
+                    <span>{l.label}</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-0 -z-10 rounded-full bg-foreground/5"
+                        transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      />
+                    )}
+                  </>
+                )}
+              </NavLink>
             ))}
-          </div>
+          </nav>
 
-          {/* CTA Button & Theme Toggle */}
-          <div className="hidden lg:flex items-center gap-3">
-            <ThemeToggle />
-            <Link
-              to="/#contact"
-              className="bg-gradient-primary text-primary-foreground font-semibold px-6 py-2.5 rounded-lg hover:opacity-90 transition-opacity shadow-glow"
-            >
-              Contact Us
-            </Link>
-          </div>
+          <AwakeButton type="button" onClick={openContact} variant="primary" size="sm" className="hidden md:inline-flex">
+            Let's talk
+          </AwakeButton>
 
-          {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-foreground/10"
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
-          {isMobileMenuOpen && (
+          {open && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className={cn("lg:hidden border-t", (isHomePage && !isScrolled && !isMobileMenuOpen) ? "border-white/5" : "border-border")}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="md:hidden mt-3 rounded-[28px] border border-foreground/10 bg-background/95 backdrop-blur-xl p-5 shadow-lg"
             >
-              <div className="py-4 space-y-2">
-                {navLinks.map((link) => (
-                  <div key={link.name}>
+              <ul className="flex flex-col gap-1">
+                {links.map((l) => (
+                  <li key={l.to}>
                     <NavLink
-                      href={link.href}
-                      className="block py-3 px-4 text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
+                      to={l.to}
+                      end={l.to === "/"}
+                      className={({ isActive }) =>
+                        cn(
+                          "block rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                          isActive ? "bg-foreground/5 text-foreground" : "text-foreground/70",
+                        )
+                      }
                     >
-                      {link.name}
+                      {l.label}
                     </NavLink>
-                    {link.dropdown && (
-                      <div className="pl-6">
-                        {link.dropdown.map((item) => (
-                          <NavLink
-                            key={item.name}
-                            href={item.href}
-                            className="block py-2 px-4 text-muted-foreground hover:text-foreground transition-colors"
-                          >
-                            {item.name}
-                          </NavLink>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  </li>
                 ))}
-                <div className="flex items-center gap-3 mx-4 mt-4">
-                  <ThemeToggle />
-                  <Link
-                    to="/#contact"
-                    className="flex-1 bg-gradient-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg text-center"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Contact Us
-                  </Link>
-                </div>
-              </div>
+                <li className="mt-2 flex justify-center">
+                  <AwakeButton type="button" onClick={openContact} variant="primary" size="sm">
+                    Let's talk
+                  </AwakeButton>
+                </li>
+              </ul>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </motion.nav>
+    </header>
   );
 };
+
+export default Navbar;

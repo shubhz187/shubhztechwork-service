@@ -1,8 +1,8 @@
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
-import { PrivacyHeroPlayer } from '@/components/legal/PrivacyHeroPlayer';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { useEffect } from 'react';
 import { usePageMeta } from '@/hooks/use-page-meta';
+import { PageHero } from '@/components/awake/sections/PageHero';
 
 const PrivacyPolicy = () => {
   usePageMeta({
@@ -16,18 +16,16 @@ const PrivacyPolicy = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <Navbar />
-      <div className="container mx-auto px-4 pt-8 md:pt-12">
-        <PrivacyHeroPlayer />
-      </div>
-      <main id="main-content" className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
-        <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
-          Privacy Policy
-        </h1>
-        <p className="text-muted-foreground mb-10">Last Updated: February 27, 2026</p>
+      <PageHero
+        eyebrow="Legal"
+        title="Privacy policy."
+        subtitle="Last updated: February 27, 2026"
+      />
+      <main id="main-content" className="container-sm py-16 md:py-20">
 
-        <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-foreground/85">
+        <div className="prose-awake max-w-none space-y-10">
           {/* 1 */}
           <section>
             <h2 className="font-display text-xl font-semibold text-foreground">1. Who We Are</h2>
@@ -38,7 +36,7 @@ const PrivacyPolicy = () => {
             </p>
             <p>
               For any privacy-related questions, contact us at{' '}
-              <a href="mailto:info@shubhztechwork.com" className="text-primary hover:underline">
+              <a href="mailto:info@shubhztechwork.com" className="text-accent hover:underline">
                 info@shubhztechwork.com
               </a>.
             </p>
@@ -58,7 +56,7 @@ const PrivacyPolicy = () => {
             <h3 className="font-semibold text-foreground mt-4">B. Automatically Stored Information</h3>
             <p>
               We store your <strong>theme preference</strong> (light or dark mode) in your browser's localStorage. This
-              is a non-personal, functional preference stored entirely on your device — we do not transmit or store it on
+              is a non-personal, functional preference stored entirely on your device, we do not transmit or store it on
               any server.
             </p>
 
@@ -70,7 +68,7 @@ const PrivacyPolicy = () => {
                 href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline"
+                className="text-accent hover:underline"
               >
                 GitHub's Privacy Statement
               </a>.
@@ -82,11 +80,11 @@ const PrivacyPolicy = () => {
             <h2 className="font-display text-xl font-semibold text-foreground">3. How We Use Your Information</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>
-                <strong>Contact form data</strong> — To respond to your inquiry or service request. By submitting the
+                <strong>Contact form data</strong>, To respond to your inquiry or service request. By submitting the
                 form, you consent to us processing your information for this purpose.
               </li>
               <li>
-                <strong>Theme preference</strong> — To remember your display setting across page loads (strictly
+                <strong>Theme preference</strong>, To remember your display setting across page loads (strictly
                 functional, not linked to your identity).
               </li>
             </ul>
@@ -133,14 +131,14 @@ const PrivacyPolicy = () => {
             <h2 className="font-display text-xl font-semibold text-foreground">5. Data Retention</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>
-                <strong>Contact form submissions</strong> — Retained by Web3Forms for up to 30 days, then automatically
+                <strong>Contact form submissions</strong>, Retained by Web3Forms for up to 30 days, then automatically
                 deleted. We retain the email notification for as long as necessary to respond to your inquiry.
               </li>
               <li>
-                <strong>Theme preference</strong> — Stored locally in your browser until you clear your browser storage.
+                <strong>Theme preference</strong>, Stored locally in your browser until you clear your browser storage.
               </li>
               <li>
-                <strong>Server logs</strong> — Retained per GitHub Pages / Microsoft's retention policies.
+                <strong>Server logs</strong>, Retained per GitHub Pages / Microsoft's retention policies.
               </li>
             </ul>
           </section>
@@ -154,7 +152,7 @@ const PrivacyPolicy = () => {
               <li>Does <strong>not</strong> use analytics tools (Google Analytics, etc.)</li>
               <li>Does <strong>not</strong> use advertising or remarketing pixels</li>
               <li>
-                Uses <strong>localStorage only</strong> for your theme preference — a functional, non-personal setting
+                Uses <strong>localStorage only</strong> for your theme preference, a functional, non-personal setting
                 stored entirely in your browser
               </li>
             </ul>
@@ -181,14 +179,14 @@ const PrivacyPolicy = () => {
               have the right to:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Access</strong> — Request confirmation of what data we hold about you</li>
-              <li><strong>Correction</strong> — Request correction of inaccurate data</li>
-              <li><strong>Erasure</strong> — Request deletion of your data</li>
-              <li><strong>Grievance redressal</strong> — Submit a complaint to us; if unresolved, escalate to the Data Protection Board of India</li>
+              <li><strong>Access</strong>, Request confirmation of what data we hold about you</li>
+              <li><strong>Correction</strong>, Request correction of inaccurate data</li>
+              <li><strong>Erasure</strong>, Request deletion of your data</li>
+              <li><strong>Grievance redressal</strong>, Submit a complaint to us; if unresolved, escalate to the Data Protection Board of India</li>
             </ul>
             <p className="mt-3">
               To exercise any of these rights, email us at{' '}
-              <a href="mailto:info@shubhztechwork.com" className="text-primary hover:underline">
+              <a href="mailto:info@shubhztechwork.com" className="text-accent hover:underline">
                 info@shubhztechwork.com
               </a>. We will respond within 30 days.
             </p>
@@ -233,7 +231,7 @@ const PrivacyPolicy = () => {
               <li>Mumbai, Maharashtra, India</li>
               <li>
                 Email:{' '}
-                <a href="mailto:info@shubhztechwork.com" className="text-primary hover:underline">
+                <a href="mailto:info@shubhztechwork.com" className="text-accent hover:underline">
                   info@shubhztechwork.com
                 </a>
               </li>
@@ -242,7 +240,7 @@ const PrivacyPolicy = () => {
         </div>
       </main>
       <Footer />
-    </div>
+    </>
   );
 };
 

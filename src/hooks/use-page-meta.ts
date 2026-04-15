@@ -13,7 +13,7 @@ const DEFAULTS = {
   ogUrl: `${SITE_URL}/`,
   twitterTitle: 'ShubhzTechWork - Simplifying Tech, Amplifying Growth',
   twitterDescription:
-    'End-to-end technology solutions — from architecture to production. We build, secure, and scale the infrastructure your business runs on.',
+    'End-to-end technology solutions, from architecture to production. We build, secure, and scale the infrastructure your business runs on.',
 };
 
 export interface PageMeta {
@@ -92,7 +92,7 @@ export function usePageMeta(meta: PageMeta) {
       });
     }
 
-    // Cleanup — restore defaults
+    // Cleanup, restore defaults
     return () => {
       document.title = DEFAULTS.title;
       setMetaTag('meta[name="description"]', 'content', DEFAULTS.description);

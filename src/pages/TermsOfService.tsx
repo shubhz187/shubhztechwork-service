@@ -1,9 +1,9 @@
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
-import { TermsHeroPlayer } from '@/components/legal/TermsHeroPlayer';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { usePageMeta } from '@/hooks/use-page-meta';
+import { PageHero } from '@/components/awake/sections/PageHero';
 
 const TermsOfService = () => {
   usePageMeta({
@@ -17,18 +17,16 @@ const TermsOfService = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <Navbar />
-      <div className="container mx-auto px-4 pt-8 md:pt-12">
-        <TermsHeroPlayer />
-      </div>
-      <main id="main-content" className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
-        <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
-          Terms of Service
-        </h1>
-        <p className="text-muted-foreground mb-10">Last Updated: February 27, 2026</p>
+      <PageHero
+        eyebrow="Legal"
+        title="Terms of service."
+        subtitle="Last updated: February 27, 2026"
+      />
+      <main id="main-content" className="container-sm py-16 md:py-20">
 
-        <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8 text-foreground/85">
+        <div className="prose-awake max-w-none space-y-10">
           {/* 1 */}
           <section>
             <h2 className="font-display text-xl font-semibold text-foreground">1. Acceptance of Terms</h2>
@@ -62,8 +60,8 @@ const TermsOfService = () => {
           <section>
             <h2 className="font-display text-xl font-semibold text-foreground">3. Intellectual Property</h2>
             <p>
-              All content on this Website — including but not limited to text, graphics, animations, logos, icons, blog
-              posts, case studies, and source code — is the intellectual property of ShubhzTechWork and is protected
+              All content on this Website, including but not limited to text, graphics, animations, logos, icons, blog
+              posts, case studies, and source code, is the intellectual property of ShubhzTechWork and is protected
               under applicable copyright and trademark laws.
             </p>
             <p>
@@ -100,7 +98,7 @@ const TermsOfService = () => {
             </p>
             <p>
               For information on how your contact form data is handled, please see our{' '}
-              <Link to="/privacy-policy" className="text-primary hover:underline">
+              <Link to="/privacy-policy" className="text-accent hover:underline">
                 Privacy Policy
               </Link>.
             </p>
@@ -186,7 +184,7 @@ const TermsOfService = () => {
             <p>
               Both parties agree to attempt good-faith resolution of any dispute before initiating legal proceedings. A
               written notice should be sent to{' '}
-              <a href="mailto:info@shubhztechwork.com" className="text-primary hover:underline">
+              <a href="mailto:info@shubhztechwork.com" className="text-accent hover:underline">
                 info@shubhztechwork.com
               </a>{' '}
               and a 30-day resolution period shall apply.
@@ -199,7 +197,7 @@ const TermsOfService = () => {
             <p>
               If any provision of these Terms is found to be invalid or unenforceable by a court of competent
               jurisdiction, the remaining provisions shall continue in full force and effect. These Terms, along with our{' '}
-              <Link to="/privacy-policy" className="text-primary hover:underline">
+              <Link to="/privacy-policy" className="text-accent hover:underline">
                 Privacy Policy
               </Link>, constitute the entire agreement between you and ShubhzTechWork regarding the use of this Website.
             </p>
@@ -214,7 +212,7 @@ const TermsOfService = () => {
               <li>Mumbai, Maharashtra, India</li>
               <li>
                 Email:{' '}
-                <a href="mailto:info@shubhztechwork.com" className="text-primary hover:underline">
+                <a href="mailto:info@shubhztechwork.com" className="text-accent hover:underline">
                   info@shubhztechwork.com
                 </a>
               </li>
@@ -223,7 +221,7 @@ const TermsOfService = () => {
         </div>
       </main>
       <Footer />
-    </div>
+    </>
   );
 };
 

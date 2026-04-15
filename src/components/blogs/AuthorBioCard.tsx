@@ -1,21 +1,14 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import type { BlogAuthor } from '@/data/blogs';
+import type { BlogAuthor } from "@/data/blogs";
 
-interface AuthorBioCardProps {
-  author: BlogAuthor;
-}
-
-export const AuthorBioCard = ({ author }: AuthorBioCardProps) => (
-  <div className="bg-card border border-border rounded-xl p-6 flex items-start gap-5">
-    <Avatar className="w-14 h-14 shrink-0">
-      <AvatarFallback className="bg-gradient-primary text-primary-foreground font-bold text-lg">
-        {author.initials}
-      </AvatarFallback>
-    </Avatar>
+export const AuthorBioCard = ({ author }: { author: BlogAuthor }) => (
+  <div className="rounded-[28px] border border-foreground/10 bg-card p-8 flex items-start gap-5">
+    <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet/20 text-foreground font-semibold text-lg">
+      {author.initials}
+    </span>
     <div>
-      <p className="font-display font-semibold text-foreground text-lg">{author.name}</p>
-      <p className="text-sm text-primary font-medium mb-2">{author.role}</p>
-      <p className="text-muted-foreground text-sm leading-relaxed">{author.bio}</p>
+      <p className="font-display text-lg">{author.name}</p>
+      <p className="serif-italic text-violet text-lg">{author.role}</p>
+      <p className="mt-3 text-foreground/70 leading-relaxed text-[15px]">{author.bio}</p>
     </div>
   </div>
 );
