@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Linkedin, Twitter, Instagram, Github } from "lucide-react";
+import { Linkedin, Instagram, Github } from "lucide-react";
 
 const year = new Date().getFullYear();
 
@@ -38,7 +38,6 @@ export const Footer = () => (
           </p>
           <div className="mt-8 flex items-center gap-3">
             {[
-              { Icon: Twitter, href: "#", label: "Twitter" },
               { Icon: Linkedin, href: "https://www.linkedin.com/company/106167425", label: "LinkedIn" },
               { Icon: Instagram, href: "#", label: "Instagram" },
               { Icon: Github, href: "https://github.com/shubhz187", label: "GitHub" },

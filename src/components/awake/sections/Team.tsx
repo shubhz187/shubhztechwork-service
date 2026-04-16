@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import { Twitter, Linkedin } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import { MaskRevealText } from "../MaskRevealText";
 
 const team = [
-  { name: "Nirmit Dagli",  role: "Founder & CEO",        initials: "ND", tint: "bg-violet/20" },
-  { name: "Shubham Kadam", role: "Co-Founder & CFO",     initials: "SK", tint: "bg-orange/30" },
-  { name: "Kunal Shinde",  role: "Co-Founder & CTO",     initials: "KS", tint: "bg-green/25" },
+  { name: "Nirmit Dagli",  role: "Founder & CEO",    initials: "ND", tint: "bg-violet/20", linkedin: "https://www.linkedin.com/in/nirmit-dagli-62857916a" },
+  { name: "Shubham Kadam", role: "Co-Founder & CFO", initials: "SK", tint: "bg-orange/30", linkedin: "https://www.linkedin.com/in/shubham-kadam-b4263b204/" },
+  { name: "Kunal Shinde",  role: "Co-Founder & CTO", initials: "KS", tint: "bg-green/25",  linkedin: "https://www.linkedin.com/in/kunal-shinde-5a91211b5" },
 ];
 
 export const Team = () => (
@@ -45,14 +45,9 @@ export const Team = () => (
               {/* Social reveal */}
               <div className="pointer-events-none absolute bottom-3 right-3 flex items-center gap-1.5 opacity-0 translate-y-2 transition-all duration-500 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-y-0">
                 <a
-                  href="#"
-                  aria-label={`${m.name} on Twitter`}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background transition-colors hover:bg-foreground/90"
-                >
-                  <Twitter className="h-3.5 w-3.5" />
-                </a>
-                <a
-                  href="#"
+                  href={m.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={`${m.name} on LinkedIn`}
                   className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background transition-colors hover:bg-foreground/90"
                 >
