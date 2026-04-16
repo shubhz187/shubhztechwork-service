@@ -6,7 +6,7 @@ import { PageHero } from "@/components/awake/sections/PageHero";
 import { StatsRow } from "@/components/awake/sections/StatsRow";
 import { Team } from "@/components/awake/sections/Team";
 import { Awards } from "@/components/awake/sections/Awards";
-import { Testimonials } from "@/components/awake/sections/Testimonials";
+// import { Testimonials } from "@/components/awake/sections/Testimonials";
 import { CollaborateCTA } from "@/components/awake/sections/CollaborateCTA";
 import { ContactSection } from "@/components/awake/sections/ContactSection";
 import { MaskRevealText } from "@/components/awake/MaskRevealText";
@@ -69,7 +69,7 @@ const About = () => {
 
         <StatsRow />
         <Team />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Awards />
         <CollaborateCTA />
         <ContactSection />
