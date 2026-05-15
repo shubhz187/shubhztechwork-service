@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import { PageHero } from "@/components/awake/sections/PageHero";
 import { StatsRow } from "@/components/awake/sections/StatsRow";
 import { Team } from "@/components/awake/sections/Team";
-import { Awards } from "@/components/awake/sections/Awards";
 // import { Testimonials } from "@/components/awake/sections/Testimonials";
 import { CollaborateCTA } from "@/components/awake/sections/CollaborateCTA";
 import { ContactSection } from "@/components/awake/sections/ContactSection";
@@ -70,7 +69,6 @@ const About = () => {
         <StatsRow />
         <Team />
         {/* <Testimonials /> */}
-        <Awards />
         <CollaborateCTA />
         <ContactSection />
       </main>
