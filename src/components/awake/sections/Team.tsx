@@ -3,9 +3,9 @@ import { Linkedin } from "lucide-react";
 import { MaskRevealText } from "../MaskRevealText";
 
 const team = [
-  { name: "Nirmit Dagli",  role: "Founder & CEO",    initials: "ND", tint: "bg-violet/20", linkedin: "https://www.linkedin.com/in/nirmit-dagli-62857916a" },
-  { name: "Shubham Kadam", role: "Co-Founder & CFO", initials: "SK", tint: "bg-orange/30", linkedin: "https://www.linkedin.com/in/shubham-kadam-b4263b204/" },
-  { name: "Kunal Shinde",  role: "Co-Founder & CTO", initials: "KS", tint: "bg-green/25",  linkedin: "https://www.linkedin.com/in/kunal-shinde-5a91211b5" },
+  { name: "Nirmit Dagli",  role: "Founder & CEO",    initials: "ND", tint: "bg-violet/20", photo: "/team/nirmit.png",  linkedin: "https://www.linkedin.com/in/nirmit-dagli-62857916a" },
+  { name: "Shubham Kadam", role: "Co-Founder & CFO", initials: "SK", tint: "bg-orange/30", photo: "/team/shubham.png", linkedin: "https://www.linkedin.com/in/shubham-kadam-b4263b204/" },
+  { name: "Kunal Shinde",  role: "Co-Founder & CTO", initials: "KS", tint: "bg-green/25",  photo: "/team/kunal.png",   linkedin: "https://www.linkedin.com/in/kunal-shinde-5a91211b5" },
 ];
 
 export const Team = () => (
@@ -37,9 +37,18 @@ export const Team = () => (
           >
             <div className={`aspect-[16/10] ${m.tint} relative overflow-hidden`}>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex h-28 w-28 items-center justify-center rounded-full bg-foreground/10 font-display text-3xl font-medium text-foreground/80">
-                  {m.initials}
-                </div>
+                {m.photo ? (
+                  <img
+                    src={m.photo}
+                    alt={m.name}
+                    loading="lazy"
+                    className="h-44 w-44 rounded-full object-cover object-top ring-1 ring-foreground/10 bg-card transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                ) : (
+                  <div className="flex h-28 w-28 items-center justify-center rounded-full bg-foreground/10 font-display text-3xl font-medium text-foreground/80">
+                    {m.initials}
+                  </div>
+                )}
               </div>
               <div className="absolute inset-0 bg-foreground/0 transition-colors duration-500 group-hover:bg-foreground/5" />
               {/* Social reveal */}
